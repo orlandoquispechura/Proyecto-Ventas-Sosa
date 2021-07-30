@@ -23,7 +23,7 @@ class Compra extends Model
     public function proveedor(){
         return $this->belongsTo(Proveedor::class);
     }
-    /*public function purchaseDetails(){
-        return $this->hasMany(PurchaseDetails::class);
-    }*/
+    public function detallecompras(){
+        return $this->hasMany(DetalleCompra::class);
+    }
 }

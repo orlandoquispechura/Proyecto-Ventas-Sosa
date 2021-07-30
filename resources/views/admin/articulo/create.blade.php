@@ -18,13 +18,13 @@
                 <span class="error text-danger">{{$errors->first('nombre')}}</span>
                 @endif
             </div>
-            <div class="form-group">
+           {{--<div class="form-group">
                 <label for="cantidad" class="text-blue">Cantidad: </label>
                 <input type="number" name="cantidad" id="cantidad" value="{{old('cantidad')}}" class="form-control" tabindex="2">
                 @if($errors->has('cantidad'))
                 <span class="error text-danger">{{$errors->first('cantidad')}}</span>
                 @endif
-            </div>
+            </div>--}}
             <div class="form-group">
                 <label for="imagen" class="text-blue">Imagen: </label>
                 <input type="file" name="imagen" id="imagen" value="{{old('imagen')}}" class="form-control" tabindex="3">

@@ -70,9 +70,6 @@ class ArticuloController extends Controller
         }
 
         return redirect()->route('articulos.index');
-
-        /*  $articulo->update($request->all());
-        return redirect()->route('articulos.index');*/
     }
     public function destroy($id)
     {

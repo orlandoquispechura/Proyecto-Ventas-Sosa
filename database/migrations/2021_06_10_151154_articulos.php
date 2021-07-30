@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class Articulos extends Migration
 {
@@ -18,7 +19,7 @@ class Articulos extends Migration
 
             $table->string('codigo')->unique()->nullable();
             $table->string('nombre')->unique();
-            $table->integer('cantidad')->default(0);
+            $table->integer('cantidad')->default('0');
             $table->string('imagen');
             $table->decimal('precio_venta', 12, 2);
 

@@ -19,10 +19,10 @@ class CreateComprasTable extends Migration
             $table->unsignedBigInteger('proveedor_id');
             $table->foreign('proveedor_id')->references('id')->on('proveedors');
 
-            $table->unsignedBigInteger('usuario_id');
-            $table->foreign('usuario_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->dateTime('fecha_compra');
-            $table->decimal('impuesto');
+            $table->decimal('impuesto')->default(0);
             $table->decimal('total');
 
             $table->enum('estado', ['VALIDO', 'CANCELADO'])->default('VALIDO');

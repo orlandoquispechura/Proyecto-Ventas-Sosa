@@ -262,7 +262,7 @@ return [
                 [
                     'text' => 'compra',
                     'icon'    => 'fas fa-shopping-bag',
-                    'url'  => 'compra',
+                    'url'  => 'compras',
                 ],                
             ],
         ], 
