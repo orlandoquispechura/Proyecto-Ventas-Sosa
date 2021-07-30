@@ -63,23 +63,13 @@
                             </tr>
 
                         </tfoot>
-                        {{-- <tbody>
-                                    @foreach ($purchaseDetails as $purchaseDetail)
-                                    <tr>
-                                        <td>{{$purchaseDetail->product->name }}</td>
-                                        <td>s/{{$purchaseDetail->price}}</td>
-                                        <td>{{$purchaseDetail->quantity}}</td>
-                                        <td>s/{{number_format($purchaseDetail->quantity*$purchaseDetail->price,2)}}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody> --}}
                         <tbody>
                             @foreach ($detallecompras as $detallecompra)
                                 <tr>
                                     <td>{{ $detallecompra->articulo->nombre }}</td>
-                                    <td>s/{{ $detallecompra->precio_compra }}</td>
+                                    <td>{{ $detallecompra->precio_compra }}</td>
                                     <td>{{ $detallecompra->cantidad }}</td>
-                                    <td>s/{{ number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}
+                                    <td>{{ number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}
                                     </td>
                                 </tr>
                             @endforeach

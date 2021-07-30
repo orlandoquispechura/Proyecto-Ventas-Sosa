@@ -39,7 +39,7 @@
             <tbody>
                 @foreach($proveedors as $proveedor)
                 <tr>
-                    <td>{{$proveedor->razon_social}}</td>
+                    <td> <a href="{{route('proveedors.show', $proveedor)}}">{{$proveedor->razon_social}}</a></td> 
                     <td>{{$proveedor->nit}}</td>
                     <td>{{$proveedor->email}}</td>
                     <td>{{$proveedor->direccion}}</td>

@@ -6,8 +6,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\ProveedorController;
-
-use App\Models\Proveedor;
+use App\Models\Articulo;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +46,9 @@ Route::get('cambio_de_estado/compras/{compra}', 'CompraController@cambio_de_esta
 
 Route::get('get_products_by_barcode', 'ArticuloController@get_products_by_barcode')->name('get_products_by_barcode');
 Route::get('get_products_by_id', 'ArticuloController@get_products_by_id')->name('get_products_by_id');
+
+
+Route::get('/barcode', function () {
+    $articulo = Articulo::get();
+    return view('adin.articulo.barcode', compact('articulos'));
+});

@@ -8,6 +8,7 @@ use App\Http\Requests\Compra\UpdateRequest;
 use App\Models\Articulo;
 use App\Models\Compra;
 use App\Models\Proveedor;
+use App\Models\DetalleCompra;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -27,18 +28,6 @@ class CompraController extends Controller
         $articulos= Articulo::get();
         return view('admin.compra.create', compact('proveedors','articulos'));
     }
-    /*public function store(StoreRequest $request)
-        {
-            $purchase = Purchase::create($request->all()+[
-                'user_id'=>Auth::user()->id,
-                'purchase_date'=>Carbon::now('America/Lima'),
-            ]);
-            foreach ($request->product_id as $key => $product) {
-                $results[] = array("product_id"=>$request->product_id[$key], "quantity"=>$request->quantity[$key], "price"=>$request->price[$key]);
-            }
-            $purchase->purchaseDetails()->createMany($results);
-            return redirect()->route('purchases.index');
-        }*/
     public function store(StoreRequest $request)
     {
         $compra = Compra::create($request->all()+[
@@ -59,6 +48,7 @@ class CompraController extends Controller
         foreach ($detallecompras as $detallecompra) {
             $subtotal += $detallecompra->cantidad * $detallecompra->precio_compra;
         }
+        
         return view('admin.compra.show', compact('compra', 'detallecompras', 'subtotal'));
     }
     public function edit(Compra $compra)

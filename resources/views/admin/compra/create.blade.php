@@ -111,9 +111,10 @@
                 $('#detalles').append(fila);
             } else {
                 Swal.fire({
-                    type: 'error',
+                    icon: 'error',
+                    cancelButtonColor: '#d33',
                     text: 'Rellene todos los campos del detalle de la compras',
-
+                   
                 })
             }
         }
