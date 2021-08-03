@@ -9,7 +9,9 @@ use App\Models\Articulo;
 use App\Models\Categoria;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;;
+use Illuminate\Support\Facades\Storage;
+
+use Barryvdh\DomPDF\PDF as PDF;
 
 class ArticuloController extends Controller
 {
@@ -78,5 +80,26 @@ class ArticuloController extends Controller
             Articulo::destroy($id);
         }
         return redirect()->route('articulos.index');
+    }
+
+    public function get_products_by_barcode(Request $request){
+        if ($request->ajax()) {
+            $articulos = Articulo::where('codigo', $request->codigo)->firstOrFail();
+            return response()->json($articulos);
+        }
+    }
+    public function get_products_by_id(Request $request){
+        if ($request->ajax()) {
+            $articulos = Articulo::findOrFail($request->articulo_id);
+            return response()->json($articulos);
+        }
+    }
+
+    
+    public function print_barcode()
+    {
+        $articulos = Articulo::get();
+        $pdf = PDF::loadView('admin.articulo.barcode', compact('articulos'));
+        return $pdf->download('codigos_de_barras.pdf');
     }
 }

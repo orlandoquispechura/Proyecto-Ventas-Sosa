@@ -8,6 +8,7 @@
 
 @section('content')
     <a href="/articulos/create" class="btn btn-primary mb-2">Crear Artículos</a>
+    <a class="dropdown-item" href="{{route('print_barcode')}}">Exportar códigos de barras</a>
     <div class="card">
         <div class="card-body">
             <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4" id="articulo">

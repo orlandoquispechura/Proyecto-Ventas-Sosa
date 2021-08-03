@@ -13,14 +13,14 @@
             @csrf
             <div class="form-group">
                 <label for="razon_social" class="text-blue">Nombre Cliente: </label>
-                <input type="text" name="nombre" id="nombre" value="{{ old('nombre')}}" class="form-control" tabindex="1" autofocus>
+                <input type="text" name="nombre" id="nombre" value="{{ old('nombre')}}" class="form-control" tabindex="1" autofocus required>
                 @if($errors->has('nombre'))
                 <span class="error text-danger">{{ $errors->first('nombre') }}</span>
                 @endif
             </div>
             <div class="form-group">
                 <label for="apellido_paterno" class="text-blue">Apellido Paterno: </label>
-                <input type="text" name="apellido_paterno" id="apellido_paterno" value="{{ old('apellido_paterno')}}" class="form-control" tabindex="2" autofocus>
+                <input type="text" name="apellido_paterno" id="apellido_paterno" value="{{ old('apellido_paterno')}}" class="form-control" tabindex="2" autofocus required>
                 @if($errors->has('apellido_paterno'))
                 <span class="error text-danger">{{ $errors->first('apellido_paterno') }}</span>
                 @endif
@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label for="dni" class="text-blue">Dni: </label>
-                <input type="number" name="dni" id="dni" value="{{old('dni')}}" class="form-control" tabindex="4">
+                <input type="number" name="dni" id="dni" value="{{old('dni')}}" class="form-control" tabindex="4" required>
                 @if($errors->has('dni'))
                     <span class="error text-danger">{{$errors->first('dni')}}</span>
                 @endif

@@ -278,7 +278,7 @@ return [
                 [
                     'text' => 'Venta',
                     'icon'    => 'fas fa-dollar-sign',
-                    'url'  => '#',
+                    'url'  => 'ventas',
                 ],                
             ],
         ], 

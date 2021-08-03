@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Carbon;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\PDF as PDF;
 
 class CompraController extends Controller
 {
@@ -63,10 +64,28 @@ class CompraController extends Controller
     {
         //
     }
+    public function pdf(Compra $compra)
+    {
+        $subtotal = 0 ;
+        $detallecompras = $compra->detallecompras;
+        foreach ($detallecompras as $detallecompra) {
+            $subtotal += $detallecompra->cantidad * $detallecompra->precio_compra;
+        }
+        $pdf = PDF::loadView('admin.compra.pdf', compact('compra', 'subtotal', 'detallecompras'));        
+        return $pdf->download('Reporte_de_compra_'.$compra->id.'.pdf');
+        dd($pdf);
+    }
+
+    public function upload(Request $request, Compra $compra)
+    {
+        // $purchase->update($request->all());
+        // return redirect()->route('purchases.index');
+    }
+
     public function cambio_de_estado(Compra $compra)
     {
         if ($compra->estado == 'VALIDO') {
-            $compra->update(['estado'=>'CANCELEDO']);
+            $compra->update(['estado'=>'CANCELADO']);
             return redirect()->back();
         } else {
             $compra->update(['estado'=>'VALIDO']);

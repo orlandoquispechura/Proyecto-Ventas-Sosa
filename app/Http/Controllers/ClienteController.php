@@ -21,11 +21,18 @@ class ClienteController extends Controller
     public function store(StoreRequest $request)
     {
         Cliente::create($request->all());
+        if ($request->venta == 1) {
+            return redirect()->back();
+        }
         return redirect()->route('clientes.index')->with('success', 'Se registró correctamente');
     }
     public function show(Cliente $cliente)
     {
-        
+        $total_ventas = 0;
+        foreach ($cliente->ventas as $key =>  $venta) {
+            $total_ventas+=$venta->total;
+        }
+        return view('admin.cliente.show', compact('cliente', 'total_ventas'));
     }
     public function edit(Cliente $cliente)
     {
