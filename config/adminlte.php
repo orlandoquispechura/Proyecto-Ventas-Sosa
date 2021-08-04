@@ -265,7 +265,7 @@ return [
                     'url'  => 'compras',
                 ],                
             ],
-        ], 
+        ],
         [
             'text'    => 'Ventas',
             'icon'    => 'fas fa-cash-register',
@@ -282,6 +282,13 @@ return [
                 ],                
             ],
         ], 
+        ['header' => 'Configuración de la Empresa'],
+        [
+            'text' => 'Empresa',
+            'url' => 'empresa',
+            'icon' => 'fas fa-city',
+        ],
+
         ['header' => 'Configuración de la Cuenta'],
         [
             'text' => 'Usuario',

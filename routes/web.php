@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CompraController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\VentaController;
 use App\Models\Articulo;
@@ -27,6 +28,12 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
     return view('home.welcome');
 })->name('home');
+
+
+Route::resource('empresa', EmpresaController::class)->names('empresa')->only([
+    'index', 'update'
+]);
+
 
 Route::resource('categorias', CategoriaController::class)->names('categorias');
 Route::resource('proveedors', ProveedorController::class)->names('proveedors');

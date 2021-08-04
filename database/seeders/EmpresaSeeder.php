@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Empresa;
 use Illuminate\Database\Seeder;
 
 class EmpresaSeeder extends Seeder
@@ -13,6 +14,13 @@ class EmpresaSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Empresa::create([
+            'nombre_negocio'=>'Mueblería SOSA',
+            'descripcion'=>'Venta de muebles del hogar',
+            'logo'=>'logo.png',
+            'mail'=>'sosa-muebles@gmail.com',
+            'direccion'=>'Satélite Norte Av. Velasco C/ Mexico S/N',
+            'nit'=>'1015447026',
+        ]);
     }
 }
