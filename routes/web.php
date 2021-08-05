@@ -7,6 +7,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentaController;
 use App\Models\Articulo;
 
@@ -65,9 +66,9 @@ Route::get('cambio_de_estado/compras/{compra}', [CompraController::class, 'cambi
 Route::get('cambio_de_estado/ventas/{venta}', [VentaController::class, 'cambio_de_estado'])->name('cambio.estado.ventas');
 
 
-Route::resource('users', 'UserController')->names('users');
+Route::resource('users', UserController::class)->names('users');
 
-Route::resource('roles', 'RoleController')->names('roles');
+Route::resource('roles', RoleController::class)->names('roles');
 
 Route::get('get_products_by_barcode', [ArticuloController::class, 'get_products_by_barcode'])->name('get_products_by_barcode');
 Route::get('get_products_by_id', [ArticuloController::class, 'get_products_by_id'])->name('get_products_by_id');
@@ -80,6 +81,6 @@ Route::get('/barcode', function () {
 });
 
 
-/*Auth::routes(['register' => false]);
-Route::get('home', function ($id) {
-});*/
+// Auth::routes(['register' => false]);
+// Route::get('home', function ($id) {
+// });

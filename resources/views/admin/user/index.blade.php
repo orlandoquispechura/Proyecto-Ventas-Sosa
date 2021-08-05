@@ -1,45 +1,46 @@
 @extends('adminlte::page')
 
-@section('title', 'Artículo')
+@section('title', 'Gestión de usuarios del sistema')
 
 @section('content_header')
-    <h1>Listado de Artículos</h1>
+    <h1 class="text-bold">Usuarios del sistema</h1>
 @stop
 
 @section('content')
-    <a href="{{route('articulos.create')}}" class="btn btn-primary mb-2">Crear Artículos</a>
-    <a class="btn btn-secondary mb-2" href="{{route('print_barcode')}}">Exportar códigos de barras</a>
+    <a href="{{ route('users.create') }}" class="btn btn-primary mb-2">Crear Usuarios</a>
     <div class="card">
         <div class="card-body">
-            <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4" id="articulo">
+            <table id="order-listing" class="table table-striped mt-0.5 table-bordered shadow-lg dt-responsive nowrap users" >
                 <thead class="bg-primary text-white">
                     <tr>
-                        <th scope="col">Código</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Imagen</th>
-                        <th scope="col">Precio Venta</th>
-                        <th scope="col">Categoría</th>
-                        <th scope="col" width="200px">Acciones</th>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Correo electrónico</th>
+                        <th width="200px" class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($articulos as $articulo)
+                    @foreach ($users as $user)
                         <tr>
-                            <td>{{ $articulo->codigo }}</td>
-                            <td><a href="{{ route('articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a></td>
-                            <td>{{ $articulo->cantidad }}</td>
-                            <td><img src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="" width="60"></td>
-                            <td>{{ $articulo->precio_venta }}</td>
-                            <td>{{ ucwords($articulo->categoria->nombre) }}</td>
+                            <th scope="row">{{ $user->id }}</th>
                             <td>
-                                <form action="{{route('articulos.destroy', $articulo)}}" class="eliminar-form" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <a href="{{ route('articulos.edit', $articulo) }}" class="btn btn-success ">Editar </a>
+                                <a href="{{ route('users.show', $user) }}">{{ ucwords($user->name) }}</a>
+                            </td>
+                            <td>{{ $user->email }}</td>
+                            <td class="text-right">
+                                {!! Form::open(['route' => ['users.destroy', $user], 'method' => 'DELETE', 'class' => 'eliminar-form']) !!}
 
-                                    <input type="submit" class="btn btn-danger" value="Eliminar">
-                                </form>
+                                <a class="btn btn-success" href="{{ route('users.edit', $user) }}" title="Editar">
+                                    {{-- <i class="far fa-edit"></i> --}}
+                                    Editar
+                                </a>
+
+                                <button class="btn btn-danger" type="submit" title="Eliminar">
+                                    {{-- <i class="far fa-trash-alt"></i> --}}
+                                    Eliminar
+                                </button>
+
+                                {!! Form::close() !!}
                             </td>
                         </tr>
                     @endforeach
@@ -91,7 +92,6 @@
                 }
             });
         });
-
     </script>
     @if (session('delete') == 'ok')
         <script>
@@ -100,14 +100,13 @@
                 'Se Eliminó el registro.',
                 'warning'
             )
-
         </script>
     @endif
 
 
     <script>
         $(document).ready(function() {
-            $('#articulo').DataTable({
+            $('.users').DataTable({
                 responsive: true,
                 autoWidth: false,
                 "language": {
@@ -119,7 +118,7 @@
                         "previous": "Anterior",
                         "next": "Siguiente"
                     },
-                    "infoEmpty": "No records available",
+                    "infoEmpty": "No hay registros",
                     "infoFiltered": "(Filtrado de _MAX_ registros totales)"
                 },
                 "lengthMenu": [
@@ -129,7 +128,5 @@
 
             });
         });
-
     </script>
 @stop
-

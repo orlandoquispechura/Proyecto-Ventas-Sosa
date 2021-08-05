@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
 use Spatie\Permission\Models\Role;
@@ -25,7 +26,7 @@ class UserController extends Controller
         $user = User::create($request->all());
         $user->update(['password'=> Hash::make($request->password)]);
         $user->roles()->sync($request->get('roles'));
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Se registró correctamente');
     }
     public function show(User $user)
     {
@@ -51,16 +52,16 @@ class UserController extends Controller
         }else{
             $user->update($request->all());
             $user->roles()->sync($request->get('roles'));
-            return redirect()->route('users.index');
+            return redirect()->route('users.index')->with('update', 'Se editó el correctamente');
         }
     }
     public function destroy(User $user)
     {
         if ($user->id == 1) {
-            return back();
+            return back()->with('delete', 'ok');
         } else {
             $user->delete();
-            return back();
+            return back()->with('delete', 'ok');
         }
     }
 }
