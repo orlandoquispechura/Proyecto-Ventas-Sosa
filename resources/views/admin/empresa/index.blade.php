@@ -40,7 +40,7 @@
                     <hr>
                     <strong><i class="far fa-envelope mr-1"></i> Correo electrónico</strong>
 
-                    <p class="text-muted">{{ $empresa->email }}</p>
+                    <p class="text-muted">{{ $empresa->mail }}</p>
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
