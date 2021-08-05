@@ -10,6 +10,8 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\VentaController;
 use App\Models\Articulo;
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +30,11 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
     return view('home.welcome');
 })->name('home');
+
+Route::get('ventas/reporte_dia', [ReporteController::class, 'reporte_dia'])->name('reporte.dia');
+Route::get('ventas/reporte_fecha', [ReporteController::class, 'reporte_fecha'])->name('reporte.fecha');
+
+Route::post('ventas/resultado_reporte', [ReporteController::class, 'resultado_reporte'])->name('resultado.reporte');
 
 
 Route::resource('empresa', EmpresaController::class)->names('empresa')->only([
@@ -51,18 +58,28 @@ Route::resource('ventas', VentaController::class)->names('ventas')->except([
 Route::get('compras/pdf/{compra}', [CompraController::class, 'pdf'])->name('compras.pdf');
 Route::get('ventas/pdf/{venta}', [VentaController::class, 'pdf'])->name('ventas.pdf');
 
+
 Route::get('compras/upload/{compra}', [CompraController::class, 'upload'])->name('upload.compras');
+
 Route::get('cambio_de_estado/compras/{compra}', [CompraController::class, 'cambio_de_estado'])->name('cambio.estado.compras');
 Route::get('cambio_de_estado/ventas/{venta}', [VentaController::class, 'cambio_de_estado'])->name('cambio.estado.ventas');
 
 
+Route::resource('users', 'UserController')->names('users');
+
+Route::resource('roles', 'RoleController')->names('roles');
 
 Route::get('get_products_by_barcode', [ArticuloController::class, 'get_products_by_barcode'])->name('get_products_by_barcode');
 Route::get('get_products_by_id', [ArticuloController::class, 'get_products_by_id'])->name('get_products_by_id');
-Route::get('print_barcode', [ArticuloController::class,'print_barcode'])->name('print_barcode');
+Route::get('print_barcode', [ArticuloController::class, 'print_barcode'])->name('print_barcode');
 
 
 Route::get('/barcode', function () {
     $articulo = Articulo::get();
-    return view('adin.articulo.barcode', compact('articulos'));
+    return view('admin.articulo.barcode', compact('articulos'));
 });
+
+
+/*Auth::routes(['register' => false]);
+Route::get('home', function ($id) {
+});*/

@@ -292,12 +292,12 @@ return [
         ['header' => 'Configuración de la Cuenta'],
         [
             'text' => 'Usuario',
-            'url'  => 'admin/settings',
+            'url'  => 'profile',
             'icon' => 'fas fa-fw fa-user-secret',
         ],
         [
             'text' => 'Cambiar Contraseña',
-            'url'  => 'admin/settings',
+            'url'  => 'settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
     ],
