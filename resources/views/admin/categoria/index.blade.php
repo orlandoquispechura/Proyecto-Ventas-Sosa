@@ -36,8 +36,8 @@
                 <tbody>
                     @foreach ($categorias as $categoria)
                         <tr>
-                            <td>{{ strtoupper($categoria->nombre) }}</td>
-                            <td>{{ $categoria->descripcion }}</td>
+                            <td>{{ ucwords($categoria->nombre) }}</td>
+                            <td>{{ ucwords($categoria->descripcion) }}</td>
                             <td class="text-right">
                                 <form action="{{ route('categorias.destroy', $categoria) }}" method="POST" class="eliminar-form">
                                     @method('DELETE')

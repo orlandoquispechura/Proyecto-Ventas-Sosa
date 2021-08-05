@@ -9,12 +9,12 @@ use App\Models\Articulo;
 use App\Models\Compra;
 use App\Models\Proveedor;
 use App\Models\DetalleCompra;
+use PDF as PDF;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Carbon;
 use Carbon\Carbon;
-use Barryvdh\DomPDF\PDF as PDF;
 
 class CompraController extends Controller
 {
@@ -71,7 +71,8 @@ class CompraController extends Controller
         foreach ($detallecompras as $detallecompra) {
             $subtotal += $detallecompra->cantidad * $detallecompra->precio_compra;
         }
-        $pdf = PDF::loadView('admin.compra.pdf', compact('compra', 'subtotal', 'detallecompras'));        
+        $fecha = Carbon::now('America/La_Paz');
+        $pdf = PDF::loadView('admin.compra.pdf', compact('compra','fecha', 'subtotal', 'detallecompras'));        
         return $pdf->download('Reporte_de_compra_'.$compra->id.'.pdf');
         dd($pdf);
     }

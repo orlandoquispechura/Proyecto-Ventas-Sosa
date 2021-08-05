@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/La_Paz',//'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -183,6 +183,9 @@ return [
         
         //paquete para poder exportar pdf dompdf
         Barryvdh\DomPDF\ServiceProvider::class,
+
+        //paquete para realizar permisos y roles
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

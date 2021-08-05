@@ -9,10 +9,13 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            {{-- <div id="logo">
+                <img src="uploads/1628106188_perfil.png" alt="logo-empresa" id="imagen">
+            </div> --}}
             <div class="form-group row">
                 <div class="col-md-4 text-center">
                     <label class="form-control-label" for="nombre"><strong>Proveedor</strong></label>
-                    <p>{{ $compra->proveedor->razon_social }}</p>
+                    <p>{{ ucwords($compra->proveedor->razon_social) }}</p>
                 </div>
                 <div class="col-md-4 text-center">
                     <label class="form-control-label" for="num_compra"><strong>Número Compra</strong></label>
@@ -20,7 +23,7 @@
                 </div>
                 <div class="col-md-4 text-center">
                     <label class="form-control-label" for="num_compra"><strong>Comprador</strong></label>
-                    <p>{{ $compra->user->name }}</p>
+                    <p>{{ ucwords($compra->user->name) }}</p>
                 </div>
             </div>
             <br /><br />
@@ -66,7 +69,7 @@
                         <tbody>
                             @foreach ($detallecompras as $detallecompra)
                                 <tr>
-                                    <td>{{ $detallecompra->articulo->nombre }}</td>
+                                    <td>{{ ucwords($detallecompra->articulo->nombre) }}</td>
                                     <td>{{ $detallecompra->precio_compra }}</td>
                                     <td>{{ $detallecompra->cantidad }}</td>
                                     <td>{{ number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}

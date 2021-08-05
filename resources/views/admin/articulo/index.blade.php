@@ -27,11 +27,11 @@
                     @foreach ($articulos as $articulo)
                         <tr>
                             <td>{{ $articulo->codigo }}</td>
-                            <td><a href="{{ route('articulos.show', $articulo) }}">{{ $articulo->nombre }}</a></td>
+                            <td><a href="{{ route('articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a></td>
                             <td>{{ $articulo->cantidad }}</td>
                             <td><img src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="" width="60"></td>
                             <td>{{ $articulo->precio_venta }}</td>
-                            <td>{{ $articulo->categoria->nombre }}</td>
+                            <td>{{ ucwords($articulo->categoria->nombre) }}</td>
                             <td>
                                 <form action="{{route('articulos.destroy', $articulo)}}" class="eliminar-form" method="post">
                                     @method('DELETE')

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,8 +18,8 @@
             font-size: 14px;
             /*font-family: SourceSansPro;*/
         }
-    
-    
+
+
         #datos {
             float: left;
             margin-top: 0%;
@@ -26,14 +27,14 @@
             margin-right: 2%;
             /*text-align: justify;*/
         }
-    
+
         #encabezado {
             text-align: center;
             margin-left: 35%;
             margin-right: 35%;
             font-size: 15px;
         }
-    
+
         #fact {
             /*position: relative;*/
             float: right;
@@ -43,71 +44,71 @@
             font-size: 20px;
             background: #33AFFF;
         }
-    
+
         section {
             clear: left;
         }
-    
+
         #cliente {
             text-align: left;
         }
-    
+
         #faproveedor {
             width: 40%;
             border-collapse: collapse;
             border-spacing: 0;
             margin-bottom: 15px;
         }
-    
+
         #fac,
         #fv,
         #fa {
             color: #FFFFFF;
             font-size: 15px;
         }
-    
+
         #faproveedor thead {
             padding: 20px;
             background: #33AFFF;
             text-align: left;
             border-bottom: 1px solid #FFFFFF;
         }
-    
+
         #faccomprador {
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
             margin-bottom: 15px;
         }
-    
+
         #faccomprador thead {
             padding: 20px;
             background: #33AFFF;
             text-align: center;
             border-bottom: 1px solid #FFFFFF;
         }
-    
+
         #facproducto {
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
             margin-bottom: 15px;
         }
-    
+
         #facproducto thead {
             padding: 20px;
             background: #33AFFF;
             text-align: center;
             border-bottom: 1px solid #FFFFFF;
         }
-    
     </style>
 </head>
+
 <body>
     <header>
-        {{--  <div id="logo">
+        {{-- <div id="logo">
             <img src="img/logo.png" alt="" id="imagen">
-        </div>  --}}
+        </div> --}}
         <div>
             <table id="datos">
                 <thead>
@@ -118,26 +119,27 @@
                 <tbody>
                     <tr>
                         <th>
-                            <p id="proveedor">Nombre: {{$compra->proveedor->razon_social}}<br>
-                                {{--  {{$purchase->provider->document_type}}-COMPRA: {{$purchase->provider->document_number}}<br>  --}}
-                                Dirección: {{$compra->proveedor->dreccion}}<br>
-                                Teléfono: {{$compra->proveedor->telefono}}<br>
-                                Email: {{$compra->proveedor->email}}</p>
+                            <p id="proveedor">Nombre: {{ ucwords($compra->proveedor->razon_social) }}<br>
+                                {{-- {{$purchase->provider->document_type}}-COMPRA:
+                                {{$purchase->provider->document_number}}<br> --}}
+                                Dirección: {{ ucwords($compra->proveedor->direccion) }}<br>
+                                Teléfono: {{ $compra->proveedor->telefono }}<br>
+                                Email: {{ $compra->proveedor->email }}</p>
                         </th>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div id="fact">
-            {{--  <p>{{$purchase->provider->document_type}} COMPRA<br />
-                {{$purchase->provider->document_number}}</p>  --}}
-                <p>NUMERO DE COMPRA<br />
-                    {{$compra->id}}</p>
+            {{-- <p>{{$purchase->provider->document_type}} COMPRA<br />
+            {{$purchase->provider->document_number}}</p> --}}
+            <p>NUMERO DE COMPRA<br />
+                {{ $compra->id }}</p>
         </div>
     </header>
     <br>
 
-   
+
     <br>
     <section>
         <div>
@@ -150,8 +152,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{$compra->user->name}}</td>
-                        <td>{{$compra->created_at}}</td>
+                        <td>{{ ucwords($compra->user->name) }}</td>
+                        <td>{{ $compra->fecha_compra }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -171,31 +173,32 @@
                 </thead>
                 <tbody>
                     @foreach ($detallecompras as $detallecompra)
-                    <tr>
-                        <td>{{$detallecompra->cantidad}}</td>
-                        <td>{{$detallecompra->articulo->nombre}}</td>
-                        <td>s/ {{$detallecompra->precio_compra}}</td>
-                        <td>s/ {{number_format($detallecompra->cantidad*$detallecompra->precio_compra,2)}}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ $detallecompra->cantidad }}</td>
+                            <td>{{ ucwords($detallecompra->articulo->nombre) }}</td>
+                            <td>s/ {{ $detallecompra->precio_compra }}</td>
+                            <td>s/ {{ number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
-                 
+
                     <tr>
                         <th colspan="3">
                             <p align="right">SUBTOTAL:</p>
                         </th>
                         <td>
-                            <p align="right">s/ {{number_format($subtotal,2)}}<p>
+                            <p align="right">s/ {{ number_format($subtotal, 2) }}
+                            <p>
                         </td>
                     </tr>
-                  
+
                     <tr>
                         <th colspan="3">
-                            <p align="right">TOTAL IMPUESTO ({{$compra->impuesto}}%):</p>
+                            <p align="right">TOTAL IMPUESTO ({{ $compra->impuesto }}%):</p>
                         </th>
                         <td>
-                            <p align="right">s/ {{number_format($subtotal*$compra->impuesto/100,2)}}</p>
+                            <p align="right">s/ {{ number_format(($subtotal * $compra->impuesto) / 100, 2) }}</p>
                         </td>
                     </tr>
                     <tr>
@@ -203,10 +206,11 @@
                             <p align="right">TOTAL PAGAR:</p>
                         </th>
                         <td>
-                            <p align="right">s/ {{number_format($compra->total,2)}}<p>
+                            <p align="right">s/ {{ number_format($compra->total, 2) }}
+                            <p>
                         </td>
                     </tr>
-                  
+
                 </tfoot>
             </table>
         </div>
@@ -217,9 +221,10 @@
         <!--puedes poner un mensaje aqui-->
         <div id="datos">
             <p id="encabezado">
-                {{--  <b>{{$company->name}}</b><br>{{$company->description}}<br>Telefono:{{$company->telephone}}<br>Email:{{$company->email}}  --}}
+                {{-- <b>{{$company->name}}</b><br>{{$company->description}}<br>Telefono:{{$company->telephone}}<br>Email:{{$company->email}} --}}
             </p>
         </div>
     </footer>
 </body>
+
 </html>

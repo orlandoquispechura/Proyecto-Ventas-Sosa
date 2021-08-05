@@ -18,7 +18,7 @@
                 <span class="input-group-text" id="basic-addon3">%</span>
             </div>
             <input type="number" class="form-control" name="impuesto" id="impuesto" aria-describedby="basic-addon3"
-                placeholder="13">
+                placeholder="13" value="0">
         </div>
     </div>
 </div>

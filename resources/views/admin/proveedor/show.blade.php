@@ -4,7 +4,6 @@
 
 @section('content_header')
     <h1 class="text-bold"> Proveedor:</h1>
-    <p class="">{{ $proveedor->razon_social }}</p>
 @stop
 
 @section('content')
@@ -13,7 +12,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="border-bottom text-center pb-4">
-                        <h3>{{ $proveedor->razon_social }}</h3>
+                        <h3>{{ ucwords($proveedor->razon_social) }}</h3>
                         <div class="d-flex justify-content-between">
                         </div>
                     </div>
@@ -23,8 +22,6 @@
                                 Sobre el proveedor
                             </button>
                             <button type="button" class="list-group-item list-group-item-action">Productos</button>
-                            {{--<button type="button" class="list-group-item list-group-item-action">Registrar
-                                producto</button>--}}
                                 <a href="{{route('articulos.create')}}" class="list-group-item list-group-item-action" >Registrar </a>
                         </div>
                     </div>
@@ -40,7 +37,7 @@
                             <div class="form-group col-md-6">
                                 <strong><i class="fab fa-product-hunt mr-1"></i> Nombre</strong>
                                 <p class="text-muted">
-                                    {{ $proveedor->razon_social }}
+                                    {{ ucwords($proveedor->razon_social) }}
                                 </p>
                                 <hr>
                                 <strong><i class="fas fa-address-card mr-1"></i> Numero de NIT</strong>
@@ -64,7 +61,7 @@
                                 <hr>
                                 <strong><i class="fas fa-map-marked-alt mr-1"></i> Dirección</strong>
                                 <p class="text-muted">
-                                    {{ $proveedor->direccion }}
+                                    {{ ucwords($proveedor->direccion) }}
                                 </p>
                                 <hr>
                             </div>
