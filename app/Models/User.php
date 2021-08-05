@@ -10,6 +10,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -17,6 +19,8 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -50,6 +54,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function ventas(){
+        return $this->hasMany(Venta::class);
+    }
+    public function compras(){
+        return $this->hasMany(Compra::class);
+    }
     /**
      * The accessors to append to the model's array form.
      *
