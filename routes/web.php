@@ -44,9 +44,11 @@ Route::resource('empresa', EmpresaController::class)->names('empresa')->only([
 
 
 Route::resource('categorias', CategoriaController::class)->names('categorias');
-Route::resource('proveedors', ProveedorController::class)->names('proveedors');
-Route::resource('articulos', ArticuloController::class)->names('articulos');
 Route::resource('clientes', ClienteController::class)->names('clientes');
+Route::resource('articulos', ArticuloController::class)->names('articulos');
+Route::resource('proveedors', ProveedorController::class)->names('proveedors');
+
+
 Route::resource('compras', CompraController::class)->names('compras')->except([
     'edit', 'update', 'destroy'
 ]);

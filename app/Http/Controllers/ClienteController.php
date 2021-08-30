@@ -30,7 +30,7 @@ class ClienteController extends Controller
     {
         $total_ventas = 0;
         foreach ($cliente->ventas as $key =>  $venta) {
-            $total_ventas+=$venta->total;
+            $total_ventas +=$venta->total;
         }
         return view('admin.cliente.show', compact('cliente', 'total_ventas'));
     }

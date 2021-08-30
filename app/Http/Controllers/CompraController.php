@@ -74,7 +74,7 @@ class CompraController extends Controller
         $fecha = Carbon::now('America/La_Paz');
         $pdf = PDF::loadView('admin.compra.pdf', compact('compra','fecha', 'subtotal', 'detallecompras'));        
         return $pdf->download('Reporte_de_compra_'.$compra->id.'.pdf');
-        dd($pdf);
+        
     }
 
     public function upload(Request $request, Compra $compra)

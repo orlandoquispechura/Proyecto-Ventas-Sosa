@@ -23,8 +23,15 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
+         /** 
+         *'email'=> 'required|email|string||unique:proveedors,email,'.$this->route('proveedor')->id.'|max:255', */
         return [
-            //
+            'nombre_negocio' => 'required|string|max:50',
+            'descripcion' => 'required|string|max:100',
+            'mail' => 'required|email|string|unique:empresas,mail,' . $this->route('empresa')->id . '|max:100',
+            'direccion' => 'nullable|max:100',
+            'nit' => 'min:7|required|max:11',
+            'logo' => 'nullable|mimes:jpg,png,jpeg,bmp',            
         ];
     }
 }

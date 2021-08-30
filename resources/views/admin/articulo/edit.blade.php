@@ -21,10 +21,10 @@
                 @endif
             </div>
             <div class="mb-3">
-                <label for="cantidad" class="text-blue">Cantidad: </label>
-                <input type="number" name="cantidad" id="cantidad" value="{{old('cantidad',$articulo->cantidad)}}" class="form-control" tabindex="2">
-                @if($errors->has('cantidad'))
-                    <span class="error text-danger" >{{ $errors->first('cantidad') }}</span>                    
+                <label for="stock" class="text-blue">Stock: </label>
+                <input type="number" name="stock" id="stock" value="{{old('stock',$articulo->stock)}}" class="form-control" tabindex="2">
+                @if($errors->has('stock'))
+                    <span class="error text-danger" >{{ $errors->first('stock') }}</span>                    
                 @endif
             </div>
             <div class="form-group">

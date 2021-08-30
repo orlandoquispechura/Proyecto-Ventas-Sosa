@@ -42,7 +42,7 @@ class ArticuloController extends Controller
             $numeroConCeros = str_pad($numero, 8, "0", STR_PAD_LEFT);
             $articulo->update(['codigo' => $numeroConCeros]);
         }
-        return redirect()->route('articulos.index');
+        return redirect()->route('articulos.index')->with('success', 'Se registró correctamente');
     }
     public function show(Articulo $articulo)
     {
@@ -71,7 +71,7 @@ class ArticuloController extends Controller
             $articulo->update(['codigo' => $numeroConCeros]);
         }
 
-        return redirect()->route('articulos.index');
+        return redirect()->route('articulos.index')->with('update', 'Se editó correctamente');;
     }
     public function destroy($id)
     {

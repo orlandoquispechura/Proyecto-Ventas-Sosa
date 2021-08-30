@@ -11,12 +11,27 @@
     <a class="btn btn-secondary mb-2" href="{{route('print_barcode')}}">Exportar códigos de barras</a>
     <div class="card">
         <div class="card-body">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong> Guardado!</strong> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif(session('update'))
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong> Editado!</strong> {{ session('update') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4" id="articulo">
                 <thead class="bg-primary text-white">
                     <tr>
                         <th scope="col">Código</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Cantidad</th>
+                        <th scope="col">Stock</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Precio Venta</th>
                         <th scope="col">Categoría</th>
@@ -28,7 +43,7 @@
                         <tr>
                             <td>{{ $articulo->codigo }}</td>
                             <td><a href="{{ route('articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a></td>
-                            <td>{{ $articulo->cantidad }}</td>
+                            <td>{{ $articulo->stock }}</td>
                             <td><img src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="" width="60"></td>
                             <td>{{ $articulo->precio_venta }}</td>
                             <td>{{ ucwords($articulo->categoria->nombre) }}</td>

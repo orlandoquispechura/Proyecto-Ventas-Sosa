@@ -19,7 +19,7 @@ class Articulos extends Migration
 
             $table->string('codigo')->unique()->nullable();
             $table->string('nombre')->unique();
-            $table->integer('cantidad')->default('0');
+            $table->integer('stock')->default('0');
             $table->string('imagen');
             $table->decimal('precio_venta', 12, 2);
 

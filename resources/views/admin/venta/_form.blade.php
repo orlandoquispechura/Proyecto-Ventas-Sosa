@@ -1,50 +1,49 @@
-
 <div class="form-group">
     <label for="cliente_id">Cliente</label>
-    <select class="form-control" name="cliente_id" id="cliente_id">
-        <option value="" disabled selected>Seleccione un cliente</option>
+    <select class="form-control selectpicker clienteB" data-live-search="true" name="cliente_id" id="cliente_id" lang="es">
+        <option value="" data-icon="fas fa-user-tie" disabled selected>Buscar cliente</option>
         @foreach ($clientes as $cliente)
-        <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+        <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
         @endforeach
     </select>
 </div>
 
 <div class="form-group">
-  <label for="codigo">Código de barras</label>
-  <input type="text" name="codigo" id="codigo" class="form-control" aria-describedby="helpId">
+    <label for="codigo">Código de barras</label>
+    <input type="text" name="codigo" id="codigo" class="form-control" aria-describedby="helpId">
 </div>
 
-  <div class="form-row">
+<div class="form-row">
     <div class="form-group col-md-4">
         <div class="form-group">
             <label for="articulo_id">Artículo</label>
-            {{--  <select class="form-control selectpicker" data-live-search="true" name="product_id" id="product_id">  --}}
-            <select class="form-control" name="articulo_id" id="articulo_id">
-                <option value="" disabled selected>Selecccione un artículo</option>
+            <select class="form-control selectpicker articuloB" data-live-search="true" name="articulo_id" id="articulo_id" lang="es">
+                <option value="" data-icon="fas fa-procedures" disabled selected>Buscar artículo</option>
                 @foreach ($articulos as $articulo)
-                <option value="{{$articulo->id}}">{{$articulo->nombre}}</option>
+                <option value="{{ $articulo->id }}">{{ $articulo->nombre }}</option>
                 @endforeach
             </select>
         </div>
     </div>
     <div class="form-group col-md-4">
         <div class="form-group">
-            <label for="">Stock actual</label>
-            <input type="text" name="" id="stock" value="" class="form-control" disabled>
-          </div>
+            <label for="stock">Stock actual</label>
+            <input type="text" name="stock" id="stock" class="form-control" disabled>
+        </div>
     </div>
     <div class="form-group col-md-4">
         <div class="form-group">
             <label for="precio_venta">Precio de venta</label>
-            <input type="number" class="form-control" name="precio_venta" id="precio_venta" aria-describedby="helpId" disabled>
+            <input type="number" class="form-control" name="precio_venta" id="precio_venta" aria-describedby="helpId"
+                disabled>
         </div>
     </div>
-  </div>
+</div>
 
 
 
 
-  <div class="form-row">
+<div class="form-row">
     <div class="form-group col-md-6">
         <div class="form-group">
             <label for="cantidad">Cantidad</label>
@@ -57,7 +56,8 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon3">%</span>
             </div>
-            <input type="number" class="form-control" name="impuesto" id="impuesto" aria-describedby="basic-addon3" value="0" disabled>
+            <input type="number" class="form-control" name="impuesto" id="impuesto" aria-describedby="basic-addon3"
+                value="0" disabled>
         </div>
     </div>
     <div class="form-group col-md-3">
@@ -66,11 +66,12 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon2">%</span>
             </div>
-            <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="basic-addon2" value="0">
+            <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="basic-addon2"
+                value="0">
         </div>
     </div>
-  </div>
-  {{--detalle de compras --}}
+</div>
+{{-- detalle de compras --}}
 <div class="form-group">
     <button type="button" id="agregar" class="btn btn-primary float-right">Agregar Artículo</button>
 </div>

@@ -7,17 +7,14 @@
 @stop
 
 @section('content')
+    <li class="nav-item d-lg-flex d-block">
+        <a class="nav-link" type="button" data-toggle="modal" data-target="#exampleModal-2">
+            <span class="btn btn-warning">+ Registrar Cliente</span>
+        </a>
+    </li>
     <div class="card">
-        <li class="nav-item d-none d-lg-flex">
-            <a class="nav-link" type="button" data-toggle="modal" data-target="#exampleModal-2">
-                <span class="btn btn-warning">+ Registrar Cliente</span>
-            </a>
-        </li>
         {!! Form::open(['route' => 'ventas.store', 'method' => 'POST']) !!}
         <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <h4 class="card-title">Registro de venta</h4>
-            </div>
             @include('admin.venta._form')
         </div>
         <div class="card-footer text-muted">
@@ -41,15 +38,21 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId"
-                            required>
+                        <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId">
                         @if ($errors->has('nombre'))
                             <span class="error text-danger">{{ $errors->first('nombre') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
+                        <label for="apellido_paterno">Apellido Paterno</label>
+                        <input type="text" class="form-control" name="apellido_paterno" id="apellido_paterno" aria-describedby="helpId">
+                        @if ($errors->has('apellido_paterno'))
+                            <span class="error text-danger">{{ $errors->first('apellido_paterno') }}</span>
+                        @endif
+                    </div>
+                    <div class="form-group">
                         <label for="dni">DNI</label>
-                        <input type="number" class="form-control" name="dni" id="dni" aria-describedby="helpId" required>
+                        <input type="number" class="form-control" name="dni" id="dni" aria-describedby="helpId">
                         @if ($errors->has('dni'))
                             <span class="error text-danger">{{ $errors->first('dni') }}</span>
                         @endif
@@ -70,15 +73,17 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    {!! Html::style('select/dist/css/bootstrap-select.min.css') !!}
+
 @stop
 
+
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-    </script>
+    {!! Html::script('select/dist/js/bootstrap-select.min.js') !!}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script> --}}
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 
@@ -93,11 +98,11 @@
         total = 0;
         subtotal = [];
         $("#guardar").hide();
-
         $("#articulo_id").change(mostrarValores);
 
         function mostrarValores() {
             datosProducto = document.getElementById('articulo_id').value.split('_');
+
             $("#precio_venta").val(datosProducto[2]);
             $("#stock").val(datosProducto[1]);
         }
@@ -113,13 +118,11 @@
                 },
                 success: function(data) {
                     $("#precio_venta").val(data.precio_venta);
-                    $("#stock").val(data.cantidad);
+                    $("#stock").val(data.stock);
                     $("#codigo").val(data.codigo);
                 }
             });
         });
-
-
         $(obtener_registro());
 
         function obtener_registro(codigo) {
@@ -133,7 +136,7 @@
                 success: function(data) {
                     console.log(data);
                     $("#precio_venta").val(data.precio_venta);
-                    $("#stock").val(data.cantidad);
+                    $("#stock").val(data.stock);
                     $("#articulo_id").val(data.id);
                 }
             });
@@ -146,7 +149,6 @@
                 obtener_registro();
             }
         })
-
 
         function agregar() {
             datosProducto = document.getElementById('articulo_id').value.split('_');
@@ -167,13 +169,11 @@
                         ');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="articulo_id[]" value="' +
                         articulo_id + '">' + articulo + '</td> <td> <input type="hidden" name="precio_venta[]" value="' +
                         parseFloat(precio_venta).toFixed(2) + '"> <input class="form-control" type="number" value="' +
-                        parseFloat(
-                            precio_venta).toFixed(2) +
+                        parseFloat(precio_venta).toFixed(2) +
                         '" disabled> </td> <td> <input type="hidden" name="descuento[]" value="' +
-                        parseFloat(descuento) + '"> <input class="form-control" type="number" value="' + parseFloat(
-                            descuento) + '" disabled> </td> <td> <input type="hidden" name="cantidad[]" value="' +
-                        cantidad +
-                        '"> <input type="number" value="' + cantidad +
+                        parseFloat(descuento) + '"> <input class="form-control" type="number" value="' +
+                        parseFloat(descuento) + '" disabled> </td> <td> <input type="hidden" name="cantidad[]" value="' +
+                        cantidad + '"> <input type="number" value="' + cantidad +
                         '" class="form-control" disabled> </td> <td align="right">s/' + parseFloat(subtotal[cont]).toFixed(
                             2) + '</td></tr>';
                     cont++;
@@ -183,13 +183,15 @@
                     $('#detalles').append(fila);
                 } else {
                     Swal.fire({
-                        type: 'error',
+                        icon: 'error',
+                        title: 'Lo siento',
                         text: 'La cantidad a vender supera el stock.',
                     })
                 }
             } else {
                 Swal.fire({
-                    type: 'error',
+                    icon: 'error',
+                    title: 'Lo siento',
                     text: 'Rellene todos los campos del detalle de la venta.',
                 })
             }

@@ -43,6 +43,7 @@
             margin-right: 2%;
             font-size: 20px;
             background: #33AFFF;
+            padding: 0 20px;
         }
 
         section {
@@ -120,11 +121,11 @@
                     <tr>
                         <th>
                             <p id="proveedor">Nombre: {{ ucwords($compra->proveedor->razon_social) }}<br>
-                                {{-- {{$purchase->provider->document_type}}-COMPRA:
-                                {{$purchase->provider->document_number}}<br> --}}
-                                Dirección: {{ ucwords($compra->proveedor->direccion) }}<br>
+                                Nit: {{$compra->proveedor->nit}}<br>                                
                                 Teléfono: {{ $compra->proveedor->telefono }}<br>
-                                Email: {{ $compra->proveedor->email }}</p>
+                                Email: {{ $compra->proveedor->email }}<br>  
+                                Dirección: {{ ucwords($compra->proveedor->direccion) }}                             
+                            </p>
                         </th>
                     </tr>
                 </tbody>
@@ -133,7 +134,7 @@
         <div id="fact">
             {{-- <p>{{$purchase->provider->document_type}} COMPRA<br />
             {{$purchase->provider->document_number}}</p> --}}
-            <p>NUMERO DE COMPRA<br />
+            <p>NOTA DE COMPRA<br />
                 {{ $compra->id }}</p>
         </div>
     </header>

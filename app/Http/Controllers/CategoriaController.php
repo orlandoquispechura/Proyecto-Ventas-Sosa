@@ -35,7 +35,7 @@ class CategoriaController extends Controller
     public function update(UpdateRequest $request, Categoria $categoria)
     {
         $categoria->update($request->all());
-        return redirect()->route('categorias.index')->with('update', 'Se editó el correctamente');
+        return redirect()->route('categorias.index')->with('update', 'Se editó correctamente');
     }
     public function destroy(Categoria $categoria)
     {
