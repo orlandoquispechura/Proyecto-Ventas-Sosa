@@ -8,8 +8,8 @@ use App\Http\Requests\Compra\UpdateRequest;
 use App\Models\Articulo;
 use App\Models\Compra;
 use App\Models\Proveedor;
-use App\Models\DetalleCompra;
-use PDF as PDF;
+
+use Barryvdh\DomPDF\Facade as PDF;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -18,6 +18,20 @@ use Carbon\Carbon;
 
 class CompraController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:compras.create')->only(['create','store']);
+        $this->middleware('can:compras.index')->only(['index']);
+        $this->middleware('can:compras.show')->only(['show']);
+
+        $this->middleware('can:cambio.estado.compras')->only(['cambio_de_estado']);
+        $this->middleware('can:compras.pdf')->only(['pdf']);
+        $this->middleware('can:upload.compras')->only(['upload']);
+    }
+
+
     public function index()
     {
         $compras = Compra::get();

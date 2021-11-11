@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class ProveedorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:proveedors.create')->only(['create','store']);
+        $this->middleware('can:proveedors.index')->only(['index']);
+        $this->middleware('can:proveedors.edit')->only(['edit','update']);
+        $this->middleware('can:proveedors.show')->only(['show']);
+        $this->middleware('can:proveedors.destroy')->only(['destroy']);
+    }
+
     public function index()
     {
         $proveedors = Proveedor::get();

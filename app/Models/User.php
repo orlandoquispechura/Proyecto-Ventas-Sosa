@@ -60,6 +60,7 @@ class User extends Authenticatable
     public function compras(){
         return $this->hasMany(Compra::class);
     }
+    
     /**
      * The accessors to append to the model's array form.
      *

@@ -13,17 +13,26 @@
 
             <div class="form-group">
                 <label for="name" class="text-blue">Nombre</label>
-                <input type="text" name="name" id="name" class="form-control" required aria-describedby="helpId">
-              </div>
+                <input type="text" name="name" id="name" class="form-control"  value="{{old('name')}}" autofocus >
+                @if ($errors->has('name'))
+                <span class="error text-danger">{{ $errors->first('name') }}</span>
+            @endif
+            </div>
               <div class="form-group">
                 <label for="email"class="text-blue">Correo electrónico</label>
-                <input type="email" name="email" id="email" class="form-control" required aria-describedby="helpId">
-              </div>
+                <input type="email" name="email" id="email" class="form-control" value="{{old('email')}}">
+                @if ($errors->has('email'))
+                <span class="error text-danger">{{ $errors->first('email') }}</span>
+            @endif  
+            </div>
               
               <div class="form-group">
                   <label for="password" class="text-blue">Contraseña</label>
-                  <input type="password" name="password" id="password" class="form-control" required aria-describedby="helpId">
-              </div>
+                  <input type="password" name="password" id="password" class="form-control"  aria-describedby="helpId">
+                  @if ($errors->has('password'))
+                  <span class="error text-danger">{{ $errors->first('password') }}</span>
+              @endif
+                </div>
 
             @include('admin.user._form')
              <button type="submit" class="btn btn-success mr-2">Registrar</button>

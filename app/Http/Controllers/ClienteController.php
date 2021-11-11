@@ -9,6 +9,17 @@ use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        
+        $this->middleware('can:clientes.create')->only(['create','store']);
+        $this->middleware('can:clientes.index')->only(['index']);
+        $this->middleware('can:clientes.edit')->only(['edit','update']);
+        $this->middleware('can:clientes.show')->only(['show']);
+        $this->middleware('can:clientes.destroy')->only(['destroy']);
+    }
+
     public function index()
     {        
         $clientes = Cliente::get();

@@ -2,7 +2,7 @@
     <div class="form-group col-md-8">
         <div class="form-group">
             <label for="proveedor_id">Proveedor</label>
-            <select class="form-control" name="proveedor_id" id="proveedor_id">
+            <select class="form-control" name="proveedor_id" id="proveedor_id" autofocus>
                 <option value="" disabled selected>Selecccione un proveedor</option>
                 @foreach ($proveedors as $proveedor)
                     <option value="{{ $proveedor->id }}">{{ $proveedor->razon_social }}

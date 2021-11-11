@@ -11,10 +11,21 @@ use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-use Barryvdh\DomPDF\PDF as PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ArticuloController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:home');
+        $this->middleware('permission:articulos.create|articulos.index|articulos.edit|articulos.show|articulos.destroy', ['only'=>['create','store']]);
+        $this->middleware('permission:articulos.index',['only'=>['index']]);
+        $this->middleware('permission:articulos.edit',['only'=>['edit','update']]);
+        $this->middleware('permission:articulos.show',['only'=>['show']]);
+        $this->middleware('permission:articulos.destroy',['only'=>['destroy']]);
+
+    }
+
     public function index()
     {
         $articulos = Articulo::get();
@@ -52,7 +63,7 @@ class ArticuloController extends Controller
     {
         $categorias = Categoria::get();
         $proveedors = Proveedor::get();
-        return view('admin.articulo.edit', compact('articulo', 'categorias','proveedors'));
+        return view('admin.articulo.edit', compact('articulo', 'categorias', 'proveedors'));
     }
     public function update(UpdateRequest $request, $id)
     {
@@ -81,21 +92,34 @@ class ArticuloController extends Controller
         }
         return redirect()->route('articulos.index');
     }
+    public function cambio_de_estado(Articulo $articulo)
+    {
+        if ($articulo->estado == 'ACTIVO') {
+            $articulo->update(['estado' => 'DESACTIVADO']);
+            return redirect()->back();
+        } else {
+            $articulo->update(['estado' => 'ACTIVO']);
+            return redirect()->back();
+        }
+    }
 
-    public function get_products_by_barcode(Request $request){
+
+    public function get_products_by_barcode(Request $request)
+    {
         if ($request->ajax()) {
             $articulos = Articulo::where('codigo', $request->codigo)->firstOrFail();
             return response()->json($articulos);
         }
     }
-    public function get_products_by_id(Request $request){
+    public function get_products_by_id(Request $request)
+    {
         if ($request->ajax()) {
             $articulos = Articulo::findOrFail($request->articulo_id);
             return response()->json($articulos);
         }
     }
 
-    
+
     public function print_barcode()
     {
         $articulos = Articulo::get();

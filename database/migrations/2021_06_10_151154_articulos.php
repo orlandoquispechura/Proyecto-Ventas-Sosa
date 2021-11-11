@@ -22,14 +22,15 @@ class Articulos extends Migration
             $table->integer('stock')->default('0');
             $table->string('imagen');
             $table->decimal('precio_venta', 12, 2);
+            $table->enum('estado', ['ACTIVO', 'DESACTIVADO'])->default('ACTIVO');
 
             $table->unsignedBigInteger('categoria_id')->nullable();
             $table->foreign('categoria_id')->references('id')->on('categorias')
-                ->onDelete('set null')->onUpdate('set null');
+                ->onDelete('set null')->onUpdate('cascade');
 
             $table->unsignedBigInteger('proveedor_id')->nullable();
             $table->foreign('proveedor_id')->references('id')->on('proveedors')
-                ->onDelete('set null')->onUpdate('set null');
+                ->onDelete('set null')->onUpdate('cascade');
 
             $table->timestamps();
         });

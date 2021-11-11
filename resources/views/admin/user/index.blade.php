@@ -10,10 +10,26 @@
     <a href="{{ route('users.create') }}" class="btn btn-primary mb-2">Crear Usuarios</a>
     <div class="card">
         <div class="card-body">
+
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong> Guardado!</strong> {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @elseif(session('update'))
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong> Editado!</strong> {{ session('update') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
             <table id="order-listing" class="table table-striped mt-0.5 table-bordered shadow-lg dt-responsive nowrap users" >
                 <thead class="bg-primary text-white">
                     <tr>
-                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Correo electrónico</th>
                         <th width="200px" class="text-center">Acciones</th>
@@ -22,7 +38,6 @@
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <th scope="row">{{ $user->id }}</th>
                             <td>
                                 <a href="{{ route('users.show', $user) }}">{{ ucwords($user->name) }}</a>
                             </td>

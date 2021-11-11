@@ -10,8 +10,9 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentaController;
 use App\Models\Articulo;
-
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\HomeController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +29,18 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
-    return view('home.welcome');
-})->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
+//     return view('home.welcome');
+// })->name('home');
+
+// Route::resource('users', UserController::class)->middleware('can:users.index')->names('admin.users');
+Route::resource('users', UserController::class)->names('users');
+
+Route::resource('roles', RoleController::class)->names('roles');
+
 
 Route::get('ventas/reporte_dia', [ReporteController::class, 'reporte_dia'])->name('reporte.dia');
 Route::get('ventas/reporte_fecha', [ReporteController::class, 'reporte_fecha'])->name('reporte.fecha');
@@ -66,11 +76,8 @@ Route::get('compras/upload/{compra}', [CompraController::class, 'upload'])->name
 
 Route::get('cambio_de_estado/compras/{compra}', [CompraController::class, 'cambio_de_estado'])->name('cambio.estado.compras');
 Route::get('cambio_de_estado/ventas/{venta}', [VentaController::class, 'cambio_de_estado'])->name('cambio.estado.ventas');
+Route::get('cambio_de_estado/articulos/{articulo}', [ArticuloController::class, 'cambio_de_estado'])->name('cambio.estado.articulos');
 
-
-Route::resource('users', UserController::class)->names('users');
-
-Route::resource('roles', RoleController::class)->names('roles');
 
 Route::get('get_products_by_barcode', [ArticuloController::class, 'get_products_by_barcode'])->name('get_products_by_barcode');
 Route::get('get_products_by_id', [ArticuloController::class, 'get_products_by_id'])->name('get_products_by_id');
@@ -81,8 +88,6 @@ Route::get('/barcode', function () {
     $articulo = Articulo::get();
     return view('admin.articulo.barcode', compact('articulos'));
 });
-
-
 // Auth::routes(['register' => false]);
-// Route::get('home', function ($id) {
-// });
+// Auth::routes(['register' => false]);
+// Route::get('/home', [HomeController::class, 'index' ])->name('home');

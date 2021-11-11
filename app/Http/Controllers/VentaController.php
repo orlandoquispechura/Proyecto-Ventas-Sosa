@@ -6,16 +6,27 @@ use App\Http\Requests\Venta\StoreRequest;
 use App\Models\Articulo;
 use App\Models\Cliente;
 use App\Models\Venta;
-use App\Models\DetalleVenta;
-// use Barryvdh\DomPDF\PDF as PDF;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-use PDF as PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class VentaController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:ventas.create')->only(['create','store']);
+        $this->middleware('can:ventas.index')->only(['index']);
+        $this->middleware('can:ventas.show')->only(['show']);
+
+        $this->middleware('can:cambio.estado.ventas')->only(['cambio_de_estado']);
+        $this->middleware('can:ventas.pdf')->only(['pdf']);
+        // $this->middleware('can:ventas.print')->only(['print']);
+    }
+
     public function index()
     {
         $ventas = Venta::get();
@@ -34,7 +45,7 @@ class VentaController extends Controller
             'fecha_venta' => Carbon::now('America/La_Paz'),
         ]);
         foreach ($request->articulo_id as $key => $articulo) {
-            $results[] = array("articulo_id" => $request->articulo_id[$key], "cantidad" => $request->cantidad[$key], "precio_venta"=>$request->precio_venta[$key], "descuento" => $request->descuento[$key]);
+            $results[] = array("articulo_id" => $request->articulo_id[$key], "cantidad" => $request->cantidad[$key], "precio_venta" => $request->precio_venta[$key], "descuento" => $request->descuento[$key]);
         }
         $venta->detalleventas()->createMany($results);
         return redirect()->route('ventas.index');
@@ -61,16 +72,16 @@ class VentaController extends Controller
     {
         //
     }
-    
+
     public function pdf(Venta $venta)
     {
-        $subtotal = 0 ;
+        $subtotal = 0;
         $detalleventas = $venta->detalleventas;
         foreach ($detalleventas as $detalleventa) {
-            $subtotal += $detalleventa->cantidad * $detalleventa->precio_venta - $detalleventa->cantidad * $detalleventa->precio_venta * $detalleventa->descuento /100;
+            $subtotal += $detalleventa->cantidad * $detalleventa->precio_venta - $detalleventa->cantidad * $detalleventa->precio_venta * $detalleventa->descuento / 100;
         }
         $pdf = PDF::loadView('admin.venta.pdf', compact('venta', 'subtotal', 'detalleventas'));
-        return $pdf->download('Reporte_de_venta_'.$venta->id.'.pdf');
+        return $pdf->download('Reporte_de_venta_' . $venta->id . '.pdf');
     }
 
     /*public function print(Sale $sale){

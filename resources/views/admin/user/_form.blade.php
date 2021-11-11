@@ -7,7 +7,7 @@
             <label>
                 {!! Form::checkbox('roles[]', $role->id, null) !!}
                 {{$role->name}}
-                <em>({{$role->descripcion}})</em>
+                <em>({{$role->description}})</em>
             </label>
         </li>
      @endforeach

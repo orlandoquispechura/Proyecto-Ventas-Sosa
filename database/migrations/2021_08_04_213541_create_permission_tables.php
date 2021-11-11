@@ -23,7 +23,7 @@ class CreatePermissionTables extends Migration
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('slug')->nullable();
+            // $table->string('slug')->nullable();
             $table->string('description')->nullable();// For MySQL 8.0 use string('name', 125);
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
             $table->timestamps();
@@ -33,9 +33,9 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['roles'], function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');       // For MySQL 8.0 use string('name', 125);
-            $table->string('slug')->nullable();
-            $table->string('special')->nullable();
+            $table->string('name');
+            // $table->string('special')->nullable();
+            $table->string('description')->nullable();
             $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
             $table->timestamps();
 

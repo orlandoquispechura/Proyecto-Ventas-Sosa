@@ -7,8 +7,8 @@
 @stop
 
 @section('content')
-    <a href="{{route('articulos.create')}}" class="btn btn-primary mb-2">Crear Artículos</a>
-    <a class="btn btn-secondary mb-2" href="{{route('print_barcode')}}">Exportar códigos de barras</a>
+    <a href="{{ route('articulos.create') }}" class="btn btn-primary mb-2">Crear Artículos</a>
+    <a class="btn btn-secondary mb-2" href="{{ route('print_barcode') }}">Exportar códigos de barras</a>
     <div class="card">
         <div class="card-body">
             @if (session('success'))
@@ -29,25 +29,48 @@
             <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4" id="articulo">
                 <thead class="bg-primary text-white">
                     <tr>
-                        <th scope="col">Código</th>
+                        <th scope="col" width='60px'>Código</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Stock</th>
                         <th scope="col">Imagen</th>
-                        <th scope="col">Precio Venta</th>
+                        {{-- <th scope="col">Precio Venta</th> --}}
                         <th scope="col">Categoría</th>
-                        <th scope="col" width="200px">Acciones</th>
+                        <th scope="col" >Estado</th>
+                        <th scope="col" width="100px">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($articulos as $articulo)
                         <tr>
                             <td>{{ $articulo->codigo }}</td>
-                            <td><a href="{{ route('articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a></td>
+                            <td><a href="{{ route('articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a>
+                            </td>
                             <td>{{ $articulo->stock }}</td>
                             <td><img src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="" width="60"></td>
-                            <td>{{ $articulo->precio_venta }}</td>
                             <td>{{ ucwords($articulo->categoria->nombre) }}</td>
+                            @if ($articulo->estado == 'ACTIVO')
+                                <td>
+                                    <a class="jsgrid-button btn btn-success"
+                                        href="{{ route('cambio.estado.articulos', $articulo) }}" title="Editar">
+                                        Activo <i class="fas fa-check"></i>
+                                    </a>
+                                </td>
+                            @else
+                                <td>
+                                    <a class="jsgrid-button btn btn-danger"
+                                        href="{{ route('cambio.estado.articulos', $articulo) }}" title="Editar">
+                                        Desactivado <i class="fas fa-times"></i>
+                                    </a>
+                                </td>
+                            @endif
                             <td>
+                                <a class="btn btn-info" href="{{ route('articulos.edit', $articulo) }}">Editar</a>
+                                {{-- {!! Form::open(['route' => ['articulos.destroy', $articulo], 'method' => 'DELETE']) !!}
+                                <input class="btn btn-danger" type="submit" value="Eliminar">
+
+                                {!! Form::close() !!} --}}
+                            </td>
+                            {{-- <td>
                                 <form action="{{route('articulos.destroy', $articulo)}}" class="eliminar-form" method="post">
                                     @method('DELETE')
                                     @csrf
@@ -55,7 +78,7 @@
 
                                     <input type="submit" class="btn btn-danger" value="Eliminar">
                                 </form>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>
@@ -106,7 +129,6 @@
                 }
             });
         });
-
     </script>
     @if (session('delete') == 'ok')
         <script>
@@ -115,7 +137,6 @@
                 'Se Eliminó el registro.',
                 'warning'
             )
-
         </script>
     @endif
 
@@ -144,7 +165,5 @@
 
             });
         });
-
     </script>
 @stop
-

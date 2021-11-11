@@ -50,7 +50,7 @@ return [
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'SistemaSosa',
 
     /*
     |--------------------------------------------------------------------------
@@ -66,7 +66,7 @@ return [
 
     'usermenu_enabled' => true,
     'usermenu_header' => true,
-    'usermenu_header_class' => 'bg-primary',
+    'usermenu_header_class' => 'bg-danger',
     'usermenu_image' => true,
     'usermenu_desc' => true,
     'usermenu_profile_url' => true,
@@ -102,11 +102,11 @@ return [
     */
 
     'classes_auth_card' => 'bg-gradient-dark',
-'classes_auth_header' => '',
-'classes_auth_body' => 'bg-gradient-dark',
-'classes_auth_footer' => 'text-center',
-'classes_auth_icon' => 'fa-fw text-light',
-'classes_auth_btn' => 'btn-flat btn-light',
+    'classes_auth_header' => '',
+    'classes_auth_body' => 'bg-gradient-dark',
+    'classes_auth_footer' => 'text-center',
+    'classes_auth_icon' => 'fa-fw text-light',
+    'classes_auth_btn' => 'btn-flat btn-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -229,19 +229,20 @@ return [
             'search' => false,
             'topnav' => true,
         ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
+        // [
+        //     'text' => 'blog',
+        //     'url'  => 'admin/blog',
+        //     'can'  => 'manage-blog',
+        // ],
         [
             'text'    => 'Almacen',
             'icon'    => 'fas fa-warehouse',
             'submenu' => [
                 [
-                    'text' => 'Categoría',
-                    'icon'    => 'fas fa-tasks',
-                    'url'  => 'categorias',
+                    'text'  => 'Categoría',
+                    'icon'  => 'fas fa-tasks',
+                    'url'   => 'categorias',
+                    
                 ],
                 [
                     'text' => 'Artículo',
@@ -249,6 +250,7 @@ return [
                     'url'  => 'articulos',
                 ],                
             ],
+            'can' => '',
         ], 
         [
             'text'    => 'Compras',
@@ -294,6 +296,12 @@ return [
             'text' => 'Usuario',
             'url'  => 'users',
             'icon' => 'fas fa-fw fa-user-secret',
+            // 'can'   => 'admin.users.index',
+        ],
+        [
+            'text' => 'Roles',
+            'url'  => 'roles',
+            'icon' => 'fas fa-user-cog menu-icon',
         ],
         [
             'text' => 'Cambiar Contraseña',

@@ -65,14 +65,9 @@
                                         </p>
                                         <hr>
                                     </div>
-
-                                    
                                 </div>
-
                             </div>
-
                         </div>
-
                         <div class="tab-pane fade" id="list-profile" user="tabpanel" aria-labelledby="list-profile-list">
                             
                             <div class="d-flex justify-content-between">
@@ -98,7 +93,7 @@
                                                 @foreach ($user->compras as $compra)
                                                 <tr>
                                                     <th scope="row">
-                                                        <a href="{{route('sompras.show', $compra)}}">{{$compra->id}}</a>
+                                                        <a href="{{route('compras.show', $compra)}}">{{$compra->id}}</a>
                                                     </th>
                                                     <td>{{$compra->fecha_compra}}</td>
                                                     <td>{{$compra->total}}</td>
@@ -170,15 +165,15 @@
                                                     <td>{{$venta->fecha_venta}}</td>
                                                     <td>{{$venta->total}}</td>
                 
-                                                    @if ($sale->status == 'VALIDO')
+                                                    @if ($venta->estado == 'VALIDO')
                                                     <td>
-                                                        <a class="jsgrid-button btn btn-success" href="{{route('cambio.estado.ventas', $sale)}}" title="Editar">
+                                                        <a class="jsgrid-button btn btn-success" href="{{route('cambio.estado.ventas', $venta)}}" title="Editar">
                                                             Activo <i class="fas fa-check"></i>
                                                         </a>
                                                     </td>
                                                     @else
                                                     <td>
-                                                        <a class="jsgrid-button btn btn-danger" href="{{route('cambio.estado.ventas', $sale)}}" title="Editar">
+                                                        <a class="jsgrid-button btn btn-danger" href="{{route('cambio.estado.ventas', $venta)}}" title="Editar">
                                                             Cancelado <i class="fas fa-times"></i>
                                                         </a>
                                                     </td>
@@ -186,9 +181,9 @@
                 
                                                     <td style="width: 50px;">
                 
-                                                        <a href="{{route('ventas.pdf', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
+                                                        <a href="{{route('ventas.pdf', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
                                                         {{-- <a href="{{route('ventas.print', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a> --}}
-                                                        <a href="{{route('ventas.show', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
+                                                        <a href="{{route('ventas.show', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
                                                    
                                                       
                                                     </td>

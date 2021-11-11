@@ -10,6 +10,15 @@ use App\Models;
 
 class CategoriaController extends Controller
 {
+    public function __construct()
+    {        
+        $this->middleware('permission:home');
+        $this->middleware('permission:categorias.create|categorias.index|categorias.edit|categorias.show|categorias.destroy', ['only'=>['create','store']]);
+        $this->middleware('permission:categorias.index',['only'=>['index']]);
+        $this->middleware('permission:categorias.edit',['only'=>['edit','update']]);
+        $this->middleware('permission:categorias.show',['only'=>['show']]);
+        $this->middleware('permission:categorias.destroy',['only'=>['destroy']]);
+    }
     public function index()
     {
         $categorias= Categoria::get();
