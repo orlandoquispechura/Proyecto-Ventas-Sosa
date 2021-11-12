@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <a href="{{ route('users.create') }}" class="btn btn-primary mb-2">Crear Usuarios</a>
+    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-2">Crear Usuarios</a>
     <div class="card">
         <div class="card-body">
 
@@ -39,13 +39,13 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>
-                                <a href="{{ route('users.show', $user) }}">{{ ucwords($user->name) }}</a>
+                                <a href="{{ route('admin.users.show', $user) }}">{{ ucwords($user->name) }}</a>
                             </td>
                             <td>{{ $user->email }}</td>
                             <td class="text-right">
-                                {!! Form::open(['route' => ['users.destroy', $user], 'method' => 'DELETE', 'class' => 'eliminar-form']) !!}
+                                {!! Form::open(['route' => ['admin.users.destroy', $user], 'method' => 'DELETE', 'class' => 'eliminar-form']) !!}
 
-                                <a class="btn btn-success" href="{{ route('users.edit', $user) }}" title="Editar">
+                                <a class="btn btn-success" href="{{ route('admin.users.edit', $user) }}" title="Editar">
                                     {{-- <i class="far fa-edit"></i> --}}
                                     Editar
                                 </a>

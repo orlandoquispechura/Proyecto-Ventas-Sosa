@@ -9,13 +9,13 @@
 @section('content')
     <div class="card ">
         <div class="card-body">
-            {!! Form::open(['route' => 'compras.store', 'method' => 'POST']) !!}
+            {!! Form::open(['route' => 'admin.compras.store', 'method' => 'POST']) !!}
             <div class="card-body"> 
                 @include('admin.compra._form')
             </div>
             <div class="card-footer text-muted">
                 <button type="submit" id="guardar" class="btn btn-primary float-right">Registrar</button>
-                <a href="{{ route('compras.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.compras.index') }}" class="btn btn-secondary">
                     Cancelar
                 </a>
             </div>

@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <a href="{{ route('clientes.create') }}" class="btn btn-primary mb-2">Crear Cliente</a>
+    <a href="{{ route('admin.clientes.create') }}" class="btn btn-primary mb-2">Crear Cliente</a>
     <div class="card">
         <div class="card-body ">
             @if (session('success'))
@@ -47,11 +47,11 @@
                             <td>{{ $cliente->telefono }}</td>
                             <td>{{ $cliente->email }}</td>
                             <td class="text-right">
-                                <form action="{{ route('clientes.destroy', $cliente) }}" method="POST"
+                                <form action="{{ route('admin.clientes.destroy', $cliente) }}" method="POST"
                                     class="eliminar-form">
                                     @method('DELETE')
                                     @csrf
-                                    <a href="{{ route('clientes.edit', $cliente) }}" class="btn btn-success ">Editar
+                                    <a href="{{ route('admin.clientes.edit', $cliente) }}" class="btn btn-success ">Editar
                                     </a>
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form>

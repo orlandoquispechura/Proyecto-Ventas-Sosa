@@ -9,19 +9,27 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            {!! Form::model($user, ['route' => ['users.update', $user], 'method' => 'PUT']) !!}
+            {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT']) !!}
 
             <div class="form-group">
                 <label for="name">Nombre</label>
-                <input type="text" name="name" id="name" value="{{ $user->name }}" class="form-control" required aria-describedby="helpId">
+                <input type="text" name="name" id="name" value="{{ $user->name }}" class="form-control" required
+                    aria-describedby="helpId">
+                @if ($errors->has('name'))
+                    <span class="error text-danger">{{ $errors->first('name') }}</span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input type="email" name="email" id="email" value="{{ $user->email }}" class="form-control" required aria-describedby="helpId">
+                <input type="email" name="email" id="email" value="{{ $user->email }}" class="form-control" required
+                    aria-describedby="helpId">
+                @if ($errors->has('email'))
+                    <span class="error text-danger">{{ $errors->first('email') }}</span>
+                @endif
             </div>
             @include('admin.user._form')
             <button type="submit" class="btn btn-success mr-2">Actualizar</button>
-            <a href="{{ route('users.index') }}" class="btn btn-secondary">
+            <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
                 Cancelar
             </a>
             {!! Form::close() !!}
@@ -30,8 +38,8 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 @stop
 
 @section('js')

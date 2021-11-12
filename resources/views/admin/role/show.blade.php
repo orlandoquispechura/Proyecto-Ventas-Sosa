@@ -92,21 +92,21 @@
                                                 <th scope="row">{{ $user->id }}</th>
                                                 <td>
                                                     <a
-                                                        href="{{ route('users.show', $user) }}">{{ $user->name }}</a>
+                                                        href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a>
                                                 </td>
                                                 <td>{{ $user->email }}</td>
                                                 <td style="width: 50px;">
-                                                    {!! Form::open(['route' => ['users.destroy', $user], 'method'
+                                                    {!! Form::open(['route' => ['admin.users.destroy', $user], 'method'
                                                     => 'DELETE']) !!}
 
                                                     <a class="jsgrid-button jsgrid-edit-button"
-                                                        href="{{ route('users.edit', $user) }}" title="Editar">
-                                                        <i class="far fa-edit"></i>
+                                                        href="{{ route('admin.users.edit', $user) }}" title="Editar">
+                                                        <i class="far fa-edit" style="color: darkgreen"></i>
                                                     </a>
 
                                                     <button class="jsgrid-button jsgrid-delete-button unstyled-button"
                                                         type="submit" title="Eliminar">
-                                                        <i class="far fa-trash-alt"></i>
+                                                        <i class="far fa-trash-alt" style="color: red"></i>
                                                     </button>
 
                                                     {!! Form::close() !!}
@@ -124,6 +124,7 @@
         </div>
     </div>
 </div>
+<a href="{{route('admin.roles.index')}}" class="btn btn-secondary">Regresar</a>
 @stop
 
 @section('css')

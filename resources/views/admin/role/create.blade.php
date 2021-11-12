@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            {!! Form::open(['route' => 'roles.store', 'method' => 'POST']) !!}
+            {!! Form::open(['route' => 'admin.roles.store', 'method' => 'POST']) !!}
 
             <div class="form-group">
                 <label for="name">Nombre</label>
@@ -27,7 +27,7 @@
 
             @include('admin.role._form')
             <button type="submit" class="btn btn-primary mr-2">Registrar</button>
-            <a href="{{ route('roles.index') }}" class="btn btn-secondary">
+            <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary">
                 Cancelar
             </a>
             {!! Form::close() !!}

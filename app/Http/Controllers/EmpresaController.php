@@ -12,9 +12,9 @@ class EmpresaController extends Controller
 
   public function __construct()
   {
-    $this->middleware('permission:home');
-    $this->middleware('permission:empresas.index|empresas.edit',['only'=>['index']]);
-    $this->middleware('permission:empresas.edit',['only'=>['edit','update']]);
+    $this->middleware('can:home');
+    $this->middleware('can:empresas.index',['only'=>['index']]);
+    $this->middleware('can:empresas.edit',['only'=>['edit','update']]);
 
   }
 
@@ -35,6 +35,6 @@ class EmpresaController extends Controller
         unset($empre['logo']);
     }
       $empresa->update($empre);      
-      return redirect()->route('empresa.index')->with('update', 'Se editó correctamente');
+      return redirect()->route('admin.empresa.index')->with('update', 'Se editó correctamente');
     }
 }

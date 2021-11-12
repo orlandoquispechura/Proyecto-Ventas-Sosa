@@ -11,8 +11,7 @@ class ClienteController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        
+      
         $this->middleware('can:clientes.create')->only(['create','store']);
         $this->middleware('can:clientes.index')->only(['index']);
         $this->middleware('can:clientes.edit')->only(['edit','update']);
@@ -35,7 +34,7 @@ class ClienteController extends Controller
         if ($request->venta == 1) {
             return redirect()->back();
         }
-        return redirect()->route('clientes.index')->with('success', 'Se registró correctamente');
+        return redirect()->route('admin.clientes.index')->with('success', 'Se registró correctamente');
     }
     public function show(Cliente $cliente)
     {
@@ -52,11 +51,11 @@ class ClienteController extends Controller
     public function update(UpdateRequest $request, Cliente $cliente)
     {
         $cliente->update($request->all());
-        return redirect()->route('clientes.index')->with('update', 'Se editó el correctamente');
+        return redirect()->route('admin.clientes.index')->with('update', 'Se editó el correctamente');
     }
     public function destroy(Cliente $cliente)
     {
         $cliente->delete();
-        return redirect()->route('clientes.index')->with('delete', 'ok');
+        return redirect()->route('admin.clientes.index')->with('delete', 'ok');
     }
 }

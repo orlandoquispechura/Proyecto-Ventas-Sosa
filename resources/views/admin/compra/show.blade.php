@@ -85,7 +85,7 @@
 
         </div>
         <div class="card-footer text-muted">
-            <a href="{{ route('compras.index') }}" class="btn btn-primary float-right">Regresar</a>
+            <a href="{{ route('admin.compras.index') }}" class="btn btn-primary float-right">Regresar</a>
         </div>
     </div>
 @stop

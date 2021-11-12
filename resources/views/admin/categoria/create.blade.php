@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">            
-            <form action="{{url('/categorias')}}" method="POST">
+            <form action="{{route('admin.categorias.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="nombre" class="text-blue">Nombre Categoría: </label>
@@ -23,7 +23,7 @@
                     <textarea name="descripcion" id="descripcion" placeholder="Descripción solo 100 caracteres " class="form-control" tabindex="2" ></textarea>
                 </div>
                 <button type="submit" class="btn btn-success  " tabindex="3">Guardar </button>   
-                <a href="{{route('categorias.index')}}" class="btn btn-secondary ml-2" tabindex="4">Cancelar</a>
+                <a href="{{route('admin.categorias.index')}}" class="btn btn-secondary ml-2" tabindex="4">Cancelar</a>
                  
             </form>                            
         </div>

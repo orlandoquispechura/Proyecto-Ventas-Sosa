@@ -17,12 +17,12 @@ class ArticuloController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:home');
-        $this->middleware('permission:articulos.create|articulos.index|articulos.edit|articulos.show|articulos.destroy', ['only'=>['create','store']]);
-        $this->middleware('permission:articulos.index',['only'=>['index']]);
-        $this->middleware('permission:articulos.edit',['only'=>['edit','update']]);
-        $this->middleware('permission:articulos.show',['only'=>['show']]);
-        $this->middleware('permission:articulos.destroy',['only'=>['destroy']]);
+        $this->middleware('can:home');
+        $this->middleware('can:articulos.create', ['only'=>['create','store']]);
+        $this->middleware('can:articulos.index',['only'=>['index']]);
+        $this->middleware('can:articulos.edit',['only'=>['edit','update']]);
+        $this->middleware('can:articulos.show',['only'=>['show']]);
+        $this->middleware('can:articulos.destroy',['only'=>['destroy']]);
 
     }
 
@@ -53,7 +53,7 @@ class ArticuloController extends Controller
             $numeroConCeros = str_pad($numero, 8, "0", STR_PAD_LEFT);
             $articulo->update(['codigo' => $numeroConCeros]);
         }
-        return redirect()->route('articulos.index')->with('success', 'Se registró correctamente');
+        return redirect()->route('admin.articulos.index')->with('success', 'Se registró correctamente');
     }
     public function show(Articulo $articulo)
     {
@@ -82,7 +82,7 @@ class ArticuloController extends Controller
             $articulo->update(['codigo' => $numeroConCeros]);
         }
 
-        return redirect()->route('articulos.index')->with('update', 'Se editó correctamente');;
+        return redirect()->route('admin.articulos.index')->with('update', 'Se editó correctamente');;
     }
     public function destroy($id)
     {
@@ -90,7 +90,7 @@ class ArticuloController extends Controller
         if (Storage::delete('public/' . $articulo->imagen)) {
             Articulo::destroy($id);
         }
-        return redirect()->route('articulos.index');
+        return redirect()->route('admin.articulos.index');
     }
     public function cambio_de_estado(Articulo $articulo)
     {

@@ -9,7 +9,7 @@
 @section('content')
     <div class="card ">
         <div class="card-body">
-            <form action="{{ route('clientes.store') }}" method="POST">
+            <form action="{{ route('admin.clientes.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="razon_social" class="text-blue">Nombre Cliente: </label>
@@ -68,7 +68,7 @@
                     @endif
                 </div>
                 <button type="submit" class="btn btn-success" tabindex="8">Guardar </button>
-                <a href="{{ route('clientes.index') }}" class="btn btn-secondary ml-2" tabindex="9">Cancelar</a>
+                <a href="{{ route('admin.clientes.index') }}" class="btn btn-secondary ml-2" tabindex="9">Cancelar</a>
             </form>
         </div>
     </div>

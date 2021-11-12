@@ -29,7 +29,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home.welcome');
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
@@ -37,9 +37,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 // })->name('home');
 
 // Route::resource('users', UserController::class)->middleware('can:users.index')->names('admin.users');
-Route::resource('users', UserController::class)->names('users');
+Route::resource('users', UserController::class)->names('admin.users');
 
-Route::resource('roles', RoleController::class)->names('roles');
+Route::resource('roles', RoleController::class)->names('admin.roles');
 
 
 Route::get('ventas/reporte_dia', [ReporteController::class, 'reporte_dia'])->name('reporte.dia');
@@ -48,21 +48,21 @@ Route::get('ventas/reporte_fecha', [ReporteController::class, 'reporte_fecha'])-
 Route::post('ventas/resultado_reporte', [ReporteController::class, 'resultado_reporte'])->name('resultado.reporte');
 
 
-Route::resource('empresa', EmpresaController::class)->names('empresa')->only([
+Route::resource('empresa', EmpresaController::class)->names('admin.empresa')->only([
     'index', 'update'
 ]);
 
 
-Route::resource('categorias', CategoriaController::class)->names('categorias');
-Route::resource('clientes', ClienteController::class)->names('clientes');
-Route::resource('articulos', ArticuloController::class)->names('articulos');
-Route::resource('proveedors', ProveedorController::class)->names('proveedors');
+Route::resource('categorias', CategoriaController::class)->except('show')->names('admin.categorias');
+Route::resource('clientes', ClienteController::class)->names('admin.clientes');
+Route::resource('articulos', ArticuloController::class)->names('admin.articulos');
+Route::resource('proveedors', ProveedorController::class)->names('admin.proveedors');
 
 
-Route::resource('compras', CompraController::class)->names('compras')->except([
+Route::resource('compras', CompraController::class)->names('admin.compras')->except([
     'edit', 'update', 'destroy'
 ]);
-Route::resource('ventas', VentaController::class)->names('ventas')->except([
+Route::resource('ventas', VentaController::class)->names('admin.ventas')->except([
     'edit', 'update', 'destroy'
 ]);
 

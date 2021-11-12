@@ -22,7 +22,7 @@
                                 Sobre el proveedor
                             </button>
                             <button type="button" class="list-group-item list-group-item-action">Productos</button>
-                                <a href="{{route('articulos.create')}}" class="list-group-item list-group-item-action" >Registrar </a>
+                                <a href="{{route('admin.articulos.create')}}" class="list-group-item list-group-item-action" >Registrar </a>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
             </div>
         </div>
         <div class="card-footer text-muted">
-            <a href="{{ route('proveedors.index') }}" class="btn btn-primary float-right">Regresar</a>
+            <a href="{{ route('admin.proveedors.index') }}" class="btn btn-primary float-right">Regresar</a>
         </div>
     </div>
     </div>

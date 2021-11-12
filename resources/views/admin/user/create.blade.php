@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            {!! Form::open(['route'=>'users.store', 'method'=>'POST']) !!}
+            {!! Form::open(['route'=>'admin.users.store', 'method'=>'POST']) !!}
 
             <div class="form-group">
                 <label for="name" class="text-blue">Nombre</label>
@@ -36,7 +36,7 @@
 
             @include('admin.user._form')
              <button type="submit" class="btn btn-success mr-2">Registrar</button>
-             <a href="{{route('users.index')}}" class="btn btn-secondary">
+             <a href="{{route('admin.users.index')}}" class="btn btn-secondary">
                 Cancelar
              </a>
              {!! Form::close() !!}

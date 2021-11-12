@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <a href="{{ route('articulos.create') }}" class="btn btn-primary mb-2">Crear Artículos</a>
+    <a href="{{ route('admin.articulos.create') }}" class="btn btn-primary mb-2">Crear Artículos</a>
     <a class="btn btn-secondary mb-2" href="{{ route('print_barcode') }}">Exportar códigos de barras</a>
     <div class="card">
         <div class="card-body">
@@ -43,7 +43,7 @@
                     @foreach ($articulos as $articulo)
                         <tr>
                             <td>{{ $articulo->codigo }}</td>
-                            <td><a href="{{ route('articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a>
+                            <td><a href="{{ route('admin.articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a>
                             </td>
                             <td>{{ $articulo->stock }}</td>
                             <td><img src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="" width="60"></td>
@@ -64,7 +64,7 @@
                                 </td>
                             @endif
                             <td>
-                                <a class="btn btn-info" href="{{ route('articulos.edit', $articulo) }}">Editar</a>
+                                <a class="btn btn-info" href="{{ route('admin.articulos.edit', $articulo) }}">Editar</a>
                                 {{-- {!! Form::open(['route' => ['articulos.destroy', $articulo], 'method' => 'DELETE']) !!}
                                 <input class="btn btn-danger" type="submit" value="Eliminar">
 

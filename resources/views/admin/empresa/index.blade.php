@@ -79,7 +79,7 @@
                     </div>
 
 
-                    {!! Form::model($empresa, ['route' => ['empresa.update', $empresa], 'method' => 'PUT', 'files' => true]) !!}
+                    {!! Form::model($empresa, ['route' => ['admin.empresa.update', $empresa], 'method' => 'PUT', 'files' => true]) !!}
 
 
                     <div class="modal-body">

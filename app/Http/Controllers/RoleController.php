@@ -13,12 +13,12 @@ class RoleController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission:home');
-        $this->middleware('permission:roles.create|roles.index|roles.edit|roles.show|roles.destroy', ['only'=>['create','store']]);
-        $this->middleware('permission:roles.index',['only'=>['index']]);
-        $this->middleware('permission:roles.edit',['only'=>['edit','update']]);
-        $this->middleware('permission:roles.show',['only'=>['show']]);
-        $this->middleware('permission:roles.destroy',['only'=>['destroy']]);
+        $this->middleware('can:home');
+        $this->middleware('can:roles.create', ['only'=>['create','store']]);
+        $this->middleware('can:roles.index',['only'=>['index']]);
+        $this->middleware('can:roles.edit',['only'=>['edit','update']]);
+        $this->middleware('can:roles.show',['only'=>['show']]);
+        $this->middleware('can:roles.destroy',['only'=>['destroy']]);
     }
 
     public function index()
@@ -38,7 +38,7 @@ class RoleController extends Controller
         $role = Role::create($request->all());
         $role->permissions()->sync($request->get('permissions'));
 
-        return redirect()->route('roles.index', $role)->with('success', 'Se registró correctamente');;
+        return redirect()->route('admin.roles.index', $role)->with('success', 'Se registró correctamente');;
     }
     public function show(Role $role)
     {
@@ -58,12 +58,12 @@ class RoleController extends Controller
 
         $role->update($request->all());
         $role->permissions()->sync($request->get('permissions'));
-        return redirect()->route('roles.index', $role)->with('update', 'Se editó correctamente');
+        return redirect()->route('admin.roles.index', $role)->with('update', 'Se editó correctamente');
     }
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('roles.index')->with('delete', 'ok');
+        return redirect()->route('admin.roles.index')->with('delete', 'ok');
         // $role->delete();
         // return back();
 

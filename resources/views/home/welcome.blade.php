@@ -96,9 +96,9 @@
                                 <i class="fas fa-envelope"></i>
                                 Productos más vendidos
                             </h4>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
+                            <div class="table-responsive ">
+                                <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4">
+                                    <thead class="bg-primary text-white">
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th>Nombre</th>
@@ -112,15 +112,14 @@
                                         @foreach ($productosvendidos as $productosvendido)
                                             <tr>
                                                 <td>{{ $productosvendido->id }}</td>
-                                                <td>{{ $productosvendido->name }}</td>
-                                                <td>{{ $productosvendido->code }}</td>
+                                                <td>{{ $productosvendido->nombre }}</td>
+                                                <td>{{ $productosvendido->codigo }}</td>
                                                 <td><strong>{{ $productosvendido->stock }}</strong> Unidades</td>
-                                                <td><strong>{{ $productosvendido->quantity }}</strong> Unidades</td>
+                                                <td><strong>{{ $productosvendido->cantidad }}</strong> Unidades</td>
                                                 <td>
                                                     <a class="btn btn-primary"
-                                                        href="{{ route('products.show', $productosvendido->id) }}">
+                                                        href="{{ route('articulos.show', $productosvendido->id) }}">
                                                         <i class="far fa-eye"></i>
-                                                        Ver detalles
                                                     </a>
                                                 </td>
                                             </tr>

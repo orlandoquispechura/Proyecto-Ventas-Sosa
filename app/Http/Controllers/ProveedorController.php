@@ -31,7 +31,7 @@ class ProveedorController extends Controller
     public function store(StoreRequest $request)
     {
         Proveedor::create($request->all());
-        return redirect()->route('proveedors.index')->with('success', 'Se registró correctamente');
+        return redirect()->route('admin.proveedors.index')->with('success', 'Se registró correctamente');
     }
     public function show(Proveedor $proveedor)
     {
@@ -44,11 +44,11 @@ class ProveedorController extends Controller
     public function update(UpdateRequest $request, Proveedor $proveedor)
     {
         $proveedor->update($request->all());
-        return redirect()->route('proveedors.index')->with('update', 'Se editó el correctamente');
+        return redirect()->route('admin.proveedors.index')->with('update', 'Se editó el correctamente');
     }
     public function destroy(Proveedor $proveedor)
     {
         $proveedor->delete();
-        return redirect()->route('proveedors.index')->with('delete', 'ok');
+        return redirect()->route('admin.proveedors.index')->with('delete', 'ok');
     }
 }

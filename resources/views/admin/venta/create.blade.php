@@ -4,14 +4,16 @@
 
 @section('content_header')
     <h1 class="text-bold">Registro de Venta</h1>
+    {{-- <li class="nav-item d-lg-flex d-block"> --}}
+
+    {{-- </li> --}}
 @stop
 
 @section('content')
-    <li class="nav-item d-lg-flex d-block">
-        <a class="nav-link" type="button" data-toggle="modal" data-target="#exampleModal-2">
-            <span class="btn btn-warning">+ Registrar Cliente</span>
-        </a>
-    </li>
+
+    <a class="mt-4 mb-20" type="button" data-toggle="modal" data-target="#exampleModal-2">
+        <span class="btn btn-warning">+ Registrar Cliente</span>
+    </a>
     <div class="card">
         {!! Form::open(['route' => 'ventas.store', 'method' => 'POST']) !!}
         <div class="card-body">
@@ -84,7 +86,7 @@
     {!! Html::script('select/dist/js/bootstrap-select.min.js') !!}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 
     <script>

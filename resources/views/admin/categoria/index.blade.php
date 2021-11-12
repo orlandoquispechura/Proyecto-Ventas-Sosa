@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <a href="{{ route('categorias.create') }}" class="btn btn-primary mb-2">Crear Categoría</a>
+    <a href="{{ route('admin.categorias.create') }}" class="btn btn-primary mb-2">Crear Categoría</a>
     <div class="card">
         <div class="card-body ">
             @if (session('success'))
@@ -39,10 +39,10 @@
                             <td>{{ ucwords($categoria->nombre) }}</td>
                             <td>{{ ucwords($categoria->descripcion) }}</td>
                             <td class="text-right">
-                                <form action="{{ route('categorias.destroy', $categoria) }}" method="POST" class="eliminar-form">
+                                <form action="{{ route('admin.categorias.destroy', $categoria) }}" method="POST" class="eliminar-form">
                                     @method('DELETE')
                                     @csrf
-                                    <a href="{{ route('categorias.edit', $categoria) }}" class="btn btn-success ">Editar
+                                    <a href="{{ route('admin.categorias.edit', $categoria) }}" class="btn btn-success ">Editar
                                     </a>
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form>

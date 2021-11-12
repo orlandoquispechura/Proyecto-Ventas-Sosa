@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
 
-            {!! Form::model($cliente, ['route'=>['clientes.update',$cliente], 'method'=>'POST']) !!}
+            {!! Form::model($cliente, ['route'=>['admin.clientes.update',$cliente], 'method'=>'POST']) !!}
             @csrf
             {{@method_field('PATCH')}}
             <div class="form-group">
@@ -64,7 +64,7 @@
             </div>
 
                     <button type="submit" class="btn btn-success mr-2 " tabindex="3">Actualizar </button>
-                    <a href="{{route('clientes.index')}}" class="btn btn-secondary" tabindex="4">Cancelar</a>      
+                    <a href="{{route('admin.clientes.index')}}" class="btn btn-secondary" tabindex="4">Cancelar</a>      
                                   
             {!! Form::close() !!}
         </div>

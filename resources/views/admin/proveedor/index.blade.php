@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <a href="{{ route('proveedors.create') }}" class="btn btn-primary mb-2">Crear Proveedor</a>
+    <a href="{{ route('admin.proveedors.create') }}" class="btn btn-primary mb-2">Crear Proveedor</a>
     <div class="card">
         <div class="card-body ">
             @if (session('success'))
@@ -39,18 +39,18 @@
                 <tbody>
                     @foreach ($proveedors as $proveedor)
                         <tr>
-                            <td> <a href="{{ route('proveedors.show', $proveedor) }}">{{ ucwords($proveedor->razon_social) }}</a>
+                            <td> <a href="{{ route('admin.proveedors.show', $proveedor) }}">{{ ucwords($proveedor->razon_social) }}</a>
                             </td>
                             <td>{{ $proveedor->nit }}</td>
                             <td>{{ $proveedor->email }}</td>
                             <td>{{ ucwords($proveedor->direccion) }}</td>
                             <td>{{ $proveedor->telefono }}</td>
                             <td class="text-right">
-                                <form action="{{ route('proveedors.destroy', $proveedor) }}" method="POST"
+                                <form action="{{ route('admin.proveedors.destroy', $proveedor) }}" method="POST"
                                     class="eliminar-form">
                                     @method('DELETE')
                                     @csrf
-                                    <a href="{{ route('proveedors.edit', $proveedor) }}" class="btn btn-success ">Editar
+                                    <a href="{{ route('admin.proveedors.edit', $proveedor) }}" class="btn btn-success ">Editar
                                     </a>
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form>

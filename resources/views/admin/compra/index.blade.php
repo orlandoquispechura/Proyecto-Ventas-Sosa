@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-        <a class="btn btn-primary mb-2" href="{{ route('compras.create') }}">+ Registrar compras</a>
+        <a class="btn btn-primary mb-2" href="{{ route('admin.compras.create') }}">+ Registrar compras</a>
     <div class="card">
         <div class="card-body">
             <table id="order-listing" class="table compra table-striped mt-0.5 table-bordered shadow-lg dt-responsive nowrap">
@@ -46,7 +46,7 @@
 
                                 <a href="{{route('compras.pdf', $compra)}}" class="jsgrid-button jsgrid-edit-button" target="_blank"><i class="far fa-file-pdf mr-2"></i></a>
                                  {{--  <a href="#" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a> --}}
-                                <a href="{{ route('compras.show', $compra) }}" class="jsgrid-button jsgrid-edit-button"><i
+                                <a href="{{ route('admin.compras.show', $compra) }}" class="jsgrid-button jsgrid-edit-button"><i
                                         class="far fa-eye"></i></a>
 
 

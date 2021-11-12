@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
 
-            {!! Form::model($categoria, ['route'=>['categorias.update',$categoria], 'method'=>'POST']) !!}
+            {!! Form::model($categoria, ['route'=>['admin.categorias.update',$categoria], 'method'=>'POST']) !!}
             @csrf
             {{@method_field('PATCH')}}
                 <div class="form-group">
@@ -28,7 +28,7 @@
                     @endif
                 </div>
                     <button type="submit" class="btn btn-success mr-2 " tabindex="3">Actualizar </button>
-                    <a href="{{route('categorias.index')}}" class="btn btn-secondary" tabindex="4">Cancelar</a>      
+                    <a href="{{route('admin.categorias.index')}}" class="btn btn-secondary" tabindex="4">Cancelar</a>      
                                   
             {!! Form::close() !!}
         </div>

@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ url('/articulos') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.articulos.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="nombre" class="text-blue">Nombre Artículo: </label>
@@ -60,7 +60,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-success" tabindex="7">Guardar </button>
-                <a href="{{ route('articulos.index') }}" class="btn btn-secondary  ml-2 " tabindex="8">Cancelar</a>
+                <a href="{{ route('admin.articulos.index') }}" class="btn btn-secondary  ml-2 " tabindex="8">Cancelar</a>
             </form>
         </div>
     </div>

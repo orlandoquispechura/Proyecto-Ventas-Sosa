@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
 
-            <form action="{{url('/articulos/'.$articulo->id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.articulos.update', $articulo) }}" method="post" enctype="multipart/form-data">
             @csrf
             {{@method_field('PATCH')}}
             <div class="form-group">
@@ -58,7 +58,7 @@
                 </select>
               </div>
             <button type="submit" class="btn btn-success" tabindex="7">Actualizar </button>  
-            <a href="{{route('articulos.index')}}" class="btn btn-secondary  ml-2 " tabindex="8">Cancelar</a>    
+            <a href="{{route('admin.articulos.index')}}" class="btn btn-secondary  ml-2 " tabindex="8">Cancelar</a>    
                                   
            </form>
         </div>

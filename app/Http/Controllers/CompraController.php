@@ -21,14 +21,12 @@ class CompraController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
         $this->middleware('can:compras.create')->only(['create','store']);
         $this->middleware('can:compras.index')->only(['index']);
         $this->middleware('can:compras.show')->only(['show']);
 
         $this->middleware('can:cambio.estado.compras')->only(['cambio_de_estado']);
         $this->middleware('can:compras.pdf')->only(['pdf']);
-        $this->middleware('can:upload.compras')->only(['upload']);
     }
 
 
@@ -53,7 +51,7 @@ class CompraController extends Controller
             $results[] = array("articulo_id"=>$request->articulo_id[$key], "cantidad"=>$request->cantidad[$key], "precio_compra"=>$request->precio_compra[$key]);
         }
         $compra->detallecompras()->createMany($results);
-        return redirect()->route('compras.index');
+        return redirect()->route('admin.compras.index');
         
     }
     public function show(Compra $compra)

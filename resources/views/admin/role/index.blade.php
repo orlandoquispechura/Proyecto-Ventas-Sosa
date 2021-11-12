@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<a href="{{ route('roles.create') }}" class="btn btn-primary mb-2">Crear Rol</a>
+<a href="{{ route('admin.roles.create') }}" class="btn btn-primary mb-2">Crear Rol</a>
 <div class="card">
     <div class="card-body ">
         @if (session('success'))
@@ -38,15 +38,15 @@
                     @foreach ($roles as $role)
                     <tr>
                         <td>
-                            <a href="{{ route('roles.show', $role) }}">{{ $role->name }}</a>
+                            <a href="{{ route('admin.roles.show', $role) }}">{{ $role->name }}</a>
                         </td>
                         <td>{{ $role->description }}</td>
                         <td style="width: 180px;">
-                            <form action="{{ route('roles.destroy', $role) }}" class="eliminar-form" method="post">
+                            <form action="{{ route('admin.roles.destroy', $role) }}" class="eliminar-form" method="post">
                                 @csrf
                                 @method('DELETE')
                                
-                                <a class="btn btn-success" href="{{ route('roles.edit', $role) }}" title="Editar">
+                                <a class="btn btn-success" href="{{ route('admin.roles.edit', $role) }}" title="Editar">
                                     Editar
                                 </a>
 

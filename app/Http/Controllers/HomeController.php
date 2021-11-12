@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     } 
     public function index()
     {
@@ -26,7 +26,7 @@ class HomeController extends Controller
         $totales = DB::select('SELECT (select ifnull(sum(c.total),0) from compras c where DATE(c.fecha_compra)=curdate() and c.estado="VALIDO") as totalcompra, (select ifnull(sum(v.total),0) from ventas v where DATE(v.fecha_venta)=curdate() and v.estado="VALIDO") as totalventa');
         
         $productosvendidos = DB::select('SELECT a.codigo as codigo, 
-        sum(dv.cantidad) as cantidad, a.nombre as name , a.id as id , a.stock as stock from articulos a
+        sum(dv.cantidad) as cantidad, a.nombre as nombre , a.id as id , a.stock as stock from articulos a
         inner join detalle_ventas dv on a.id=dv.articulo_id 
         inner join ventas v on dv.venta_id=v.id where v.estado="VALIDO" 
         and year(v.fecha_venta)=year(curdate()) 

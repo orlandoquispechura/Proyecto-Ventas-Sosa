@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="{{route('articulos.index')}}" class="btn btn-primary float-left">Regresar</a>
+                    <a href="{{route('admin.articulos.index')}}" class="btn btn-primary float-left">Regresar</a>
                 </div>
             </div>
 @stop

@@ -12,12 +12,11 @@ class CategoriaController extends Controller
 {
     public function __construct()
     {        
-        $this->middleware('permission:home');
-        $this->middleware('permission:categorias.create|categorias.index|categorias.edit|categorias.show|categorias.destroy', ['only'=>['create','store']]);
-        $this->middleware('permission:categorias.index',['only'=>['index']]);
-        $this->middleware('permission:categorias.edit',['only'=>['edit','update']]);
-        $this->middleware('permission:categorias.show',['only'=>['show']]);
-        $this->middleware('permission:categorias.destroy',['only'=>['destroy']]);
+        $this->middleware('can:home');
+        $this->middleware('can:categorias.create', ['only'=>['create','store']]);
+        $this->middleware('can:categorias.index',['only'=>['index']]);
+        $this->middleware('can:categorias.edit',['only'=>['edit','update']]);
+        $this->middleware('can:categorias.destroy',['only'=>['destroy']]);
     }
     public function index()
     {
@@ -31,12 +30,9 @@ class CategoriaController extends Controller
     public function store(StoreRequest $request)
     {
         Categoria::create($request->all());
-        return redirect()->route('categorias.index')->with('success', 'Se registró correctamente');
+        return redirect()->route('admin.categorias.index')->with('success', 'Se registró correctamente');
     }
-    public function show(Categoria $categoria)
-    {
-        return view('admin.categoria.show', compact('categoria'));
-    }
+    
     public function edit(Categoria $categoria)
     {
         return view('admin.categoria.edit', compact('categoria'));
@@ -44,11 +40,11 @@ class CategoriaController extends Controller
     public function update(UpdateRequest $request, Categoria $categoria)
     {
         $categoria->update($request->all());
-        return redirect()->route('categorias.index')->with('update', 'Se editó correctamente');
+        return redirect()->route('admin.categorias.index')->with('update', 'Se editó correctamente');
     }
     public function destroy(Categoria $categoria)
     {
         $categoria->delete();
-        return redirect()->route('categorias.index')->with('delete', 'ok');
+        return redirect()->route('admin.categorias.index')->with('delete', 'ok');
     }
 }

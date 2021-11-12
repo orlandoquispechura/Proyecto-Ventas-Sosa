@@ -12,12 +12,12 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:home');
-        $this->middleware('permission:users.create|users.index|users.edit|users.show|users.destroy', ['only'=>['create','store']]);
-        $this->middleware('permission:users.index',['only'=>['index']]);
-        $this->middleware('permission:users.edit',['only'=>['edit','update']]);
-        $this->middleware('permission:users.show',['only'=>['show']]);
-        $this->middleware('permission:users.destroy',['only'=>['destroy']]);
+        $this->middleware('can:home');
+        $this->middleware('can:users.create', ['only'=>['create','store']]);
+        $this->middleware('can:users.index',['only'=>['index']]);
+        $this->middleware('can:users.edit',['only'=>['edit','update']]);
+        $this->middleware('can:users.show',['only'=>['show']]);
+        $this->middleware('can:users.destroy',['only'=>['destroy']]);
     }
     public function index()
     {
@@ -35,14 +35,13 @@ class UserController extends Controller
             'name' => 'required|string','name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
-            // 'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            
         ]);
 
         $user = User::create($request->all());
         $user->update(['password'=> Hash::make($request->password)]);
         $user->roles()->sync($request->get('roles'));
-        return redirect()->route('users.index')->with('success', 'Se registró correctamente');
+        return redirect()->route('admin.users.index')->with('success', 'Se registró correctamente');
     }
     public function show(User $user)
     {
@@ -65,17 +64,15 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            // 'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'email' => 'required|string',
         ]);
 
         if ($user->id == 1) {
-            return redirect()->route('users.index');
+            return redirect()->route('admin.users.index');
         }else{
             $user->update($request->all());
             $user->roles()->sync($request->get('roles'));
-            return redirect()->route('users.index')->with('update', 'Se editó correctamente');
+            return redirect()->route('admin.users.index')->with('update', 'Se editó correctamente');
         }
     }
     public function destroy(User $user)

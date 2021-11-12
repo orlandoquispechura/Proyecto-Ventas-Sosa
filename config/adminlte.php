@@ -66,7 +66,7 @@ return [
 
     'usermenu_enabled' => true,
     'usermenu_header' => true,
-    'usermenu_header_class' => 'bg-danger',
+    'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => true,
     'usermenu_desc' => true,
     'usermenu_profile_url' => true,
@@ -102,11 +102,11 @@ return [
     */
 
     'classes_auth_card' => 'bg-gradient-dark',
-    'classes_auth_header' => '',
+    'classes_auth_header' => 'bg-info',
     'classes_auth_body' => 'bg-gradient-dark',
-    'classes_auth_footer' => 'text-center',
+    'classes_auth_footer' => 'd-none',
     'classes_auth_icon' => 'fa-fw text-light',
-    'classes_auth_btn' => 'btn-flat btn-light',
+    'classes_auth_btn' => 'btn-flat btn-success',
 
     /*
     |--------------------------------------------------------------------------
@@ -187,13 +187,13 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'login',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -229,11 +229,34 @@ return [
             'search' => false,
             'topnav' => true,
         ],
-        // [
-        //     'text' => 'blog',
-        //     'url'  => 'admin/blog',
-        //     'can'  => 'manage-blog',
-        // ],
+        [
+            'text' => 'blog',
+            'url'  => 'admin/blog',
+            'can'  => 'manage-blog',
+        ],
+        [
+            'text' => 'Dashboard',
+            'icon' => 'fas fa-tachometer-alt',
+            'url'  => 'home',
+            'can'  => 'home',
+        ],
+        [
+            'text'    => 'Reportes',
+            'icon'    => 'fas fa-file-signature',
+            'submenu' => [
+                [
+                    'text'  => 'Reporte por día',
+                    'icon'  => 'far fa-file-alt',
+                    'url'   => 'ventas/reporte_dia',
+                    
+                ],
+                [
+                    'text' => 'Reporte por fechas',
+                    'icon'    => 'fas fa-file-alt',
+                    'url'  => 'ventas/reporte_fecha',
+                ],                
+            ],
+        ], 
         [
             'text'    => 'Almacen',
             'icon'    => 'fas fa-warehouse',
@@ -250,7 +273,6 @@ return [
                     'url'  => 'articulos',
                 ],                
             ],
-            'can' => '',
         ], 
         [
             'text'    => 'Compras',
@@ -262,7 +284,7 @@ return [
                     'url'  => 'proveedors',
                 ],
                 [
-                    'text' => 'compra',
+                    'text' => 'compras',
                     'icon'    => 'fas fa-shopping-bag',
                     'url'  => 'compras',
                 ],                
@@ -281,33 +303,36 @@ return [
                     'text' => 'Venta',
                     'icon'    => 'fas fa-dollar-sign',
                     'url'  => 'ventas',
+                    'can' => 'ventas.index',
                 ],                
             ],
         ], 
-        ['header' => 'Configuración de la Empresa'],
+        ['header' => 'Configuración de la Empresa', 'can'=>'empresas.index',],
         [
             'text' => 'Empresa',
             'url' => 'empresa',
             'icon' => 'fas fa-city',
+            'can'=>'empresas.index',
         ],
 
-        ['header' => 'Configuración de la Cuenta'],
+        ['header' => 'Configuración de la Cuenta', 'can'=> 'users.index',],
         [
             'text' => 'Usuario',
             'url'  => 'users',
             'icon' => 'fas fa-fw fa-user-secret',
-            // 'can'   => 'admin.users.index',
+            'can'=> 'users.index',
         ],
         [
             'text' => 'Roles',
             'url'  => 'roles',
             'icon' => 'fas fa-user-cog menu-icon',
+            'can'=> 'roles.index',
         ],
-        [
-            'text' => 'Cambiar Contraseña',
-            'url'  => 'settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
+        // [
+        //     'text' => 'Cambiar Contraseña',
+        //     'url'  => 'settings',
+        //     'icon' => 'fas fa-fw fa-lock',
+        // ],
     ],
 
     /*
@@ -346,7 +371,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -366,7 +391,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
