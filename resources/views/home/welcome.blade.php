@@ -1,14 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Home')
+@section('title', 'Dashboard')
 
 @section('content_header')
-    <h1 class="text-bold">Tablero</h1>
+    <h1 class="text-bold">Panel de Admnistrador</h1>
 @stop
 
 @section('content')
     <div class="card">
-        <h1>graficos de ventas</h1>
         <div class="card-body">
             @foreach ($totales as $total)
                 <div class="row">
@@ -24,7 +23,7 @@
                                 <div class="h3">Compras</div>
                             </div>
                             <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
-                                <a href="{{ route('compras.index') }}" class="small-box-footer h4">Compras <i
+                                <a href="{{ route('admin.compras.index') }}" class="small-box-footer h4">Compras <i
                                         class="fa fa-arrow-circle-right"></i></a>
                             </div>
 
@@ -43,7 +42,7 @@
                                 <div class="h3">Ventas</div>
                             </div>
                             <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
-                                <a href="{{ route('ventas.index') }}" class="small-box-footer h4">Ventas <i
+                                <a href="{{ route('admin.ventas.index') }}" class="small-box-footer h4">Ventas <i
                                         class="fa fa-arrow-circle-right"></i></a>
                             </div>
 
@@ -118,7 +117,7 @@
                                                 <td><strong>{{ $productosvendido->cantidad }}</strong> Unidades</td>
                                                 <td>
                                                     <a class="btn btn-primary"
-                                                        href="{{ route('articulos.show', $productosvendido->id) }}">
+                                                        href="{{ route('admin.articulos.show', $productosvendido->id) }}">
                                                         <i class="far fa-eye"></i>
                                                     </a>
                                                 </td>
@@ -136,12 +135,21 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
 @stop
 
 @section('js')
-
-
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{!! Html::script('melody/js/data-table.js') !!}
+{!! Html::script('melody/js/chart.js') !!}
+    
 <script>
     $(function () {
         var varCompra=document.getElementById('compras').getContext('2d');

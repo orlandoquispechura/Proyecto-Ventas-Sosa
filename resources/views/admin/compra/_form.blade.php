@@ -25,7 +25,7 @@
 
 <div class="form-group">
     <label for="codigo">Código de barras</label>
-    <input type="text" name="codigo" id="codigo" class="form-control"aria-describedby="helpId">
+    <input type="text" name="codigo" id="codigo" class="form-control" value="{{old('codigo')}}">
 </div>
 
 <div class="form-row">
@@ -35,7 +35,7 @@
             <select class="form-control" name="articulo_id" id="articulo_id">
                 <option value="" disabled selected>Selecccione un artículo</option>
                 @foreach ($articulos as $articulo)
-                    <option value="{{ $articulo->id }}">{{ $articulo->nombre }}</option>
+                    <option value="{{$articulo->id }}">{{ $articulo->nombre }}</option>
                 @endforeach
             </select>
         </div>
@@ -43,13 +43,13 @@
     <div class="form-group col-md-4">
         <div class="form-group">
             <label for="cantidad">Cantidad</label>
-            <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="helpId">
+            <input type="number" class="form-control" name="cantidad" id="cantidad" value="{{old('cantidad')}}">
         </div>
     </div>
     <div class="form-group col-md-2">
         <div class="form-group">
             <label for="precio_compra">Precio de compra</label>
-            <input type="number" class="form-control" name="precio_compra" id="precio_compra" aria-describedby="helpId">
+            <input type="number" class="form-control" name="precio_compra" id="precio_compra" value="{{old('precio_compra')}}">
         </div>
     </div>
 </div>

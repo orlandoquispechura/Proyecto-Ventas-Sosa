@@ -3,7 +3,7 @@
 @section('title', 'Información de los Artículos')
 
 @section('content_header')
-    <h1>Información de los Artículos</h1>
+    <h1>Información del Artículo</h1>
 @stop
 
 @section('content')
@@ -13,19 +13,33 @@
                         <div class="col-lg-4">
                             <div class="border-bottom text-center pb-4">
                                 <h3>{{$articulo->nombre}}</h3>
-                                <img src="{{asset('storage'.'/'.$articulo->imagen)}}" alt="profile" width="150" />
-                                
+                                @if(isset($articulo->imagen))
+                                <img src="{{asset('storage'.'/'.$articulo->imagen)}}" alt="profile" width="100" />
+                                @else
+                                <td><img src="{{ asset('storage/uploads/imagen_defecto.png') }}" alt="" width="60"></td>
+
+                                @endif
                                 <div class="d-flex justify-content-between">
                                 </div>
                             </div>
                             <div class="py-4">
+                                {{-- ARTICULO SEGUN PROVEEDOR  --}}
                                 <p class="clearfix">
-                                    <span class="float-left">
+                                    <span class="float-left text-bold">
+                                        Proveedor
+                                    </span>
+                                    <span class="float-right">
+                                        <h6>{{$articulo->proveedor->razon_social}}</h6>
+                                    </span>
+                                    <hr>
+                                </p>
+                                <p class="clearfix">
+                                    <span class="float-left text-bold">
                                         Categoría
                                     </span>
                                     <span class="float-right">
                                         {{--  PRODUCTOS POR CATEGORIA  --}}
-                                      <h3>{{$articulo->categoria->nombre}}</h3>
+                                      <h6>{{$articulo->categoria->nombre}}</h6>
                                     </span>
                                     <hr>
                                 </p>
@@ -48,7 +62,7 @@
                                         <hr>
                                         <strong><i class="fab fa-product-hunt mr-1"></i> Cantidad</strong>
                                         <p class="text-muted">
-                                            {{$articulo->cantidad}}
+                                            {{$articulo->stock}}
                                         </p>
                                         <hr>
                                     </div>
@@ -62,10 +76,15 @@
                                         <hr>
                                         <strong><i class="fas fa-envelope mr-1"></i> Código de barras</strong>
                                         <p class="text-muted">
-                                            {!!DNS1D::getBarcodeHTML($articulo->codigo, 'EAN13'); !!}
+                                            @if( is_string($articulo->codigo))
+                                            {{-- {!!DNS1D::getBarcodeHTML($articulo->codigo, 'EAN13'); !!} --}}
                                             <p class="text-muted">
                                                 {{$articulo->codigo}}
                                             </p>
+                                            {{-- @else
+                                            {!!DNS1D::getBarcodeHTML($articulo->codigo, 'EAN13'); !!}
+                                            {{$articulo->codigo}} --}}
+                                            @endif
                                         </p>
                                        
                                         <hr>

@@ -16,7 +16,9 @@
                     <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" class="form-control"
                         tabindex="1" autofocus>
                     @if ($errors->has('nombre'))
-                        <span class="error text-danger">{{ $errors->first('nombre') }}</span>
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('nombre') }}</span>
+                        </div>
                     @endif
                 </div>
                 <div class="form-group">
@@ -24,7 +26,9 @@
                     <input type="text" name="codigo" id="cantidad" value="{{ old('codigo') }}" class="form-control"
                         tabindex="2">
                     @if ($errors->has('codigo'))
-                        <span class="error text-danger">{{ $errors->first('codigo') }}</span>
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('codigo') }}</span>
+                        </div>
                     @endif
                 </div>
                 <div class="form-group">
@@ -32,32 +36,46 @@
                     <input type="file" name="imagen" id="imagen" value="{{ old('imagen') }}" class="form-control"
                         tabindex="3">
                     @if ($errors->has('imagen'))
-                        <span class="error text-danger">{{ $errors->first('imagen') }}</span>
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('imagen') }}</span>
+                        </div>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="precio_venta" class="text-blue">Precio Venta: </label>
-                    <input type="number" name="precio_venta" id="precio_venta" value="precio_venta" class="form-control"
-                        tabindex="4">
+                    <input type="number" name="precio_venta" step="0.01" min="0" max="10000" id="precio_venta"
+                        value="precio_venta" class="form-control" tabindex="4">
                     @if ($errors->has('precio_venta'))
-                        <span class="error text-danger">{{ $errors->first('precio_venta') }}</span>
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('precio_venta') }}</span>
+                        </div>
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="categoria_id" class="text-blue" >Categoría: </label>
+                    <label for="categoria_id" class="text-blue">Categoría: </label>
                     <select class="form-control" name="categoria_id" id="categoria_id" tabindex="5">
                         @foreach ($categorias as $categoria)
                             <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
                         @endforeach
                     </select>
+                    @if ($errors->has('categoria_id'))
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('categoria_id') }}</span>
+                        </div>
+                    @endif
                 </div>
                 <div class="form-group">
-                    <label for="proveedor_id" class="text-blue" >Proveedor: </label>
+                    <label for="proveedor_id" class="text-blue">Proveedor: </label>
                     <select class="form-control" name="proveedor_id" id="proveedor_id" tabindex="6">
                         @foreach ($proveedors as $proveedor)
                             <option value="{{ $proveedor->id }}">{{ $proveedor->razon_social }}</option>
                         @endforeach
                     </select>
+                    @if ($errors->has('proveedor_id'))
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('proveedor_id') }}</span>
+                        </div>
+                    @endif
                 </div>
                 <button type="submit" class="btn btn-success" tabindex="7">Guardar </button>
                 <a href="{{ route('admin.articulos.index') }}" class="btn btn-secondary  ml-2 " tabindex="8">Cancelar</a>

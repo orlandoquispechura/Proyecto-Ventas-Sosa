@@ -16,14 +16,19 @@
                     <input type="text" name="razon_social" id="razon_social" value="{{ old('razon_social') }}"
                         class="form-control" tabindex="1" autofocus>
                     @if ($errors->has('razon_social'))
-                        <span class="error text-danger">{{ $errors->first('razon_social') }}</span>
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('razon_social') }}</span>
+                        </div>
                     @endif
                 </div>
                 <div class="form-group">
                     <label for="nit" class="text-blue">Nº Nit: </label>
-                    <input type="number" name="nit" id="nit" value="{{ old('nit') }}" class="form-control" tabindex="2">
+                    <input type="text" name="nit" id="nit" min="0" value="{{ old('nit') }}" class="form-control"
+                        tabindex="2">
                     @if ($errors->has('nit'))
-                        <span class="error text-danger">{{ $errors->first('nit') }}</span>
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('nit') }}</span>
+                        </div>
                     @endif
                 </div>
                 <div class="form-group">
@@ -31,7 +36,9 @@
                     <input type="text" name="email" id="email" value="{{ old('email') }}" class="form-control"
                         tabindex="3">
                     @if ($errors->has('email'))
-                        <span class="error text-danger">{{ $errors->first('email') }}</span>
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('email') }}</span>
+                        </div>
                     @endif
                 </div>
                 <div class="form-group">
@@ -39,7 +46,9 @@
                     <textarea name="direccion" id="direccion" value="{{ old('direccion') }}" class="form-control"
                         tabindex="4"></textarea>
                     @if ($errors->has('direccion'))
-                        <span class="error text-danger">{{ $errors->first('direccion') }}</span>
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('direccion') }}</span>
+                        </div>
                     @endif
                 </div>
                 <div class="form-group">
@@ -47,7 +56,9 @@
                     <input type="text" name="telefono" id="telefono" value="{{ old('telefono') }}" class="form-control"
                         tabindex="5">
                     @if ($errors->has('telefono'))
-                        <span class="error text-danger">{{ $errors->first('telefono') }}</span>
+                        <div class="alert alert-danger">
+                            <span class="error text-danger">{{ $errors->first('telefono') }}</span>
+                        </div>
                     @endif
                 </div>
                 <button type="submit" class="btn btn-success" tabindex="6">Guardar </button>

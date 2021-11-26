@@ -12,7 +12,7 @@
             <div class="form-group row">
                 <div class="col-md-4 text-center">
                     <label class="form-control-label "><strong>Cliente</strong></label>
-                    <p><a href="{{route('clientes.show', $venta->cliente)}}">{{$venta->cliente->nombre}}</a></p>
+                    <p>{{$venta->cliente->nombre}}</p>
                 </div>
                 <div class="col-md-4 text-center">
                     <label class="form-control-label"><strong>Número Venta</strong></label>
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="card-footer text-muted">
-            <a href="{{route('ventas.index')}}" class="btn btn-primary float-right">Regresar</a>
+            <a href="{{route('admin.ventas.index')}}" class="btn btn-primary float-right">Regresar</a>
         </div>
     </div>
 </div>

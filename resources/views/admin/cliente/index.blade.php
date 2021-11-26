@@ -31,29 +31,28 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido P</th>
                         <th scope="col">Carnet de Identidad</th>
-                        <th scope="col">Dirección</th>
                         <th scope="col">Teléfono</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col" width="200px" class="text-center">Acciones</th>
+                        <th scope="col" width="150px" class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($clientes as $cliente)
                         <tr>
-                            <td>{{ ucwords($cliente->nombre) }}</td>
+                            <td> <a href="{{route('admin.clientes.show', $cliente)}}">{{ ucwords($cliente->nombre) }}</a> </td>
                             <td>{{ ucwords($cliente->apellido_paterno) }}</td>
                             <td>{{ $cliente->dni }}</td>
-                            <td>{{ ucwords($cliente->direccion) }}</td>
                             <td>{{ $cliente->telefono }}</td>
-                            <td>{{ $cliente->email }}</td>
-                            <td class="text-right">
+                            <td class="float-right">
+                                
                                 <form action="{{ route('admin.clientes.destroy', $cliente) }}" method="POST"
                                     class="eliminar-form">
                                     @method('DELETE')
                                     @csrf
                                     <a href="{{ route('admin.clientes.edit', $cliente) }}" class="btn btn-success ">Editar
                                     </a>
+                                    @if('can:clientes.destroy')
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    @endif
                                 </form>
                             </td>
                         </tr>

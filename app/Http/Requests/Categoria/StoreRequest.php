@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'string|required|unique:categorias|max:50',
+            'nombre' => 'regex:/^[A-Z, a-z, ,á,í,é,ó,ú,ñ]+$/|required|unique:categorias|max:50',
             'descripcion'=> 'nullable|string|max:255',            
         ];
     }

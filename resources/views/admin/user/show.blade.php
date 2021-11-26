@@ -3,7 +3,7 @@
 @section('title', 'Información sobre el usuario')
 
 @section('content_header')
-    <h1 class="text-bold">Tablero</h1>
+    <h1 class="text-bold" >Usuario: {{$user->name}}</h1>
 @stop
 
 @section('content')
@@ -13,8 +13,6 @@
                 <div class="col-lg-4">
                     <div class="border-bottom text-center pb-4">
                         <h3>{{$user->name}}</h3>
-                        <div class="d-flex justify-content-between">
-                        </div>
                     </div>
                     <div class="border-bottom py-4">
                         <div class="list-group">
@@ -50,7 +48,7 @@
                                         <strong><i class="fab fa-product-hunt mr-1"></i> Roles</strong>
                                         <p class="text-muted">
                                             @foreach ($user->roles as $role)
-                                            <a href="{{route('roles.show',$role)}}">{{$role->name}}</a>
+                                            <a href="{{route('admin.roles.show',$role)}}">{{$role->name}}</a>
                                             @endforeach
                                         </p>
                                         <hr>
@@ -93,7 +91,7 @@
                                                 @foreach ($user->compras as $compra)
                                                 <tr>
                                                     <th scope="row">
-                                                        <a href="{{route('compras.show', $compra)}}">{{$compra->id}}</a>
+                                                        <a href="{{route('admin.compras.show', $compra)}}">{{$compra->id}}</a>
                                                     </th>
                                                     <td>{{$compra->fecha_compra}}</td>
                                                     <td>{{$compra->total}}</td>
@@ -115,7 +113,7 @@
                 
                                                         <a href="{{route('compras.pdf', $compra)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
                                                         {{--  <a href="#" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a>  --}}
-                                                        <a href="{{route('compras.show', $compra)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
+                                                        <a href="{{route('admin.compras.show', $compra)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
                                                    
                                                       
                                                     </td>
@@ -160,7 +158,7 @@
                                                 @foreach ($user->ventas as $venta)
                                                 <tr>
                                                     <th scope="row">
-                                                        <a href="{{route('ventas.show', $venta)}}">{{$venta->id}}</a>
+                                                        <a href="{{route('admin.ventas.show', $venta)}}">{{$venta->id}}</a>
                                                     </th>
                                                     <td>{{$venta->fecha_venta}}</td>
                                                     <td>{{$venta->total}}</td>
@@ -183,7 +181,7 @@
                 
                                                         <a href="{{route('ventas.pdf', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
                                                         {{-- <a href="{{route('ventas.print', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a> --}}
-                                                        <a href="{{route('ventas.show', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
+                                                        <a href="{{route('admin.ventas.show', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
                                                    
                                                       
                                                     </td>
@@ -209,7 +207,7 @@
             </div>
         </div>
         <div class="card-footer text-muted">
-            <a href="{{route('users.index')}}" class="btn btn-secondary float-right">Regresar</a>
+            <a href="{{route('admin.users.index')}}" class="btn btn-secondary float-right">Regresar</a>
         </div>
     </div>
         </div>

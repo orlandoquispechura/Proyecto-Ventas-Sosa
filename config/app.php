@@ -177,6 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+        
         // clases para generar codigos de barras
         Milon\Barcode\BarcodeServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,

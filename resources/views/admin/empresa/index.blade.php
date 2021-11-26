@@ -12,14 +12,14 @@
             <div class="d-flex justify-content-between">
                 <h4 class="card-title text-bold">Gestión de empresa</h4>
             </div>
-            @if(session('update'))
-            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <strong> Editado!</strong> {{ session('update') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
+            @if (session('update'))
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong> Editado!</strong> {{ session('update') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <strong><i class="fas fa-file-signature mr-1"></i> Nombre </strong>
@@ -84,70 +84,73 @@
 
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="nombre_negocio">Nombre</label>
+                            <label for="nombre_negocio" class="text-primary">Nombre</label>
                             <input type="text" class="form-control" name="nombre_negocio" id="nombre_negocio"
                                 value="{{ $empresa->nombre_negocio }}" aria-describedby="helpId">
+                            @if ($errors->has('nombre_negocio'))
+                                <div class="alert alert-danger">
+                                    <span class="error text-danger">{{ $errors->first('nombre_negocio') }}</span>
+                                </div>
+                            @endif
                         </div>
-                        @if ($errors->has('nombre_negocio'))
-                            <span class="error text-danger">{{ $errors->first('nombre_negocio') }}</span>
-                        @endif
 
                         <div class="form-group">
-                            <label for="descripcion">Descripción</label>
+                            <label for="descripcion" class="text-primary">Descripción</label>
                             <textarea class="form-control" name="descripcion" id="descripcion"
                                 rows="3">{{ $empresa->descripcion }}</textarea>
+                            @if ($errors->has('descripcion'))
+                                <div class="alert alert-danger">
+                                    <span class="error text-danger">{{ $errors->first('descripcion') }}</span>
+                                </div>
+                            @endif
                         </div>
-                        @if ($errors->has('descripcion'))
-                            <span class="error text-danger">{{ $errors->first('descripcion') }}</span>
-                        @endif
 
                         <div class="form-group">
-                            <label for="mail">Correo electrónico</label>
+                            <label for="mail" class="text-primary">Correo electrónico</label>
                             <input type="email" class="form-control" name="mail" id="mail" value="{{ $empresa->mail }}"
                                 aria-describedby="helpId">
+                            @if ($errors->has('mail'))
+                                <div class="alert alert-danger">
+                                    <span class="error text-danger">{{ $errors->first('mail') }}</span>
+                                </div>
+                            @endif
                         </div>
-                        @if ($errors->has('mail'))
-                            <span class="error text-danger">{{ $errors->first('mail') }}</span>
-                        @endif
+
                         <div class="form-group">
-                            <label for="direccion">Dirección</label>
+                            <label for="direccion" class="text-primary">Dirección</label>
                             <input type="text" class="form-control" name="direccion" id="direccion"
                                 value="{{ $empresa->direccion }}" aria-describedby="helpId">
+                            @if ($errors->has('direccion'))
+                                <div class="alert alert-danger">
+                                    <span class="error text-danger">{{ $errors->first('direccion') }}</span>
+                                </div>
+                            @endif
                         </div>
-                        @if ($errors->has('direccion'))
-                            <span class="error text-danger">{{ $errors->first('direccion') }}</span>
-                        @endif
+
                         <div class="form-group">
-                            <label for="nit">Numero de RUC</label>
-                            <input type="number" class="form-control" name="nit" id="nit" value="{{ $empresa->nit }}"
+                            <label for="nit" class="text-primary">Numero de NIT</label>
+                            <input type="text" class="form-control" name="nit" id="nit" value="{{ $empresa->nit }}"
                                 aria-describedby="helpId">
+                            @if ($errors->has('nit'))
+                                <div class="alert alert-danger">
+                                    <span class="error text-danger">{{ $errors->first('nit') }}</span>
+                                </div>
+                            @endif
                         </div>
-                        @if ($errors->has('nit'))
-                            <span class="error text-danger">{{ $errors->first('nit') }}</span>
-                        @endif
+
                         <div class="form-group">
-                            <label for="logo">Logo</label><br>
-                            <img src="{{ 'imagen' . '/' . $empresa->logo }}" width="150" alt="logo.png" class="mb-5 mx-auto d-block">
+                            <label for="logo" class="text-primary">Logo</label><br>
+                            <img src="{{ 'imagen' . '/' . $empresa->logo }}" width="150" alt="logo.png"
+                                class="mb-5 mx-auto d-block">
                             <input type="file" name="logo" id="logo" class="form-control">
                             @if ($errors->has('logo'))
                                 <span class="error text-danger">{{ $errors->first('logo') }}</span>
                             @endif
                         </div>
-                        {{-- <div class="card-body">
-                            <h5 class="card-title d-flex">Logo2
-                                <small class="ml-auto align-self-end">
-                                    <a href="dropify.html" class="font-weight-light" target="_blank">Seleccionar Archivo</a>
-                                </small>
-                            </h5>
-                            <img src="{{('imagen').'/'.$empresa->logo}}" width="150" alt="logo.png" class="mb-5"><br>
-                            <input type="file" name="picture" id="picture" class="dropify hidden" />
-                        </div> --}}
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Actualizar</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
 
                     {!! Form::close() !!}

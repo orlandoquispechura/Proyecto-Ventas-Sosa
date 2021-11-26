@@ -11,8 +11,9 @@
             margin: 0px;
         }
         h2{
-            margin-top: 50px;
+            margin-top: 8px;
         }
+        
     </style>
 </head>
 <body>

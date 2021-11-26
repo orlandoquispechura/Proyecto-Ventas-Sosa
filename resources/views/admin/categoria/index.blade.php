@@ -46,11 +46,6 @@
                                     </a>
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form>
-                                {{-- {!! Form::open(['route' => ['categorias.destroy', $categoria], 'method' => 'DELETE']) !!}
-                                <a href="{{ route('categorias.edit', $categoria) }}" class="btn btn-success ">Editar </a>
-                                <button type="submit" class="eliminar-form btn btn-danger ">Eliminar</button>
-
-                                {!! Form::close() !!} --}}
                             </td>
                         </tr>
                     @endforeach

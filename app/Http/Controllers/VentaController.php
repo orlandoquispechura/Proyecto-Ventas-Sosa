@@ -40,6 +40,11 @@ class VentaController extends Controller
     }
     public function store(StoreRequest $request)
     {
+        $this->validate($request, [
+            'cliente_id' => 'required',
+            'total' => 'required',
+        ]);
+
         $venta = Venta::create($request->all() + [
             'user_id' => Auth::user()->id,
             'fecha_venta' => Carbon::now('America/La_Paz'),
@@ -48,7 +53,7 @@ class VentaController extends Controller
             $results[] = array("articulo_id" => $request->articulo_id[$key], "cantidad" => $request->cantidad[$key], "precio_venta" => $request->precio_venta[$key], "descuento" => $request->descuento[$key]);
         }
         $venta->detalleventas()->createMany($results);
-        return redirect()->route('ventas.index');
+        return redirect()->route('admin.ventas.index');
     }
     public function show(Venta $venta)
     {
@@ -59,18 +64,6 @@ class VentaController extends Controller
         }
 
         return view('admin.venta.show', compact('venta', 'detalleventas', 'subtotal'));
-    }
-    public function edit(Venta $venta)
-    {
-        //
-    }
-    public function update(Request $request, Venta $venta)
-    {
-        //
-    }
-    public function destroy(Venta $venta)
-    {
-        //
     }
 
     public function pdf(Venta $venta)

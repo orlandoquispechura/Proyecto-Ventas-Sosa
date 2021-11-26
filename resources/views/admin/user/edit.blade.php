@@ -8,23 +8,51 @@
 
 @section('content')
     <div class="card">
+        <div class="card-title mb-2 bg-danger text-white">
+            <h6 class="pl-3 text-justify">
+                La contraseña debera cumplir con los siguientes requisitos: 
+            </h6>
+            <h6 class="pl-3 text-justify">
+                - al menos 1 caracter @$!%*#?&
+            </h6>
+            <h6 class="pl-3 text-justify">
+                - al menos 1 letra mayúscula y  minúscula
+            </h6>
+            <h6 class="pl-3 text-justify">
+                - al menos 1 dígito números del 0-9
+            </h6>
+
+        </div>
         <div class="card-body">
             {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT']) !!}
 
             <div class="form-group">
-                <label for="name">Nombre</label>
-                <input type="text" name="name" id="name" value="{{ $user->name }}" class="form-control" required
-                    aria-describedby="helpId">
+                <label for="name" class="text-primary">Nombre: </label>
+                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="form-control"
+                    required aria-describedby="helpId">
                 @if ($errors->has('name'))
-                    <span class="error text-danger">{{ $errors->first('name') }}</span>
+                    <div class="alert alert-danger">
+                        <span class="error text-danger">{{ $errors->first('name') }}</span>
+                    </div>
                 @endif
             </div>
             <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" name="email" id="email" value="{{ $user->email }}" class="form-control" required
-                    aria-describedby="helpId">
+                <label for="email" class="text-primary">Correo electrónico: </label>
+                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="form-control"
+                    required aria-describedby="helpId">
                 @if ($errors->has('email'))
-                    <span class="error text-danger">{{ $errors->first('email') }}</span>
+                    <div class="alert alert-danger">
+                        <span class="error text-danger">{{ $errors->first('email') }}</span>
+                    </div>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="password" class="text-blue">Contraseña: </label>
+                <input type="password" name="password" id="password" class="form-control" aria-describedby="helpId" placeholder="$Ejemplo&1">
+                @if ($errors->has('password'))
+                    <div class="alert alert-danger">
+                        <span class="error text-danger">{{ $errors->first('password') }}</span>
+                    </div>
                 @endif
             </div>
             @include('admin.user._form')

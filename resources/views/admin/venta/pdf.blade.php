@@ -40,7 +40,7 @@
         margin-left: 2%;
         margin-right: 2%;
         font-size: 20px;
-        background: #D2691E;
+        background: #ee9c61;
         padding: 0 20px;
     }
 
@@ -68,7 +68,7 @@
 
     #facliente thead {
         padding: 20px;
-        background: #D2691E;
+        background: #ee9c61;
         text-align: left;
         border-bottom: 1px solid #FFFFFF;
     }
@@ -82,7 +82,7 @@
 
     #facvendedor thead {
         padding: 20px;
-        background: #D2691E;
+        background: #ee9c61;
         text-align: center;
         border-bottom: 1px solid #FFFFFF;
     }
@@ -96,7 +96,7 @@
 
     #facproducto thead {
         padding: 20px;
-        background: #D2691E;
+        background: #ee9c61;
         text-align: center;
         border-bottom: 1px solid #FFFFFF;
     }

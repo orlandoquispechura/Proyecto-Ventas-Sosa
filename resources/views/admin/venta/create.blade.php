@@ -10,18 +10,17 @@
 @stop
 
 @section('content')
-
-    <a class="mt-4 mb-20" type="button" data-toggle="modal" data-target="#exampleModal-2">
+    <a type="button" data-toggle="modal" data-target="#exampleModal-2">
         <span class="btn btn-warning">+ Registrar Cliente</span>
     </a>
-    <div class="card">
-        {!! Form::open(['route' => 'ventas.store', 'method' => 'POST']) !!}
+    <div class="card mt-3">
+        {!! Form::open(['route' => 'admin.ventas.store', 'method' => 'POST']) !!}
         <div class="card-body">
             @include('admin.venta._form')
         </div>
         <div class="card-footer text-muted">
             <button type="submit" id="guardar" class="btn btn-success float-right">Registrar</button>
-            <a href="{{ route('ventas.index') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('admin.ventas.index') }}" class="btn btn-secondary">Cancelar</a>
         </div>
         {!! Form::close() !!}
     </div>
@@ -36,11 +35,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {!! Form::open(['route' => 'clientes.store', 'method' => 'POST', 'files' => true]) !!}
+                {!! Form::open(['route' => 'admin.clientes.store', 'method' => 'POST']) !!}
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId">
+                        <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId"
+                            required>
                         @if ($errors->has('nombre'))
                             <span class="error text-danger">{{ $errors->first('nombre') }}</span>
                         @endif
@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label for="apellido_paterno">Apellido Paterno</label>
                         <input type="text" class="form-control" name="apellido_paterno" id="apellido_paterno"
-                            aria-describedby="helpId">
+                            aria-describedby="helpId" required>
                         @if ($errors->has('apellido_paterno'))
                             <span class="error text-danger">{{ $errors->first('apellido_paterno') }}</span>
                         @endif
@@ -89,6 +89,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 
+    <script src="https://cdnout.com/avgrund/js/avgrund.js"></script>
+    
+
     <script>
         $(document).ready(function() {
             $("#agregar").click(function() {
@@ -98,6 +101,8 @@
 
         var cont = 1;
         total = 0;
+        pagar = 0;
+        cambio = 0;
         subtotal = [];
         $("#guardar").hide();
         $("#articulo_id").change(mostrarValores);
@@ -136,7 +141,6 @@
                 },
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data);
                     $("#precio_venta").val(data.precio_venta);
                     $("#stock").val(data.stock);
                     $("#articulo_id").val(data.id);
@@ -154,8 +158,8 @@
 
         function agregar() {
             datosProducto = document.getElementById('articulo_id').value.split('_');
-
             articulo_id = datosProducto[0];
+            
             articulo = $("#articulo_id option:selected").text();
             cantidad = $("#cantidad").val();
             descuento = $("#descuento").val();
@@ -176,11 +180,11 @@
                         parseFloat(descuento) + '"> <input class="form-control" type="number" value="' +
                         parseFloat(descuento) + '" disabled> </td> <td> <input type="hidden" name="cantidad[]" value="' +
                         cantidad + '"> <input type="number" value="' + cantidad +
-                        '" class="form-control" disabled> </td> <td align="right">s/' + parseFloat(subtotal[cont]).toFixed(
-                            2) + '</td></tr>';
+                        '" class="form-control" disabled> </td> <td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
                     cont++;
                     limpiar();
                     totales();
+                    darCambio();
                     evaluar();
                     $('#detalles').append(fila);
                 } else {
@@ -206,12 +210,21 @@
 
         function totales() {
             $("#total").html("Bs " + total.toFixed(2));
-
+            
             total_impuesto = total * impuesto / 100;
             total_pagar = total + total_impuesto;
             $("#total_impuesto").html("Bs " + total_impuesto.toFixed(2));
             $("#total_pagar_html").html("Bs " + total_pagar.toFixed(2));
             $("#total_pagar").val(total_pagar.toFixed(2));
+           
+
+        }
+        function darCambio(){
+            $("#total").html("Bs " +total.toFixed(2));
+            $("#pagar").html(pagar.toFixed(2));
+
+            cambio = pagar - total_pagar;
+            $("#cambio_html").val("Bs " + pagar.toFixed(2));
         }
 
         function evaluar() {

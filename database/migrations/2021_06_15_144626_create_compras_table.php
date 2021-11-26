@@ -22,8 +22,8 @@ class CreateComprasTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->dateTime('fecha_compra');
-            $table->decimal('impuesto')->default(0);
-            $table->decimal('total');
+            $table->decimal('impuesto', 12, 2)->default('0');
+            $table->decimal('total', 12, 2);
 
             $table->enum('estado', ['VALIDO', 'CANCELADO'])->default('VALIDO');
 

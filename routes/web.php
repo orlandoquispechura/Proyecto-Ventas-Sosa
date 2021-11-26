@@ -12,7 +12,8 @@ use App\Http\Controllers\VentaController;
 use App\Models\Articulo;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\HomeController;
-use GuzzleHttp\Middleware;
+use App\Http\Controllers\ReportController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home.welcome');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home.welcome');
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
@@ -42,10 +43,10 @@ Route::resource('users', UserController::class)->names('admin.users');
 Route::resource('roles', RoleController::class)->names('admin.roles');
 
 
-Route::get('ventas/reporte_dia', [ReporteController::class, 'reporte_dia'])->name('reporte.dia');
-Route::get('ventas/reporte_fecha', [ReporteController::class, 'reporte_fecha'])->name('reporte.fecha');
+Route::get('ventas/reporte_dia', [ReportController::class, 'reporte_dia'])->name('reporte.dia');
+Route::get('ventas/reporte_fecha', [ReportController::class, 'reporte_fecha'])->name('reporte.fecha');
 
-Route::post('ventas/resultado_reporte', [ReporteController::class, 'resultado_reporte'])->name('resultado.reporte');
+Route::post('ventas/resultado_reporte', [ReportController::class, 'resultado_reporte'])->name('resultado.reporte');
 
 
 Route::resource('empresa', EmpresaController::class)->names('admin.empresa')->only([
@@ -72,11 +73,11 @@ Route::get('compras/pdf/{compra}', [CompraController::class, 'pdf'])->name('comp
 Route::get('ventas/pdf/{venta}', [VentaController::class, 'pdf'])->name('ventas.pdf');
 
 
-Route::get('compras/upload/{compra}', [CompraController::class, 'upload'])->name('upload.compras');
+// Route::get('compras/upload/{compra}', [CompraController::class, 'upload'])->name('upload.compras');
 
+Route::get('cambio_de_estado/articulos/{articulo}', [ArticuloController::class, 'cambio_de_estado'])->name('cambio.estado.articulos');
 Route::get('cambio_de_estado/compras/{compra}', [CompraController::class, 'cambio_de_estado'])->name('cambio.estado.compras');
 Route::get('cambio_de_estado/ventas/{venta}', [VentaController::class, 'cambio_de_estado'])->name('cambio.estado.ventas');
-Route::get('cambio_de_estado/articulos/{articulo}', [ArticuloController::class, 'cambio_de_estado'])->name('cambio.estado.articulos');
 
 
 Route::get('get_products_by_barcode', [ArticuloController::class, 'get_products_by_barcode'])->name('get_products_by_barcode');
@@ -88,6 +89,3 @@ Route::get('/barcode', function () {
     $articulo = Articulo::get();
     return view('admin.articulo.barcode', compact('articulos'));
 });
-// Auth::routes(['register' => false]);
-// Auth::routes(['register' => false]);
-// Route::get('/home', [HomeController::class, 'index' ])->name('home');

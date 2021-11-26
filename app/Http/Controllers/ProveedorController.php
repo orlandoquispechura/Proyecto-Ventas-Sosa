@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Proveedor\StoreRequest;
 use App\Http\Requests\Proveedor\UpdateRequest;
+
 use App\Models\Proveedor;
-use Illuminate\Http\Request;
 
 class ProveedorController extends Controller
 {
@@ -44,7 +44,7 @@ class ProveedorController extends Controller
     public function update(UpdateRequest $request, Proveedor $proveedor)
     {
         $proveedor->update($request->all());
-        return redirect()->route('admin.proveedors.index')->with('update', 'Se editó el correctamente');
+        return redirect()->route('admin.proveedors.index')->with('update', 'Se editó correctamente');
     }
     public function destroy(Proveedor $proveedor)
     {

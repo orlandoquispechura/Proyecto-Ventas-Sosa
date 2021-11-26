@@ -248,12 +248,13 @@ return [
                     'text'  => 'Reporte por día',
                     'icon'  => 'far fa-file-alt',
                     'url'   => 'ventas/reporte_dia',
-                    
+                    'can'   => 'reporte_dia',
                 ],
                 [
-                    'text' => 'Reporte por fechas',
-                    'icon'    => 'fas fa-file-alt',
-                    'url'  => 'ventas/reporte_fecha',
+                    'text'  => 'Reporte por fechas',
+                    'icon'  => 'fas fa-file-alt',
+                    'url'   => 'ventas/reporte_fecha',
+                    'can'   => 'reporte_fecha',
                 ],                
             ],
         ], 
@@ -265,12 +266,13 @@ return [
                     'text'  => 'Categoría',
                     'icon'  => 'fas fa-tasks',
                     'url'   => 'categorias',
-                    
+                    'can'   => 'categorias.index',
                 ],
                 [
-                    'text' => 'Artículo',
-                    'icon'    => 'fas fa-procedures',
-                    'url'  => 'articulos',
+                    'text'  => 'Artículo',
+                    'icon'  => 'fas fa-procedures',
+                    'url'   => 'articulos',
+                    'can'   => 'articulos.index',
                 ],                
             ],
         ], 
@@ -279,14 +281,16 @@ return [
             'icon'    => 'fas fa-shopping-cart',
             'submenu' => [
                 [
-                    'text' => 'Proveedor',
-                    'icon'    => 'fas fa-shipping-fast',
-                    'url'  => 'proveedors',
+                    'text'  => 'Proveedor',
+                    'icon'  => 'fas fa-shipping-fast',
+                    'url'   => 'proveedors',
+                    'can'   => 'proveedors.index',
                 ],
                 [
-                    'text' => 'compras',
-                    'icon'    => 'fas fa-shopping-bag',
-                    'url'  => 'compras',
+                    'text'  => 'compras',
+                    'icon'  => 'fas fa-shopping-bag',
+                    'url'   => 'compras',
+                    'can'   => 'compras.index',
                 ],                
             ],
         ],
@@ -295,9 +299,10 @@ return [
             'icon'    => 'fas fa-cash-register',
             'submenu' => [
                 [
-                    'text' => 'Cliente',
-                    'icon'    => 'fas fa-user-tie',
-                    'url'  => 'clientes',
+                    'text'  => 'Cliente',
+                    'icon'  => 'fas fa-user-tie',
+                    'url'   => 'clientes',
+                    'can'   => 'clientes.index',
                 ],
                 [
                     'text' => 'Venta',
@@ -406,7 +411,7 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

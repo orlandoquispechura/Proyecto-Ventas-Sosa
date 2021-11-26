@@ -11,7 +11,7 @@ class ClienteController extends Controller
 {
     public function __construct()
     {
-      
+        $this->middleware('auth');
         $this->middleware('can:clientes.create')->only(['create','store']);
         $this->middleware('can:clientes.index')->only(['index']);
         $this->middleware('can:clientes.edit')->only(['edit','update']);

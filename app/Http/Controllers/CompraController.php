@@ -3,17 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Compra\StoreRequest;
-use App\Http\Requests\Compra\UpdateRequest;
 
 use App\Models\Articulo;
 use App\Models\Compra;
 use App\Models\Proveedor;
-
 use Barryvdh\DomPDF\Facade as PDF;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-//use Illuminate\Support\Carbon;
 use Carbon\Carbon;
 
 class CompraController extends Controller
@@ -21,6 +17,7 @@ class CompraController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:compras.create')->only(['create','store']);
         $this->middleware('can:compras.index')->only(['index']);
         $this->middleware('can:compras.show')->only(['show']);
@@ -38,11 +35,15 @@ class CompraController extends Controller
     public function create()
     {
         $proveedors = Proveedor::get();
-        $articulos= Articulo::get();
+        $articulos= Articulo::where('estado','ACTIVO')->get();
         return view('admin.compra.create', compact('proveedors','articulos'));
     }
     public function store(StoreRequest $request)
     {
+        $this->validate($request, [
+            'total' => 'required',
+        ]);
+
         $compra = Compra::create($request->all()+[
             'user_id'=>Auth::user()->id,
             'fecha_compra'=>Carbon::now('America/La_Paz'),
@@ -64,18 +65,6 @@ class CompraController extends Controller
         
         return view('admin.compra.show', compact('compra', 'detallecompras', 'subtotal'));
     }
-    public function edit(Compra $compra)
-    {
-        //
-    }
-    public function update(UpdateRequest $request, Compra $compra)
-    {
-        //
-    }
-    public function destroy(Compra $compra)
-    {
-        //
-    }
     public function pdf(Compra $compra)
     {
         $subtotal = 0 ;
@@ -89,11 +78,11 @@ class CompraController extends Controller
         
     }
 
-    public function upload(Request $request, Compra $compra)
-    {
+    // public function upload(Request $request, Compra $compra)
+    // {
         // $purchase->update($request->all());
         // return redirect()->route('purchases.index');
-    }
+    // }
 
     public function cambio_de_estado(Compra $compra)
     {

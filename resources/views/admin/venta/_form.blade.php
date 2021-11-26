@@ -6,11 +6,14 @@
         <option value="{{ $cliente->id }}">{{ $cliente->nombre }}</option>
         @endforeach
     </select>
+    @if ($errors->has('cliente_id'))
+                    <span class="error text-danger">{{ $errors->first('cliente_id') }}</span>
+                @endif
 </div>
 
 <div class="form-group">
     <label for="codigo">Código de barras</label>
-    <input type="text" name="codigo" id="codigo" class="form-control" aria-describedby="helpId">
+    <input type="text" name="codigo" id="codigo" class="form-control" aria-describedby="helpId" value="{{old('codigo')}}">
 </div>
 
 <div class="form-row">
@@ -28,14 +31,14 @@
     <div class="form-group col-md-4">
         <div class="form-group">
             <label for="stock">Stock actual</label>
-            <input type="text" name="stock" id="stock" class="form-control" disabled>
+            <input type="text" name="stock" id="stock" class="form-control" disabled value="{{old('stock')}}">
         </div>
     </div>
     <div class="form-group col-md-4">
         <div class="form-group">
             <label for="precio_venta">Precio de venta</label>
             <input type="number" class="form-control" name="precio_venta" id="precio_venta" aria-describedby="helpId"
-                disabled>
+                disabled value="{{old('precio_venta')}}">
         </div>
     </div>
 </div>
@@ -115,6 +118,25 @@
                                 name="total" id="total_pagar"></p>
                     </th>
                 </tr>
+                <tr>
+                    <th colspan="5">
+                        <p align="right">MONTO A PAGAR:</p>
+                    </th>
+                    <th>
+                        <p align="right"><span align="right" id="monto_pagar_html"></span> 
+                            <input type="number" placeholder="Bs 0.00" name="pagar" id="monto_pagar" class="form-control"></p>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="5">
+                        <p align="right">CAMBIO:</p>
+                    </th>
+                    <th>
+                        <p align="right"><span align="right" id="cambio_html">Bs 0.00</span> <input type="hidden"
+                                name="cambio" id="cambio"></p>
+                    </th>
+                </tr>
+                
             </tfoot>
             <tbody>
             </tbody>

@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-        <a class="btn btn-primary mb-2" href="{{ route('ventas.create') }}">+ Registrar Ventas</a>
+        <a class="btn btn-primary mb-2" href="{{ route('admin.ventas.create') }}">+ Registrar Ventas</a>
     <div class="card">
         <div class="card-body">
             <table id="order-listing" class="table venta table-striped mt-0.5 table-bordered shadow-lg dt-responsive nowrap">
@@ -24,7 +24,7 @@
                     @foreach ($ventas as $venta)
                         <tr>                            
                             <th scope="row">
-                                <a class="btn btn-info" href="{{route('ventas.show', $venta)}}">{{$venta->id}}</a>
+                                <a class="btn btn-info" href="{{route('admin.ventas.show', $venta)}}">{{$venta->id}}</a>
                             </th>
                             <td>
                                 {{ \Carbon\Carbon::parse($venta->fecha_venta)->format('d M y h:i a') }}
@@ -49,7 +49,7 @@
                             <td style="width: 50px;">
                                 <a href="{{route('ventas.pdf', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
                                 {{--<a href="{{route('ventas.print', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a>--}}
-                                <a href="{{route('ventas.show', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
+                                <a href="{{route('admin.ventas.show', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
 
                             </td>
                         </tr>

@@ -12,6 +12,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:home');
         $this->middleware('can:users.create', ['only'=>['create','store']]);
         $this->middleware('can:users.index',['only'=>['index']]);
@@ -32,12 +33,20 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|string','name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'name' => 'required|max:20|regex:/^[A-Z,a-z, ,á,é,í,ó,ú,ñ,&]+$/',
+            'email' => 'required|email|max:100|unique:users,email',
+            // 'password' => 'required|min:8|max:10|regex:/^[A-Z,a-z,#,$,&][0-9]{8,10}$/',
+            'password' => [
+                'required',
+                'min:8',
+                'max:10',            
+                'regex:/[a-z]/',     
+                'regex:/[A-Z]/',      
+                'regex:/[0-9]/',      
+                'regex:/[@$!%*#?&]/', 
+            ],
             
         ]);
-
         $user = User::create($request->all());
         $user->update(['password'=> Hash::make($request->password)]);
         $user->roles()->sync($request->get('roles'));
@@ -62,18 +71,37 @@ class UserController extends Controller
     }
     public function update(Request $request, User $user)
     {
+        //'email' => 'nullable|email|unique:clientes,email,' . $this->route('cliente')->id . '|max:100',
+        
         $this->validate($request, [
-            'name' => 'required|string',
-            'email' => 'required|string',
+            'name' => 'required|max:20|regex:/^[A-Z,a-z, ,á,é,í,ó,ú,ñ,&]+$/',
+            'email' => 'required|email|max:100|unique:users,email',
+            'password' => [
+                'required',
+                'min:8',
+                'max:10',            
+                'regex:/[a-z]/',     
+                'regex:/[A-Z]/',      
+                'regex:/[0-9]/',      
+                'regex:/[@$!%*#?&]/', 
+            ],
         ]);
-
-        if ($user->id == 1) {
-            return redirect()->route('admin.users.index');
-        }else{
-            $user->update($request->all());
+        $password = $request->input('password');
+        if($password){
+            $user->update(['password'=> Hash::make($request->password)]);
             $user->roles()->sync($request->get('roles'));
-            return redirect()->route('admin.users.index')->with('update', 'Se editó correctamente');
+            dd($user);
+            return redirect()->route('admin.users.index')->with('success', 'Se registró correctamente');
         }
+
+        // if ($user->id == 1) {
+        //     return redirect()->route('admin.users.index');
+        // }else{
+        //     $password = $request->input('password');
+        //     $user->update($request->all());
+        //     $user->roles()->sync($request->get('roles'));
+        //     return redirect()->route('admin.users.index')->with('update', 'Se editó correctamente');
+        // }
     }
     public function destroy(User $user)
     {

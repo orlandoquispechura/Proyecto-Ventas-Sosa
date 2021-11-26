@@ -46,12 +46,10 @@
                                 {!! Form::open(['route' => ['admin.users.destroy', $user], 'method' => 'DELETE', 'class' => 'eliminar-form']) !!}
 
                                 <a class="btn btn-success" href="{{ route('admin.users.edit', $user) }}" title="Editar">
-                                    {{-- <i class="far fa-edit"></i> --}}
                                     Editar
                                 </a>
 
                                 <button class="btn btn-danger" type="submit" title="Eliminar">
-                                    {{-- <i class="far fa-trash-alt"></i> --}}
                                     Eliminar
                                 </button>
 

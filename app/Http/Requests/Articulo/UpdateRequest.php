@@ -24,12 +24,13 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigo' => 'nullable|string|max:8|min:8',
-            'nombre' => 'required|string|max:50',
-            'precio_venta' => 'required',
-            'stock' => 'numeric|required',
-            'imagen' => 'nullable|mimes:jpg,png,jpeg,bmp',
-            
+
+            'nombre'        => 'regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|required|unique:articulos,nombre,' . $this->articulo . '|max:50',
+            'precio_venta'  => 'required|between:0,9999,99',
+            'stock'         => 'numeric|required|min:0|max:100',
+            'imagen'        => 'nullable|mimes:jpg,png,jpeg,bmp',
+            'codigo'        => 'nullable|string|max:8|min:8',
+
             'categoria_id' => 'integer|required|exists:App\Models\Categoria,id',
             'proveedor_id' => 'integer|required|exists:App\Models\Proveedor,id',
         ];

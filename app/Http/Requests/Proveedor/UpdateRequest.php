@@ -24,11 +24,12 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'razon_social' => 'string|required|max:50',
-            'nit' => 'nullable|max:20||unique:proveedors,nit,'.$this->route('proveedor')->id.'|min:7',
-            'email'=> 'required|email|string||unique:proveedors,email,'.$this->route('proveedor')->id.'|max:100',
+
+            'razon_social' => 'required|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ,&]+$/|unique:proveedors,razon_social,' . $this->route('proveedor')->id . '|max:50',
+            'nit' => 'nullable|min:10|max:11|regex:/^[0-9]{10,11}$/|unique:proveedors,nit,' . $this->route('proveedor')->id,
+            'email' => 'nullable|email|string|unique:proveedors,email,' . $this->route('proveedor')->id . '|max:100',
             'direccion' => 'nullable|string|max:100',
-            'telefono' => 'nullable|string|max:20||unique:proveedors,telefono,'.$this->route('proveedor')->id.'|min:7',
+            'telefono' => 'nullable|min:7|max:8|regex:/^[0-9]{7,8}$/|unique:proveedors,telefono,' . $this->route('proveedor')->id,
         ];
     }
 }

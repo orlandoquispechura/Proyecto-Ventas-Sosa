@@ -24,21 +24,14 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            /**$table->string('nombre');
-            $table->string('apellido_paterno');
-            $table->string('apellido_materno');
-            $table->string('dni')->unique();
-            $table->string('direccion')->nullable();
-            $table->string('telefono')->unique()->nullable();
-            $table->string('email')->nullable()->unique(); */
 
-            'nombre' => 'required|string|max:50',
-            'apellido_paterno' => 'required|string|max:50',
-            'apellido_materno' => 'nullable|string|max:50',
-            'dni' => 'required|min:7|unique:clientes|max:10',
+            'nombre' => 'required|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
+            'apellido_paterno' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
+            'apellido_materno' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
+            'dni' => 'nullable|min:7|max:10|regex:/^[A-Z,0-9]+$/|unique:clientes',
             'direccion' => 'nullable|max:100',
-            'telefono' => 'nullable|min:7|max:20|unique:clientes',
-            'email' => 'required|email|string|max:100|unique:clientes',
+            'telefono' => 'nullable|min:7|max:8|regex:/^[0-9]{7,8}$/|unique:clientes',
+            'email' => 'nullable|email|max:100|unique:clientes',
         ];
     }
 }

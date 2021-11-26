@@ -33,9 +33,8 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Stock</th>
                         <th scope="col">Imagen</th>
-                        {{-- <th scope="col">Precio Venta</th> --}}
                         <th scope="col">Categoría</th>
-                        <th scope="col" >Estado</th>
+                        <th>Estado</th>
                         <th scope="col" width="100px">Acciones</th>
                     </tr>
                 </thead>
@@ -43,42 +42,38 @@
                     @foreach ($articulos as $articulo)
                         <tr>
                             <td>{{ $articulo->codigo }}</td>
-                            <td><a href="{{ route('admin.articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a>
+                            <td><a
+                                    href="{{ route('admin.articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a>
                             </td>
                             <td>{{ $articulo->stock }}</td>
-                            <td><img src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="" width="60"></td>
+
+                            @if (isset($articulo->imagen))
+                                <td class="text-center"><img src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="" width="60"></td>
+                            @else
+                                <td class="text-center"><img src="{{ asset('storage/uploads/imagen_defecto.png') }}" alt="" width="40"></td>
+                            @endif
+
                             <td>{{ ucwords($articulo->categoria->nombre) }}</td>
+
                             @if ($articulo->estado == 'ACTIVO')
                                 <td>
                                     <a class="jsgrid-button btn btn-success"
-                                        href="{{ route('cambio.estado.articulos', $articulo) }}" title="Editar">
+                                        href="{{ route('cambio.estado.articulos', $articulo) }}">
                                         Activo <i class="fas fa-check"></i>
                                     </a>
                                 </td>
                             @else
                                 <td>
                                     <a class="jsgrid-button btn btn-danger"
-                                        href="{{ route('cambio.estado.articulos', $articulo) }}" title="Editar">
-                                        Desactivado <i class="fas fa-times"></i>
+                                        href="{{ route('cambio.estado.articulos', $articulo) }}">
+                                        Inactivo <i class="fas fa-times"></i>
                                     </a>
                                 </td>
                             @endif
                             <td>
-                                <a class="btn btn-info" href="{{ route('admin.articulos.edit', $articulo) }}">Editar</a>
-                                {{-- {!! Form::open(['route' => ['articulos.destroy', $articulo], 'method' => 'DELETE']) !!}
-                                <input class="btn btn-danger" type="submit" value="Eliminar">
-
-                                {!! Form::close() !!} --}}
+                                <a class="btn btn-info"
+                                    href="{{ route('admin.articulos.edit', $articulo) }}">Editar</a>
                             </td>
-                            {{-- <td>
-                                <form action="{{route('articulos.destroy', $articulo)}}" class="eliminar-form" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                    <a href="{{ route('articulos.edit', $articulo) }}" class="btn btn-success ">Editar </a>
-
-                                    <input type="submit" class="btn btn-danger" value="Eliminar">
-                                </form>
-                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>
@@ -88,7 +83,6 @@
 @stop
 
 @section('css')
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.8/css/responsive.bootstrap4.min.css">
@@ -108,8 +102,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 
     <script>
         $('.eliminar-form').submit(function(e) {

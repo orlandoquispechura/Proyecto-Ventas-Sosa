@@ -310,7 +310,7 @@ class PermissionsTableSeeder extends Seeder
         // Reporte del día 
         Permission::create([
             // 'name'=>'Reporte por día',
-            'name'=>'resportes.dia',
+            'name'=>'resporte.dia',
             'description'=>'Permite ver los reportes de ventas por día.',
         ]);
 

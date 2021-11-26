@@ -24,11 +24,12 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'razon_social' => 'string|required|max:50|unique:proveedors',
-            'nit' => 'nullable|max:20|min:7|unique:proveedors',
-            'email'=> 'required|email|string|max:100|unique:proveedors',
-            'direccion' => 'nullable|string|max:100',
-            'telefono'=> 'nullable|string|max:20|min:7|unique:proveedors',            
+            
+            'razon_social'  => 'required|regex:/^[A-Z, a-z, ,á,í,é,ó,ú,ñ,&]+$/|max:50|unique:proveedors',
+            'nit'           => 'nullable|min:10|max:11|regex:/^[0-9]{10,11}$/|unique:proveedors',
+            'email'         => 'nullable|email|max:100|unique:proveedors',
+            'direccion'     => 'nullable|string|max:100',
+            'telefono'      => 'nullable|min:7|max:8|regex:/^[0-9]{7,8}$/|unique:proveedors',            
         ];
     }
 }

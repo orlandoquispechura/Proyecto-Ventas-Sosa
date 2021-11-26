@@ -12,6 +12,7 @@ class CategoriaController extends Controller
 {
     public function __construct()
     {        
+        $this->middleware('auth');
         $this->middleware('can:home');
         $this->middleware('can:categorias.create', ['only'=>['create','store']]);
         $this->middleware('can:categorias.index',['only'=>['index']]);
