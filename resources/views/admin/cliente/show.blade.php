@@ -3,162 +3,182 @@
 @section('title', 'Información del cliente')
 
 @section('content_header')
+<div class="form-row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 col-xl-12">
+        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+            echo date('d/m/Y');
+        @endphp</h5>
+    </div>
+</div>
     <h1>Información del cliente</h1>
 @stop
 
 @section('content')
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="border-bottom text-center pb-4">
-                    <h3>{{ucwords($cliente->nombre)}}</h3>
-                    <div class="d-flex justify-content-between">
-                    </div>
-                </div>
-                <div class="border-bottom py-4">
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action active" id="list-home-list"
-                            data-toggle="list" href="#list-home" role="tab" aria-controls="home">
-                            Sobre cliente
-                        </a>
-                        <a class="list-group-item list-group-item-action" id="list-profile-list"
-                            data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
-                            Historial de compras
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 pl-lg-5">
-     <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="list-home" user="tabpanel"
-                        aria-labelledby="list-home-list">
-
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="border-bottom text-center pb-4">
+                        <h3>{{ ucwords($cliente->nombre) }}</h3>
                         <div class="d-flex justify-content-between">
-                            <div>
-                                <h4>Información de cliente</h4>
-                            </div>
                         </div>
-                        <div class="profile-feed">
-                            <div class="d-flex align-items-start profile-feed-item">
-                                
-                                <div class="form-group col-md-6">
-                                    <strong><i class="fab fa-product-hunt mr-1"></i> Nombre</strong>
-                                    <p class="text-muted">
-                                        {{ucwords($cliente->nombre)}}
-                                    </p>
-                                    <hr>
-                                    <strong><i class="fas fa-address-card mr-1"></i> Numero de DNI</strong>
-                                    <p class="text-muted">
-                                        {{$cliente->dni}}
-                                    </p>
-                                    {{-- <hr>
-                                    <strong><i class="fas fa-address-card mr-1"></i> Numero de RUC</strong>
-                                    <p class="text-muted">
-                                        {{$client->ruc}}
-                                    </p> --}}
-                                    <hr>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <strong>
-                                        <i class="fas fa-mobile mr-1"></i>
-                                        Dirección</strong>
-                                    <p class="text-muted">
-                                        {{$cliente->direccion}}
-                                    </p>
-                                    <hr>
-                                    <strong><i class="fas fa-envelope mr-1"></i> Teléfono / Celular</strong>
-                                    <p class="text-muted">
-                                        {{$cliente->telefono}}
-                                    </p>
-                                    <hr>
-                                    <strong><i class="fas fa-map-marked-alt mr-1"></i> Correo electrónico</strong>
-                                    <p class="text-muted">
-                                        {{$cliente->email}}
-                                    </p>
-                                    <hr>
-                                </div>
-                            </div>
-                        </div>
-
-
                     </div>
-                    <div class="tab-pane fade" id="list-profile" user="tabpanel"
-                        aria-labelledby="list-profile-list">
-
-
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h4>Historial de compras</h4>
-                            </div>
+                    <div class="border-bottom py-4">
+                        <div class="list-group">
+                            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+                                href="#list-home" role="tab" aria-controls="home">
+                                Sobre cliente
+                            </a>
+                            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
+                                href="#list-profile" role="tab" aria-controls="profile">
+                                Historial de compras
+                            </a>
                         </div>
-                        <div class="profile-feed">
-                            <div class="d-flex align-items-start profile-feed-item">
-
-                                <div class="table-responsive">
-                                    <table id="order-listing" class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Fecha</th>
-                                                <th>Total</th>
-                                                <th>Estado</th>
-                                                <th style="width:50px;">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($cliente->ventas as $venta)
-                                            <tr>
-                                                <td>{{$venta->fecha_venta}}</td>
-                                                <td>{{$venta->total}}</td>
-            
-                                                @if ($venta->estado == 'VALIDO')
-                                                <td>
-                                                    <a class="jsgrid-button btn btn-success" href="{{route('cambio.estado.ventas', $venta)}}" title="Editar">
-                                                        Activo <i class="fas fa-check"></i>
-                                                    </a>
-                                                </td>
-                                                @else
-                                                <td>
-                                                    <a class="jsgrid-button btn btn-danger" href="{{route('cambio.estado.ventas', $venta)}}" title="Editar">
-                                                        Cancelado <i class="fas fa-times"></i>
-                                                    </a>
-                                                </td>
-                                                @endif
-                                                <td style="width: 50px;">
-            
-                                                    <a href="{{route('ventas.pdf', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
-                                                    <a href="{{route('admin.ventas.show', $venta)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                              <td colspan="2"><strong>Total de monto comprado: </strong></td>
-                                              <td colspan="3" align="left"><strong>s/{{$total_ventas}}</strong></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-
                     </div>
                 </div>
+                <div class="col-lg-8 pl-lg-5">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="list-home" user="tabpanel"
+                            aria-labelledby="list-home-list">
+
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4>Información de cliente</h4>
+                                </div>
+                            </div>
+                            <div class="profile-feed">
+                                <div class="d-flex align-items-start profile-feed-item">
+
+                                    <div class="form-group col-md-6">
+                                        <strong><i class="fab fa-product-hunt mr-1"></i> Nombre</strong>
+                                        <p class="text-muted">
+                                            {{ ucwords($cliente->nombre) }}
+                                        </p>
+                                        <hr>
+                                        <strong><i class="fas fa-address-card mr-1"></i> Numero de DNI</strong>
+                                        <p class="text-muted">
+                                            {{ $cliente->dni }}
+                                        </p>
+                                        <hr>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <strong>
+                                            <i class="fas fa-mobile mr-1"></i>
+                                            Dirección</strong>
+                                        <p class="text-muted">
+                                            {{ $cliente->direccion }}
+                                        </p>
+                                        <hr>
+                                        <strong><i class="fas fa-envelope mr-1"></i> Teléfono / Celular</strong>
+                                        <p class="text-muted">
+                                            {{ $cliente->telefono }}
+                                        </p>
+                                        <hr>
+                                        <strong><i class="fas fa-map-marked-alt mr-1"></i> Correo electrónico</strong>
+                                        <p class="text-muted">
+                                            {{ $cliente->email }}
+                                        </p>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
 
 
+                        </div>
+                        <div class="tab-pane fade" id="list-profile" user="tabpanel" aria-labelledby="list-profile-list">
 
 
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h4>Historial de compras</h4>
+                                </div>
+                            </div>
+                            <div class="profile-feed">
+                                <div class="d-flex align-items-start profile-feed-item">
 
+                                    <div class="table-responsive">
+                                        <table id="order-listing"
+                                            class="table table-striped table-bordered shadow-lg mt-4 dt-responsive nowrap cliente">
+                                            <thead class="bg-primary text-white">
+                                                <tr>
+                                                    <th>Fecha</th>
+                                                    <th>Total</th>
+                                                    <th>Estado</th>
+                                                    <th style="width:50px;">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($cliente->ventas as $venta)
+                                                    <tr>
+                                                        <td>{{ $venta->fecha_venta }}</td>
+                                                        <td>{{ $venta->total }}</td>
+
+                                                        @if ($venta->estado == 'VALIDO')
+                                                            <td>
+                                                                <a class="jsgrid-button btn btn-success"
+                                                                    href="{{ route('cambio.estado.ventas', $venta) }}"
+                                                                    title="Editar">
+                                                                    Activo <i class="fas fa-check"></i>
+                                                                </a>
+                                                            </td>
+                                                        @else
+                                                            <td>
+                                                                <a class="jsgrid-button btn btn-danger"
+                                                                    href="{{ route('cambio.estado.ventas', $venta) }}"
+                                                                    title="Editar">
+                                                                    Cancelado <i class="fas fa-times"></i>
+                                                                </a>
+                                                            </td>
+                                                        @endif
+                                                        <td style="width: 230px;">
+                                                            @can('ventas.pdf')
+                                                                <a href="{{ route('ventas.pdf', $venta) }}"
+                                                                    class="btn btn-danger">Imprimir <i
+                                                                        class="far fa-file-pdf"></i></a>
+                                                            @endcan
+                                                            @can('ventas.show')
+                                                                <a href="{{ route('admin.ventas.show', $venta) }}"
+                                                                    class="btn btn-info">Ver <i
+                                                                        class="far fa-eye"></i></a>
+                                                            @endcan
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="2"><strong>Total de monto comprado: </strong></td>
+                                                    <td colspan="3" align="left"><strong>s/{{ $total_ventas }}</strong>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="card-footer text-muted">
+            <a href="{{ route('admin.clientes.index') }}" class="btn btn-primary float-right">Regresar</a>
+        </div>
     </div>
-    <div class="card-footer text-muted">
-        <a href="{{route('admin.clientes.index')}}" class="btn btn-primary float-right">Regresar</a>
-    </div>
-</div>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 @section('css')
@@ -173,7 +193,7 @@
 @stop
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>
@@ -217,7 +237,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#cliente').DataTable({
+            $('.cliente').DataTable({
                 responsive: true,
                 autoWidth: false,
                 "language": {

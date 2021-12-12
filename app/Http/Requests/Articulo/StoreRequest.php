@@ -25,9 +25,17 @@ class StoreRequest extends FormRequest
     {
         return [
             'nombre' => 'required|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|unique:articulos|max:50',
-            'precio_venta' => 'required|between:0,9999,99',
-            'codigo' => 'nullable|string|max:8|min:8',
+            'precio_venta' => 'required|numeric|min:0|max:10000|between:0,10000',
+            'codigo' => 'nullable|string|min:8|max:8|regex:/^[A-Z-,0-9]+$/',
             'imagen' => 'nullable|mimes:jpg,png,jpeg,bmp',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'nombre.regex' => 'No se permite números ni símbolos.',
+            'precio_venta.between' => 'El precio debe estar en el rango de 0 a 10000.',
+            'codigo.regex' => 'No se permite letra minúscula.',
         ];
     }
 }

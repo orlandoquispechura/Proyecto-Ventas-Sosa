@@ -4,26 +4,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Reporte de venta</title>
+{{-- <link rel="stylesheet" href="{{ public_path('css/app.css') }}" type="text/css"> --}}
 <style>
     body {
-        /*position: relative;*/
-        /*width: 16cm;  */
-        /*height: 29.7cm; */
-        /*margin: 0 auto; */
-        /*color: #555555;*/
-        /*background: #FFFFFF; */
         font-family: Arial, sans-serif;
         font-size: 14px;
-        /*font-family: SourceSansPro;*/
     }
-
-
     #datos {
         float: left;
         margin-top: 0%;
         margin-left: 2%;
         margin-right: 2%;
-        /*text-align: justify;*/
     }
 
     #encabezado {
@@ -40,6 +31,9 @@
         margin-left: 2%;
         margin-right: 2%;
         font-size: 20px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
         background: #ee9c61;
         padding: 0 20px;
     }
@@ -104,6 +98,7 @@
 </style>
 
 <body>
+
     <header>
         <div>
             <table id="datos">
@@ -123,7 +118,9 @@
                         </th>
                     </tr>
                     <tr>
-                        <td><p class="dato-cliente">
+                        <td>
+                            <h4>DATOS DEL CLIENTE</h4>
+                            <p class="dato-cliente">
                             Cliente: {{ucwords($venta->cliente->nombre)}}<br>
                             Dni: {{$venta->cliente->dni}}<br>
                             Teléfono: {{$venta->cliente->telefono}} 
@@ -159,39 +156,20 @@
                     <tr>
                         <td>{{$detalleventa->cantidad}}</td>
                         <td>{{$detalleventa->articulo->nombre}}</td>
-                        <td>Bs/ {{$detalleventa->precio_venta}}</td>
+                        <td>Bs {{$detalleventa->precio_venta}}</td>
                         <td>{{$detalleventa->descuento}}</td>
-                        <td>Bs/ {{number_format($detalleventa->cantidad * $detalleventa->precio_venta - $detalleventa->cantidad * $detalleventa->precio_venta * $detalleventa->descuento /100,2)}}
+                        <td align="center">Bs {{number_format($detalleventa->cantidad * $detalleventa->precio_venta - $detalleventa->cantidad * $detalleventa->precio_venta * $detalleventa->descuento /100,2)}}
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
-                    
-                    <tr>
-                        <th colspan="4">
-                            <p align="right">SUBTOTAL:</p>
-                        </th>
-                        <td>
-                            <p align="right">Bs/ {{number_format($subtotal,2)}}</p>
-                        </td>
-                    </tr>
-                   
-                    <tr>
-                        <th colspan="4">
-                            <p align="right">TOTAL IMPUESTO ({{$venta->impuesto}}%):</p>
-                        </th>
-                        <td>
-                            <p align="right">Bs/ {{number_format($subtotal*$venta->impuesto/100,2)}}</p>
-                        </td>
-                    </tr>
-
                     <tr>
                         <th colspan="4">
                             <p align="right">TOTAL PAGAR:</p>
                         </th>
                         <td>
-                            <p align="right">Bs/ {{number_format($venta->total,2)}}</p>
+                            <p align="center">Bs {{number_format($venta->total,2)}}</p>
                         </td>
                     </tr>
 
@@ -210,6 +188,7 @@
             </p>
         </div>
     </footer>
+    
 </body>
 
 </html>

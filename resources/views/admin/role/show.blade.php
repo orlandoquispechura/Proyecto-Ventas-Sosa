@@ -3,7 +3,15 @@
 @section('title', 'Información de los roles')
 
 @section('content_header')
-    <h1 class="text-bold"> Rol: {{ $role->name }}</h1>
+<div class="form-row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 col-xl-12">
+        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+            echo date('d/m/Y');
+        @endphp</h5>
+    </div>
+</div>
+    <h1> Rol: {{ $role->name }}</h1>
 @stop
 
 @section('content')
@@ -45,17 +53,19 @@
                                             class="table table-striped mt-0.5 table-bordered shadow-lg dt-responsive nowrap permisos">
                                             <thead class="bg-primary text-white">
                                                 <tr>
-                                                    <th>Nombre</th>
-                                                    <th>description</th>
+                                                    <th>Descripción</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($permissions as $permission)
+                                                @forelse ($role->permissions as $permission)
                                                     <tr>
-                                                        <td>{{ $permission->name }}</td>
                                                         <td>{{ $permission->description }}</td>
                                                     </tr>
-                                                @endforeach
+                                                @empty <span class="text-danger">
+                                                        <h4>El rol no tiene permisos</h4>
+                                                    </span>
+
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>
@@ -85,17 +95,24 @@
                                                 @foreach ($users as $user)
                                                     <tr>
                                                         <td>
-                                                            <a
-                                                                href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a>
+                                                            {{ $user->name }}
                                                         </td>
                                                         <td>{{ $user->email }}</td>
-                                                        <td style="width: 200px;">
+                                                        <td style="width: 250px;">
                                                             {!! Form::open(['route' => ['admin.users.destroy', $user], 'method' => 'DELETE', 'class' => 'eliminar-form']) !!}
+                                                            @can('users.show')
+                                                                <a href="{{ route('admin.users.show', $user) }}"
+                                                                    class="btn btn-info">Ver</a>
+                                                            @endcan
 
-                                                            <a class="btn btn-success"
-                                                                href="{{ route('admin.users.edit', $user) }}">Editar</a>
+                                                            @can('users.edit')
+                                                                <a class="btn btn-success"
+                                                                    href="{{ route('admin.users.edit', $user) }}">Editar</a>
+                                                            @endcan
 
-                                                            <button class="btn btn-danger" type="submit">Eliminar</button>
+                                                            @can('users.destroy')
+                                                                <button class="btn btn-danger" type="submit">Eliminar</button>
+                                                            @endcan
 
                                                             {!! Form::close() !!}
                                                         </td>
@@ -113,6 +130,16 @@
         </div>
     </div>
     <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary">Regresar</a>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 @section('css')
@@ -127,7 +154,7 @@
 @stop
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>

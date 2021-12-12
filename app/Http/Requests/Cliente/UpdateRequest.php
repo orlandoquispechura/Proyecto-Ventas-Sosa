@@ -25,14 +25,6 @@ class UpdateRequest extends FormRequest
     {
         return [
 
-            // 'nombre' => 'regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
-            // 'apellido_paterno' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
-            // 'apellido_materno' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
-            // 'dni' => 'nullable|min:7|unique:clientes|max:10',
-            // 'direccion' => 'nullable|max:100',
-            // 'telefono' => 'nullable|regex:/^[0-9]{8}$/|unique:clientes',
-            // 'email' => 'nullable|email|string|max:100|unique:clientes',
-
             'nombre' => 'regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
             'apellido_paterno' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
             'apellido_materno' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',

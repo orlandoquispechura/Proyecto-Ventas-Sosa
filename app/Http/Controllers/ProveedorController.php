@@ -48,6 +48,10 @@ class ProveedorController extends Controller
     }
     public function destroy(Proveedor $proveedor)
     {
+        $item = $proveedor->compras()->count();
+        if ($item > 0) {
+            return redirect()->back()->with('error','El proveedor no puede eliminarse, tiene compras relaciondas');
+        }
         $proveedor->delete();
         return redirect()->route('admin.proveedors.index')->with('delete', 'ok');
     }

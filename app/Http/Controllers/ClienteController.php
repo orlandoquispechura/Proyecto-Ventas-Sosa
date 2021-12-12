@@ -55,7 +55,11 @@ class ClienteController extends Controller
     }
     public function destroy(Cliente $cliente)
     {
+        $item = $cliente->ventas()->count();
+        if ($item > 0) {
+            return redirect()->back()->with('error','El cliente no puede eliminarse, tiene ventas relaciondas');
+        }
         $cliente->delete();
-        return redirect()->route('admin.clientes.index')->with('delete', 'ok');
+        return redirect()->route('admin.clientes.index')->with('delete', 'ok');       
     }
 }

@@ -18,14 +18,13 @@ class ArticuloController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:home');
+        $this->middleware('can:articulos.index')->only(['index']);
         $this->middleware('can:articulos.create', ['only' => ['create', 'store']]);
-        $this->middleware('can:articulos.index', ['only' => ['index']]);
         $this->middleware('can:articulos.edit', ['only' => ['edit', 'update']]);
         $this->middleware('can:articulos.show', ['only' => ['show']]);
         $this->middleware('can:articulos.destroy', ['only' => ['destroy']]);
 
-        // $this->middleware('can:cambio.estado.articulos')->only(['cambio_de_estado']);
+        $this->middleware('can:cambiar.estado.articulos')->only(['cambio_de_estado']);
     }
 
     public function index()
@@ -87,17 +86,9 @@ class ArticuloController extends Controller
 
         return redirect()->route('admin.articulos.index')->with('update', 'Se editó correctamente');
     }
-    // public function destroy($id)
-    // {
-    //     $articulo = Articulo::findOrFail($id);
-    //     if (Storage::delete('public/' . $articulo->imagen)) {
-    //         Articulo::destroy($id);
-    //     }
-    //     return redirect()->route('admin.articulos.index');
-    // }
     public function cambio_de_estado(Articulo $articulo)
     {
-        if ($articulo->estado != 'ACTIVO') {
+        if ($articulo->estado == 'ACTIVO') {
             $articulo->update(['estado' => 'INACTIVO']);
             return redirect()->back();
         } else {
@@ -126,6 +117,7 @@ class ArticuloController extends Controller
     {
         $articulos = Articulo::get();
         $pdf = PDF::loadView('admin.articulo.barcode', compact('articulos'));
-        return $pdf->download('codigos_de_barras.pdf');
+        return $pdf->stream('codigos_de_barras.pdf');
+        // return $pdf->download('codigos_de_barras.pdf');
     }
 }

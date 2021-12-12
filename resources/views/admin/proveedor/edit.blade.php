@@ -3,6 +3,14 @@
 @section('title', 'Proveedor')
 
 @section('content_header')
+<div class="form-row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 col-xl-12">
+        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+            echo date('d/m/Y');
+        @endphp</h5>
+    </div>
+</div>
     <h1>Editar Proveedor</h1>
 @stop
 
@@ -17,7 +25,7 @@
                 <label for="razon_social" class="text-blue">Nombre: </label>
                 <input type="text" name="razon_social" id="razon_social"
                     value="{{ old('razon_social', $proveedor->razon_social) }}" class="form-control" tabindex="1"
-                    required>
+                    required autofocus>
                 @if ($errors->has('razon_social'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('razon_social') }}</span>
@@ -71,6 +79,16 @@
             {!! Form::close() !!}
         </div>
     </div>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 @section('css')

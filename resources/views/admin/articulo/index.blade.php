@@ -3,76 +3,90 @@
 @section('title', 'Artículo')
 
 @section('content_header')
+<div class="form-row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 col-xl-12">
+        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+            echo date('d/m/Y');
+        @endphp</h5>
+    </div>
+</div>
     <h1>Listado de Artículos</h1>
 @stop
 
 @section('content')
-    <a href="{{ route('admin.articulos.create') }}" class="btn btn-primary mb-2">Crear Artículos</a>
-    <a class="btn btn-secondary mb-2" href="{{ route('print_barcode') }}">Exportar códigos de barras</a>
+    @can('articulos.create')
+        <a href="{{ route('admin.articulos.create') }}" class="btn btn-primary mb-2">Crear Artículos</a>
+    @endcan
+    <a class="btn btn-warning mb-2" href="{{ route('print_barcode') }}" target="_blank">Exportar códigos de barras</a>
+
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong> Guardado!</strong> {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @elseif(session('update'))
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong> Editado!</strong> {{ session('update') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="card">
         <div class="card-body">
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong> Guardado!</strong> {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @elseif(session('update'))
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <strong> Editado!</strong> {{ session('update') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
             <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4" id="articulo">
                 <thead class="bg-primary text-white">
                     <tr>
                         <th scope="col" width='60px'>Código</th>
+                        <th scope="col">Imagen</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Stock</th>
-                        <th scope="col">Imagen</th>
                         <th scope="col">Categoría</th>
                         <th>Estado</th>
-                        <th scope="col" width="100px">Acciones</th>
+                        <th scope="col" width="120px">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($articulos as $articulo)
                         <tr>
                             <td>{{ $articulo->codigo }}</td>
-                            <td><a
-                                    href="{{ route('admin.articulos.show', $articulo) }}">{{ ucwords($articulo->nombre) }}</a>
+                            @if (isset($articulo->imagen))
+                                <td class="text-center"><img src="{{ asset('storage' . '/' . $articulo->imagen) }}"
+                                        alt="" width="80" height="60"></td>
+                            @else
+                                <td class="text-center"><img src="{{ asset('storage/uploads/imagen_defecto.png') }}"
+                                        alt="" width="70" height="70"></td>
+                            @endif
+                            <td>{{ ucwords($articulo->nombre) }}
                             </td>
                             <td>{{ $articulo->stock }}</td>
-
-                            @if (isset($articulo->imagen))
-                                <td class="text-center"><img src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="" width="60"></td>
-                            @else
-                                <td class="text-center"><img src="{{ asset('storage/uploads/imagen_defecto.png') }}" alt="" width="40"></td>
-                            @endif
-
-                            <td>{{ ucwords($articulo->categoria->nombre) }}</td>
-
-                            @if ($articulo->estado == 'ACTIVO')
-                                <td>
-                                    <a class="jsgrid-button btn btn-success"
-                                        href="{{ route('cambio.estado.articulos', $articulo) }}">
-                                        Activo <i class="fas fa-check"></i>
-                                    </a>
-                                </td>
-                            @else
-                                <td>
-                                    <a class="jsgrid-button btn btn-danger"
-                                        href="{{ route('cambio.estado.articulos', $articulo) }}">
-                                        Inactivo <i class="fas fa-times"></i>
-                                    </a>
-                                </td>
-                            @endif
+                            <td class="text-bold" >{{ ucwords($articulo->categoria->nombre) }}</td>
+                                @if ($articulo->estado == 'ACTIVO')
+                                    <td>
+                                        <a class="jsgrid-button btn btn-success"
+                                            href="{{ route('cambio.estado.articulos', $articulo) }}">
+                                            Activo <i class="fas fa-check"></i>
+                                        </a>
+                                    </td>
+                                @else
+                                    <td>
+                                        <a class="jsgrid-button btn btn-danger"
+                                            href="{{ route('cambio.estado.articulos', $articulo) }}">
+                                            Inactivo <i class="fas fa-times"></i>
+                                        </a>
+                                    </td>
+                                @endif
                             <td>
-                                <a class="btn btn-info"
-                                    href="{{ route('admin.articulos.edit', $articulo) }}">Editar</a>
+                                @can('articulos.show')
+                                    <a href="{{ route('admin.articulos.show', $articulo) }}" class="btn btn-info">Ver</a>
+                                @endcan
+                                @can('articulos.edit')
+                                    <a class="btn btn-secondary text-white"
+                                        href="{{ route('admin.articulos.edit', $articulo) }}">Editar</a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
@@ -80,6 +94,16 @@
             </table>
         </div>
     </div>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 @section('css')
@@ -93,7 +117,7 @@
 @stop
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>

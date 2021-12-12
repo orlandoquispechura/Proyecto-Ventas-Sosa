@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Categoria;
+namespace App\Http\Requests\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,14 +24,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'string|regex:/^[A-Z, a-z, ,á,í,é,ó,ú,ñ]+$/|unique:categorias|max:50',
-            'descripcion'=> 'nullable|string|max:255',            
+           'name'=>'required|regex:/^[A-Z,a-z, , á,é,í,ó,ú,ñ]+$/|unique:roles,name|max:20',
+           'description'=> 'nullable|max:100',
+           'role'=>'nullable', 
         ];
-    }
-    public function messages(){
-        return [
-            'nombre.string' => 'Se necesita un nombre para la categoría.',
-            'nombre.regex' => 'No se permiten números ni símbolos.',
-        ];          
     }
 }

@@ -24,8 +24,14 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'regex:/^[A-Z, a-z, ,á,í,é,ó,ú,ñ]+$/|required|unique:categorias,nombre,'.$this->route('categoria')->id.'|max:50',
+            'nombre' => 'string|regex:/^[A-Z, a-z, ,á,í,é,ó,ú,ñ]+$/|required|unique:categorias,nombre,'.$this->route('categoria')->id.'|max:50',
             'descripcion'=> 'nullable|string|max:255',
         ];
+    }
+    public function messages(){
+        return [
+            'nombre.string' => 'Se necesita un nombre para la categoría.',
+            'nombre.regex' => 'No se permiten números ni símbolos.',
+        ];          
     }
 }

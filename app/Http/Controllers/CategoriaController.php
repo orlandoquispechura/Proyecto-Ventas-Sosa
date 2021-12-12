@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Categoria\StoreRequest;
 use App\Http\Requests\Categoria\UpdateRequest;
 use App\Models\Categoria;
-use Illuminate\Http\Request;
-use App\Models;
+use App\Http\Controllers\Str;
 
 class CategoriaController extends Controller
 {
     public function __construct()
     {        
         $this->middleware('auth');
-        $this->middleware('can:home');
         $this->middleware('can:categorias.create', ['only'=>['create','store']]);
         $this->middleware('can:categorias.index',['only'=>['index']]);
         $this->middleware('can:categorias.edit',['only'=>['edit','update']]);
@@ -45,6 +43,10 @@ class CategoriaController extends Controller
     }
     public function destroy(Categoria $categoria)
     {
+        $item = $categoria->articulos()->count();
+        if ($item > 0) {
+            return redirect()->back()->with('error','No se puede eliminar, la categoría tiene artículos relacionados.');
+        }
         $categoria->delete();
         return redirect()->route('admin.categorias.index')->with('delete', 'ok');
     }

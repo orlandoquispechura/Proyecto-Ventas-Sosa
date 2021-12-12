@@ -13,7 +13,6 @@ class EmpresaController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('can:home');
     $this->middleware('can:empresas.index', ['only' => ['index']]);
     $this->middleware('can:empresas.edit', ['only' => ['edit', 'update']]);
   }

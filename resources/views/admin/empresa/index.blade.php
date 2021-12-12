@@ -3,7 +3,15 @@
 @section('title', 'Gestion de Empresa')
 
 @section('content_header')
-    <h1 class="text-bold">{{ $empresa->nombre_negocio }}</h1>
+    <div class="form-row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 col-xl-12">
+            <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+                echo date('d/m/Y');
+            @endphp</h5>
+        </div>
+    </div>
+    <h1>{{ $empresa->nombre_negocio }}</h1>
 @stop
 
 @section('content')
@@ -42,7 +50,7 @@
                     <hr>
                 </div>
                 <div class="form-group col-md-6">
-                    <strong><i class="far fa-address-card mr-1"></i> RUC</strong>
+                    <strong><i class="far fa-address-card mr-1"></i> NIT</strong>
 
                     <p class="text-muted">{{ $empresa->nit }}</p>
                     <hr>
@@ -55,8 +63,10 @@
                             <strong><i class="fas fa-exclamation-circle mr-1"></i> Logo</strong><br>
                         </div>
                         <div class="col-md-6">
-                            <img style="width:150px ; height:150px ;" src="{{ 'imagen/' . $empresa->logo }}"
-                                class="rounded float-left" alt="logo">
+                            @if (!isset($empresa->logo))
+                            @else
+                                <img src="{{ asset('storage/uploads/logoempresa.png') }}" alt="" width="150" height="150">
+                            @endif
                         </div>
                     </div>
                     <hr>
@@ -64,8 +74,10 @@
             </div>
         </div>
         <div class="card-footer text-muted">
-            <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
-                data-target="#exampleModal-2">Actualizar</button>
+            @can('empresas.edit')
+                <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                    data-target="#exampleModal-2">Actualizar</button>
+            @endcan
         </div>
         <div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2"
             aria-hidden="true">
@@ -158,13 +170,24 @@
                 </div>
             </div>
         </div>
+    </div>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
+@stop
 
-    @stop
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+@stop
 
-    @section('css')
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-            integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    @stop
+@section('js')
 
-    @section('js')
-    @stop
+@stop

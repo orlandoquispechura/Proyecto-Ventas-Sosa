@@ -3,6 +3,14 @@
 @section('title', 'Cliente')
 
 @section('content_header')
+<div class="form-row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 col-xl-12">
+        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+            echo date('d/m/Y');
+        @endphp</h5>
+    </div>
+</div>
     <h1>Editar Cliente</h1>
 @stop
 
@@ -90,6 +98,16 @@
             {!! Form::close() !!}
         </div>
     </div>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 @section('css')

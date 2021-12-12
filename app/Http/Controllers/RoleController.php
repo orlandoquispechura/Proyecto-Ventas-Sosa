@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Role\StoreRequest;
+use App\Http\Requests\Role\UpdateRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -13,12 +14,12 @@ class RoleController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:home');
-        $this->middleware('can:roles.create', ['only'=>['create','store']]);
-        $this->middleware('can:roles.index',['only'=>['index']]);
-        $this->middleware('can:roles.edit',['only'=>['edit','update']]);
-        $this->middleware('can:roles.show',['only'=>['show']]);
-        $this->middleware('can:roles.destroy',['only'=>['destroy']]);
+        $this->middleware('auth');
+        $this->middleware('can:roles.create', ['only' => ['create', 'store']]);
+        $this->middleware('can:roles.index', ['only' => ['index']]);
+        $this->middleware('can:roles.edit', ['only' => ['edit', 'update']]);
+        $this->middleware('can:roles.show', ['only' => ['show']]);
+        $this->middleware('can:roles.destroy', ['only' => ['destroy']]);
     }
 
     public function index()
@@ -31,10 +32,8 @@ class RoleController extends Controller
         $permissions = Permission::all();
         return view('admin.role.create', compact('permissions'));
     }
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        $this->validate($request, ['name'=>'required|unique:roles,name']);
-
         $role = Role::create($request->all());
         $role->permissions()->sync($request->get('permissions'));
 
@@ -45,17 +44,15 @@ class RoleController extends Controller
         $roles = Role::get();
         $users = User::get();
         $permissions = Permission::get();
-        return view('admin.role.show', compact('role','permissions', 'users'));
+        return view('admin.role.show', compact('role', 'permissions', 'users'));
     }
     public function edit(Role $role)
     {
         $permissions = Permission::all();
         return view('admin.role.edit', compact('role', 'permissions'));
     }
-    public function update(Request $request, Role $role)
+    public function update(UpdateRequest $request, Role $role)
     {
-        $this->validate($request, ['name'=>'required']);
-
         $role->update($request->all());
         $role->permissions()->sync($request->get('permissions'));
         return redirect()->route('admin.roles.index', $role)->with('update', 'Se editó correctamente');

@@ -1,61 +1,70 @@
 <div class="form-row">
-    <div class="form-group col-md-8">
-        <div class="form-group">
-            <label for="proveedor_id">Proveedor</label>
-            <select class="form-control" name="proveedor_id" id="proveedor_id" autofocus>
-                <option value="" disabled selected>Selecccione un proveedor</option>
-                @foreach ($proveedors as $proveedor)
-                    <option value="{{ $proveedor->id }}">{{ $proveedor->razon_social }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <div class="form-group col-md-4">
-        <label for="impuesto">Impuesto</label>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon3">%</span>
-            </div>
-            <input type="number" class="form-control" name="impuesto" id="impuesto" aria-describedby="basic-addon3"
-                placeholder="13" value="0">
-        </div>
-    </div>
-</div>
-
-<div class="form-group">
-    <label for="codigo">Código de barras</label>
-    <input type="text" name="codigo" id="codigo" class="form-control" value="{{old('codigo')}}">
-</div>
-
-<div class="form-row">
     <div class="form-group col-md-6">
-        <div class="form-group">
-            <label for="articulo_id">Producto</label>
-            <select class="form-control" name="articulo_id" id="articulo_id">
-                <option value="" disabled selected>Selecccione un artículo</option>
-                @foreach ($articulos as $articulo)
-                    <option value="{{$articulo->id }}">{{ $articulo->nombre }}</option>
-                @endforeach
-            </select>
-        </div>
+        <label for="articulo_id">Producto</label>
+        <select class="form-control selectpicker articuloB" data-live-search="true" name="articulo_id" id="articulo_id"
+            lang="es" autofocus>
+            <option data-icon="fas fa-procedures" disabled selected>Buscar artículo</option>
+            @foreach ($articulos as $articulo)
+                <option value="{{ $articulo->id }}">{{ $articulo->codigo }} {{ $articulo->nombre }}</option>
+            @endforeach
+        </select>
+        @if ($errors->has('articulo_id'))
+            <div class="alert alert-danger">
+                <span class="error text-danger">{{ $errors->first('articulo_id') }}</span>
+            </div>
+        @endif
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-6">
+        <label for="proveedor_id">Proveedor</label>
+        <select class="form-control selectpicker proveedorB" data-live-search="true" name="proveedor_id"
+            id="proveedor_id" lang="es">
+            <option data-icon="fas fa-shipping-fast" disabled selected>Buscar proveedor</option>
+            @foreach ($proveedors as $proveedor)
+                <option value="{{ $proveedor->id }}">{{ $proveedor->razon_social }}
+                </option>
+            @endforeach
+        </select>
+        @if ($errors->has('proveedor_id'))
+            <div class="alert alert-danger">
+                <span class="error text-danger">{{ $errors->first('proveedor_id') }}</span>
+            </div>
+        @endif
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-3">
         <div class="form-group">
             <label for="cantidad">Cantidad</label>
-            <input type="number" class="form-control" name="cantidad" id="cantidad" value="{{old('cantidad')}}">
+            <input type="number" class="form-control" min="0" max="100" name="cantidad" id="cantidad" step="1"
+                oninput="validity.valid||(value='')">
+            @if ($errors->has('cantidad'))
+                <div class="alert alert-danger">
+                    <span class="error text-danger">{{ $errors->first('cantidad') }}</span>
+                </div>
+            @endif
         </div>
     </div>
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-4">
         <div class="form-group">
             <label for="precio_compra">Precio de compra</label>
-            <input type="number" class="form-control" name="precio_compra" id="precio_compra" value="{{old('precio_compra')}}">
+            <input type="number" class="form-control" min="0" max="10000" name="precio_compra" id="precio_compra"
+                placeholder="0.00" step="0.25" >
+            @if ($errors->has('precio_compra'))
+                <div class="alert alert-danger">
+                    <span class="error text-danger">{{ $errors->first('precio_compra') }}</span>
+                </div>
+            @endif
+        </div>
+    </div>
+    <div class="form-group clo-md-3 ml-5 mt-4">
+        <div class="form-group">
+            <button type="button" id="agregar" class="btn btn-info float-right mt-1"> <i class="fas fa-check"></i>
+                Agregar
+                artículo</button>
         </div>
     </div>
 </div>
-<div class="form-group">
-    <button type="button" id="agregar" class="btn btn-primary float-right">Agregar artículo</button>
-</div>
+
 <div class="form-group">
     <h4 class="card-title">Detalles de compra</h4>
     <div class="table-responsive col-md-12   table-bordered shadow-lg">
@@ -70,22 +79,6 @@
                 </tr>
             </thead>
             <tfoot>
-                <tr>
-                    <th colspan="4">
-                        <p align="right">TOTAL:</p>
-                    </th>
-                    <th>
-                        <p align="right"><span id="total">Bs 0.00</span> </p>
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="4">
-                        <p align="right">TOTAL IMPUESTO (13%):</p>
-                    </th>
-                    <th>
-                        <p align="right"><span id="total_impuesto">Bs 0.00</span></p>
-                    </th>
-                </tr>
                 <tr>
                     <th colspan="4">
                         <p align="right">TOTAL PAGAR:</p>

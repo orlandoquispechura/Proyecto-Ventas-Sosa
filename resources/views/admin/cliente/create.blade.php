@@ -3,6 +3,14 @@
 @section('title', 'Cliente')
 
 @section('content_header')
+<div class="form-row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 col-xl-12">
+        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+            echo date('d/m/Y');
+        @endphp</h5>
+    </div>
+</div>
     <h1>Crear Cliente</h1>
 @stop
 
@@ -42,7 +50,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="dni" class="text-blue">Dni: </label>
+                    <label for="dni" class="text-blue">CI: </label>
                     <input type="text" name="dni" id="dni" min="0" value="{{ old('dni') }}" class="form-control"
                         tabindex="4">
                     @if ($errors->has('dni'))
@@ -74,7 +82,7 @@
                 <div class="form-group">
                     <label for="email" class="text-blue">Email: </label>
                     <input type="text" name="email" id="email" value="{{ old('email') }}" class="form-control"
-                        tabindex="7">
+                        tabindex="7" placeholder="ejemplo@gmail.com">
                     @if ($errors->has('email'))
                         <div class="alert alert-danger">
                             <span class="error text-danger">{{ $errors->first('email') }}</span>
@@ -87,6 +95,16 @@
         </div>
     </div>
     </div>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 @section('css')

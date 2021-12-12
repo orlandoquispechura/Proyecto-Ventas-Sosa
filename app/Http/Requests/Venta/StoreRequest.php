@@ -24,7 +24,24 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'cliente_id' => 'required',
+            'articulo_id' => 'required',
+            'cantidad' => 'required',
+            'total' => 'required',
+        ];
+    }
+    public function messages()
+    {
+        return[
+            'cliente_id.required' => 'El campo de cliente es requerido',
+
+            'articulo_id.required' => 'El campo de artículo es requerido',
+
+            'total.required' => 'El campo total es requerido',
+
+            'cantidad.required' => 'La cantidad es requerida',
+
+            'precio_compra.required' => 'El precio de la compra es requerido',
         ];
     }
 }

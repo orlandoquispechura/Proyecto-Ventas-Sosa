@@ -3,16 +3,19 @@
 @section('title', 'Ventas')
 
 @section('content_header')
-    <h1 class="text-bold">Registro de Venta</h1>
-    {{-- <li class="nav-item d-lg-flex d-block"> --}}
-
-    {{-- </li> --}}
+    <div class="form-row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 col-xl-12">
+            <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+                echo date('d/m/Y');
+            @endphp</h5>
+        </div>
+    </div>
+    <h1>Registrar Venta</h1>
 @stop
 
 @section('content')
-    <a type="button" data-toggle="modal" data-target="#exampleModal-2">
-        <span class="btn btn-warning">+ Registrar Cliente</span>
-    </a>
+
     <div class="card mt-3">
         {!! Form::open(['route' => 'admin.ventas.store', 'method' => 'POST']) !!}
         <div class="card-body">
@@ -24,53 +27,16 @@
         </div>
         {!! Form::close() !!}
     </div>
-
-    <div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel-2">Registro rápido de cliente</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {!! Form::open(['route' => 'admin.clientes.store', 'method' => 'POST']) !!}
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" name="nombre" id="nombre" aria-describedby="helpId"
-                            required>
-                        @if ($errors->has('nombre'))
-                            <span class="error text-danger">{{ $errors->first('nombre') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido_paterno">Apellido Paterno</label>
-                        <input type="text" class="form-control" name="apellido_paterno" id="apellido_paterno"
-                            aria-describedby="helpId" required>
-                        @if ($errors->has('apellido_paterno'))
-                            <span class="error text-danger">{{ $errors->first('apellido_paterno') }}</span>
-                        @endif
-                    </div>
-                    <div class="form-group">
-                        <label for="dni">DNI</label>
-                        <input type="number" class="form-control" name="dni" id="dni" aria-describedby="helpId">
-                        @if ($errors->has('dni'))
-                            <span class="error text-danger">{{ $errors->first('dni') }}</span>
-                        @endif
-                    </div>
-                    <input type="hidden" name="venta" value="1">
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Registrar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                </div>
-                {!! Form::close() !!}
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
             </div>
         </div>
-    </div>
-
+    </footer>
 @stop
 
 @section('css')
@@ -89,8 +55,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 
-    <script src="https://cdnout.com/avgrund/js/avgrund.js"></script>
-    
 
     <script>
         $(document).ready(function() {
@@ -101,7 +65,6 @@
 
         var cont = 1;
         total = 0;
-        pagar = 0;
         cambio = 0;
         subtotal = [];
         $("#guardar").hide();
@@ -159,7 +122,7 @@
         function agregar() {
             datosProducto = document.getElementById('articulo_id').value.split('_');
             articulo_id = datosProducto[0];
-            
+
             articulo = $("#articulo_id option:selected").text();
             cantidad = $("#cantidad").val();
             descuento = $("#descuento").val();
@@ -180,11 +143,11 @@
                         parseFloat(descuento) + '"> <input class="form-control" type="number" value="' +
                         parseFloat(descuento) + '" disabled> </td> <td> <input type="hidden" name="cantidad[]" value="' +
                         cantidad + '"> <input type="number" value="' + cantidad +
-                        '" class="form-control" disabled> </td> <td align="right">s/' + parseFloat(subtotal[cont]).toFixed(2) + '</td></tr>';
+                        '" class="form-control" disabled> </td> <td align="right">Bs ' + parseFloat(subtotal[cont]).toFixed(
+                            2) + '</td></tr>';
                     cont++;
                     limpiar();
                     totales();
-                    darCambio();
                     evaluar();
                     $('#detalles').append(fila);
                 } else {
@@ -210,22 +173,22 @@
 
         function totales() {
             $("#total").html("Bs " + total.toFixed(2));
-            
+
             total_impuesto = total * impuesto / 100;
             total_pagar = total + total_impuesto;
             $("#total_impuesto").html("Bs " + total_impuesto.toFixed(2));
             $("#total_pagar_html").html("Bs " + total_pagar.toFixed(2));
             $("#total_pagar").val(total_pagar.toFixed(2));
-           
-
         }
-        function darCambio(){
-            $("#total").html("Bs " +total.toFixed(2));
-            $("#pagar").html(pagar.toFixed(2));
 
-            cambio = pagar - total_pagar;
-            $("#cambio_html").val("Bs " + pagar.toFixed(2));
-        }
+        // function darCambio() {
+        //     let monto_pagar = $("#monto_pagar").val();
+        //     $("#total_pagar").val(total_pagar.toFixed(2));
+        //     cambio = monto_pagar - total_pagar;
+        //     $("#cambio_html").html("Bs " + cambio.toFixed(2));
+        //     $("#cambio").val(cambio.toFixed(2));
+        //     console.log(cambio);
+        // }
 
         function evaluar() {
             if (total > 0) {

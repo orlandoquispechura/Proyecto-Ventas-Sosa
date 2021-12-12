@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,13 +52,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function ventas(){
+    public function ventas()
+    {
         return $this->hasMany(Venta::class);
     }
-    public function compras(){
+    public function compras()
+    {
         return $this->hasMany(Compra::class);
     }
-    
+
+
     /**
      * The accessors to append to the model's array form.
      *
@@ -68,15 +70,19 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-    public function adminlte_image(){
-        // return 'https://picsum.photos/300/300';
-        return auth()->user()->profile_photo_url;
+    public function adminlte_image()
+    {
+        return 'https://picsum.photos/300/300';
+        // return auth()->user()->profile_photo_url;
+        // return asset('storage/'.$this->profile_photo_path);
     }
-    public function adminlte_desc(){
-       return 'Administrador';
+    public function adminlte_desc()
+    {
+        // $user = roles()->pluck('name');
+        return 'Administrador';
     }
     public function adminlte_profile_url()
     {
-        return 'users';
+        return '';
     }
 }

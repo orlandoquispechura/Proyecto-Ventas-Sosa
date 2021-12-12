@@ -3,6 +3,14 @@
 @section('title', 'Categoría')
 
 @section('content_header')
+<div class="form-row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 col-xl-12">
+        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+            echo date('d/m/Y');
+        @endphp</h5>
+    </div>
+</div>
     <h1>Editar Categoria</h1>
 @stop
 
@@ -16,7 +24,7 @@
             <div class="form-group">
                 <label for="nombre" class="text-blue">Nombre Categoría: </label>
                 <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $categoria->nombre) }}"
-                    class="form-control" tabindex="1" required>
+                    class="form-control" tabindex="1" autofocus>
                 @if ($errors->has('nombre'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('nombre') }}</span>
@@ -39,6 +47,16 @@
             {!! Form::close() !!}
         </div>
     </div>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 @section('css')

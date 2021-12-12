@@ -3,20 +3,31 @@
 @section('title', 'Editar Usuario')
 
 @section('content_header')
-    <h1 class="text-bold">Editar Usuario</h1>
+<div class="form-row">
+    <div class="col-md-6"></div>
+    <div class="col-md-6 col-xl-12">
+        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+            echo date('d/m/Y');
+        @endphp</h5>
+    </div>
+</div>
+    <h1>Editar Usuario</h1>
 @stop
 
 @section('content')
     <div class="card">
-        <div class="card-title mb-2 bg-danger text-white">
+        <div class="alert alert-danger mb-2 text-danger text-bold">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
             <h6 class="pl-3 text-justify">
-                La contraseña debera cumplir con los siguientes requisitos: 
+                La contraseña debera cumplir con los siguientes requisitos:
             </h6>
             <h6 class="pl-3 text-justify">
                 - al menos 1 caracter @$!%*#?&
             </h6>
             <h6 class="pl-3 text-justify">
-                - al menos 1 letra mayúscula y  minúscula
+                - al menos 1 letra mayúscula y minúscula
             </h6>
             <h6 class="pl-3 text-justify">
                 - al menos 1 dígito números del 0-9
@@ -29,7 +40,7 @@
             <div class="form-group">
                 <label for="name" class="text-primary">Nombre: </label>
                 <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="form-control"
-                    required aria-describedby="helpId">
+                    autofocus aria-describedby="helpId">
                 @if ($errors->has('name'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('name') }}</span>
@@ -38,8 +49,8 @@
             </div>
             <div class="form-group">
                 <label for="email" class="text-primary">Correo electrónico: </label>
-                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="form-control"
-                    required aria-describedby="helpId">
+                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
+                    class="form-control" required aria-describedby="helpId">
                 @if ($errors->has('email'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('email') }}</span>
@@ -48,7 +59,8 @@
             </div>
             <div class="form-group">
                 <label for="password" class="text-blue">Contraseña: </label>
-                <input type="password" name="password" id="password" class="form-control" aria-describedby="helpId" placeholder="$Ejemplo&1">
+                <input type="password" name="password" id="password" class="form-control" aria-describedby="helpId"
+                    placeholder="$Ejemplo&1">
                 @if ($errors->has('password'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('password') }}</span>
@@ -63,6 +75,16 @@
             {!! Form::close() !!}
         </div>
     </div>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 @section('css')

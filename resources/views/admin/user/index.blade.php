@@ -3,31 +3,48 @@
 @section('title', 'Gestión de usuarios del sistema')
 
 @section('content_header')
-    <h1 class="text-bold">Usuarios del sistema</h1>
+    <div class="form-row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 col-xl-12">
+            <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+                echo date('d/m/Y');
+            @endphp</h5>
+        </div>
+    </div>
+    <h1>Usuarios del sistema</h1>
 @stop
 
 @section('content')
-    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-2">Crear Usuarios</a>
+    @can('users.create')
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-2">Crear Usuarios</a>
+    @endcan
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong> Error !</strong> {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong> Guardado!</strong> {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @elseif(session('update'))
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong> Editado!</strong> {{ session('update') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="card">
         <div class="card-body">
-
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong> Guardado!</strong> {{ session('success') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @elseif(session('update'))
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <strong> Editado!</strong> {{ session('update') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
-
-            <table id="order-listing" class="table table-striped mt-0.5 table-bordered shadow-lg dt-responsive nowrap users" >
+            <table id="order-listing"
+                class="table table-striped mt-0.5 table-bordered shadow-lg dt-responsive nowrap users">
                 <thead class="bg-primary text-white">
                     <tr>
                         <th>Nombre</th>
@@ -39,20 +56,26 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>
-                                <a href="{{ route('admin.users.show', $user) }}">{{ ucwords($user->name) }}</a>
+                                {{ ucwords($user->name) }}
                             </td>
                             <td>{{ $user->email }}</td>
                             <td class="text-right">
                                 {!! Form::open(['route' => ['admin.users.destroy', $user], 'method' => 'DELETE', 'class' => 'eliminar-form']) !!}
 
-                                <a class="btn btn-success" href="{{ route('admin.users.edit', $user) }}" title="Editar">
-                                    Editar
-                                </a>
+                                @can('users.show')
+                                    <a href="{{ route('admin.users.show', $user) }}" class="btn btn-info">Ver</a>
+                                @endcan
+                                @can('users.edit')
+                                    <a class="btn btn-success" href="{{ route('admin.users.edit', $user) }}" title="Editar">
+                                        Editar
+                                    </a>
+                                @endcan
 
-                                <button class="btn btn-danger" type="submit" title="Eliminar">
-                                    Eliminar
-                                </button>
-
+                                @can('users.destroy')
+                                    <button class="btn btn-danger" type="submit" title="Eliminar">
+                                        Eliminar
+                                    </button>
+                                @endcan
                                 {!! Form::close() !!}
                             </td>
                         </tr>
@@ -61,6 +84,16 @@
             </table>
         </div>
     </div>
+    <footer>
+        <div class="row text-bold " style="color: rgb(135, 141, 153)">
+            <div class="col-md-8">
+                <p class="text-right">&copy; {{ date('Y') }} Sistema de Ventas SOSA</p>
+            </div>
+            <div class="col-md-4">
+                <p class="text-right ">Versión 1.0.0</p>
+            </div>
+        </div>
+    </footer>
 @stop
 
 @section('css')
@@ -75,7 +108,7 @@
 @stop
 
 @section('js')
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>

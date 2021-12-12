@@ -9,8 +9,8 @@ use App\Models\Compra;
 use App\Models\Proveedor;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class CompraController extends Controller
 {
@@ -18,7 +18,7 @@ class CompraController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:compras.create')->only(['create','store']);
+        $this->middleware('can:compras.create')->only(['create', 'store']);
         $this->middleware('can:compras.index')->only(['index']);
         $this->middleware('can:compras.show')->only(['show']);
 
@@ -35,63 +35,61 @@ class CompraController extends Controller
     public function create()
     {
         $proveedors = Proveedor::get();
-        $articulos= Articulo::where('estado','ACTIVO')->get();
-        return view('admin.compra.create', compact('proveedors','articulos'));
+        $articulos = Articulo::where('estado', 'ACTIVO')->get();
+        return view('admin.compra.create', compact('proveedors', 'articulos'));
     }
     public function store(StoreRequest $request)
     {
-        $this->validate($request, [
-            'total' => 'required',
-        ]);
+        try {
+            DB::beginTransaction();
+            $compra = Compra::create($request->all() + [
+                'user_id' => Auth::user()->id,
+                'fecha_compra' => Carbon::now('America/La_Paz'),
+            ]);
+            foreach ($request->articulo_id as $key => $articulo) {
+                $results[] = array("articulo_id" => $request->articulo_id[$key], "cantidad" => $request->cantidad[$key], "precio_compra" => $request->precio_compra[$key]);
+            }
+            $compra->detallecompras()->createMany($results);
 
-        $compra = Compra::create($request->all()+[
-            'user_id'=>Auth::user()->id,
-            'fecha_compra'=>Carbon::now('America/La_Paz'),
-        ]);
-        foreach ($request->articulo_id as $key => $articulo) {
-            $results[] = array("articulo_id"=>$request->articulo_id[$key], "cantidad"=>$request->cantidad[$key], "precio_compra"=>$request->precio_compra[$key]);
+            DB::commit();
+            
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return redirect()->route('admin.compras.index')->with('error', 'No se registro la compra, verifique los datos antes de registrar la compra');
         }
-        $compra->detallecompras()->createMany($results);
-        return redirect()->route('admin.compras.index');
-        
+        return redirect()->route('admin.compras.index')->with('success', 'Se registró la compra');
     }
     public function show(Compra $compra)
     {
-        $subtotal = 0 ;
+        $subtotal = 0;
         $detallecompras = $compra->detallecompras;
         foreach ($detallecompras as $detallecompra) {
             $subtotal += $detallecompra->cantidad * $detallecompra->precio_compra;
         }
-        
+
         return view('admin.compra.show', compact('compra', 'detallecompras', 'subtotal'));
     }
     public function pdf(Compra $compra)
     {
-        $subtotal = 0 ;
+        $subtotal = 0;
         $detallecompras = $compra->detallecompras;
         foreach ($detallecompras as $detallecompra) {
             $subtotal += $detallecompra->cantidad * $detallecompra->precio_compra;
         }
         $fecha = Carbon::now('America/La_Paz');
-        $pdf = PDF::loadView('admin.compra.pdf', compact('compra','fecha', 'subtotal', 'detallecompras'));        
-        return $pdf->download('Reporte_de_compra_'.$compra->id.'.pdf');
-        
+        $pdf = PDF::loadView('admin.compra.pdf', compact('compra', 'fecha', 'subtotal', 'detallecompras'));
+        return $pdf->stream('Reporte_de_compra.pdf');
+        // return $pdf->download('Reporte_de_compra_'.$compra->id.'.pdf');
+
     }
-
-    // public function upload(Request $request, Compra $compra)
-    // {
-        // $purchase->update($request->all());
-        // return redirect()->route('purchases.index');
-    // }
-
     public function cambio_de_estado(Compra $compra)
     {
         if ($compra->estado == 'VALIDO') {
-            $compra->update(['estado'=>'CANCELADO']);
-            return redirect()->back();
+            $compra->update(['estado' => 'CANCELADO']);
+            return redirect()->back()->with('cancelado', 'Compra Cancelada');
         } else {
-            $compra->update(['estado'=>'VALIDO']);
-            return redirect()->back();
-        } 
+            $compra->update(['estado' => 'VALIDO']);
+            return redirect()->back()->with('valido', 'Compra Valida');
+        }
     }
 }

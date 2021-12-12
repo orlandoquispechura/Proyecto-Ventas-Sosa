@@ -5,27 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> --}}
+
     <title>Reporte de compra</title>
     <style>
         body {
-            /*position: relative;*/
-            /*width: 16cm;  */
-            /*height: 29.7cm; */
-            /*margin: 0 auto; */
-            /*color: #555555;*/
-            /*background: #FFFFFF; */
             font-family: Arial, sans-serif;
             font-size: 14px;
-            /*font-family: SourceSansPro;*/
         }
-
-
+        .datosproveedor{
+            float: left;
+        }
         #datos {
             float: left;
             margin-top: 0%;
             margin-left: 2%;
             margin-right: 2%;
-            /*text-align: justify;*/
         }
 
         #encabezado {
@@ -36,12 +32,14 @@
         }
 
         #fact {
-            /*position: relative;*/
             float: right;
             margin-top: 2%;
             margin-left: 2%;
             margin-right: 2%;
             font-size: 20px;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
             background: #33AFFF;
             padding: 0 20px;
         }
@@ -107,14 +105,18 @@
 
 <body>
     <header>
-        {{-- <div id="logo">
-            <img src="img/logo.png" alt="" id="imagen">
-        </div> --}}
-        <div>
-            <table id="datos">
+        <div class="datosproveedor">
+            <h3>DATOS DEL PROVEEDOR</h3>
+            <p id="proveedor">Nombre: {{ ucwords($compra->proveedor->razon_social) }}<br>
+                Nit: {{$compra->proveedor->nit}}<br>                                
+                Teléfono: {{ $compra->proveedor->telefono }}<br>
+                Email: {{ $compra->proveedor->email }}<br>  
+                Dirección: {{ ucwords($compra->proveedor->direccion) }}                             
+            </p>
+            {{-- <table id="datos">
                 <thead>
                     <tr>
-                        <th id="">DATOS DEL PROVEEDOR</th>
+                        <th>DATOS DEL PROVEEDOR</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,11 +131,9 @@
                         </th>
                     </tr>
                 </tbody>
-            </table>
+            </table> --}}
         </div>
         <div id="fact">
-            {{-- <p>{{$purchase->provider->document_type}} COMPRA<br />
-            {{$purchase->provider->document_number}}</p> --}}
             <p>NOTA DE COMPRA<br />
                 {{ $compra->id }}</p>
         </div>
@@ -142,6 +142,7 @@
 
 
     <br>
+
     <section>
         <div>
             <table id="faccomprador">
@@ -169,7 +170,7 @@
                         <th>CANTIDAD</th>
                         <th>PRODUCTO</th>
                         <th>PRECIO COMPRA (Bs)</th>
-                        <th>SUBTOTAL (Bs)</th>
+                        <th style="text-align: right" >SUBTOTAL (Bs)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -177,37 +178,18 @@
                         <tr>
                             <td>{{ $detallecompra->cantidad }}</td>
                             <td>{{ ucwords($detallecompra->articulo->nombre) }}</td>
-                            <td>s/ {{ $detallecompra->precio_compra }}</td>
-                            <td>s/ {{ number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}</td>
+                            <td>Bs/ {{ $detallecompra->precio_compra }}</td>
+                            <td align="right">Bs/ {{ number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
-
-                    <tr>
-                        <th colspan="3">
-                            <p align="right">SUBTOTAL:</p>
-                        </th>
-                        <td>
-                            <p align="right">s/ {{ number_format($subtotal, 2) }}
-                            <p>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th colspan="3">
-                            <p align="right">TOTAL IMPUESTO ({{ $compra->impuesto }}%):</p>
-                        </th>
-                        <td>
-                            <p align="right">s/ {{ number_format(($subtotal * $compra->impuesto) / 100, 2) }}</p>
-                        </td>
-                    </tr>
                     <tr>
                         <th colspan="3">
                             <p align="right">TOTAL PAGAR:</p>
                         </th>
                         <td>
-                            <p align="right">s/ {{ number_format($compra->total, 2) }}
+                            <p align="right">Bs/ {{ number_format($compra->total, 2) }}
                             <p>
                         </td>
                     </tr>
@@ -219,13 +201,14 @@
     <br>
     <br>
     <footer>
-        <!--puedes poner un mensaje aqui-->
+        <!--se puede poner un mensaje aqui-->
         <div id="datos">
             <p id="encabezado">
                 {{-- <b>{{$company->name}}</b><br>{{$company->description}}<br>Telefono:{{$company->telephone}}<br>Email:{{$company->email}} --}}
             </p>
         </div>
     </footer>
+    
 </body>
 
 </html>
