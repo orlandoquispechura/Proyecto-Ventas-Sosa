@@ -152,7 +152,7 @@ return [
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => '',
     'sidebar_nav_accordion' => true,
-    'sidebar_nav_animation_speed' => 100,
+    'sidebar_nav_animation_speed' => 1,
 
     /*
     |--------------------------------------------------------------------------
@@ -237,34 +237,28 @@ return [
         [
             'text' => 'Panel de Administración',
             'icon' => 'fas fa-tachometer-alt',
-            'url'  => 'home',
+            'url'  => 'home-dashboard',
+            'can'  => 'home-dashboard',
         ],
         [
             'text'    => 'Reportes',
             'icon'    => 'fas fa-file-signature',
-            'can'     => 'reporte.dia',
-            'can'     => 'reporte.fecha',
+            'can'     => ['reports.reportes'],
             
             'submenu' => [
                 [
-                    'text'  => 'Reporte por día',
+                    'text'  => 'Reporte de ventas',
                     'icon'  => 'far fa-file-alt',
-                    'url'   => 'ventas/reporte_dia',
-                    'can'   => 'reporte.dia',
-                ],
-                [
-                    'text'  => 'Reporte por fechas',
-                    'icon'  => 'fas fa-file-alt',
-                    'url'   => 'ventas/reporte_fecha',
-                    'can'   => 'reporte.fecha',
-                ],
+                    'url'   => 'reports',
+                    'can'   => 'reports.reportes',
+                ]
             ],
         ],
         [
-            'text'    => 'Almacen',
+            'text'    => 'Almacén',
             'icon'    => 'fas fa-warehouse',
-            'can'     => 'categorias.index',
-            'can'     => 'articulos.index',
+            'can'     => ['articulos.index', 'categorias.index'],
+            
             'submenu' => [
                 [
                     'text'  => 'Categoría',
@@ -283,8 +277,7 @@ return [
         [
             'text'    => 'Ingresos',
             'icon'    => 'fas fa-shopping-cart',
-            'can'     => 'compras.index',
-            'can'     => 'proveedors.index',
+            'can'     => ['compras.index', 'proveedors.index'],
             'submenu' => [
                 [
                     'text'  => 'Proveedor',
@@ -303,8 +296,7 @@ return [
         [
             'text'    => 'Ventas',
             'icon'    => 'fas fa-cash-register',
-            'can'     => 'ventas.index',
-            'can'     => 'clientes.index',
+            'can'     => ['ventas.index', 'clientes.index'],
             'submenu' => [
                 [
                     'text'  => 'Cliente',
@@ -323,20 +315,19 @@ return [
         [
             'text'    => 'Usuarios y Roles',
             'icon'    => 'fas fa-user',
-            'can'     => 'users.index',
-            'can'     => 'roles.index',
+            'can'     => ['users.index', 'roles.index'],
             'submenu' => [
                 [
                     'text' => 'Usuario',
                     'url'  => 'users',
                     'icon' => 'fas fa-fw fa-user-secret',
-                    'can' => 'users.index',
+                    'can'  => 'users.index',
                 ],
                 [
                     'text' => 'Roles',
                     'url'  => 'roles',
                     'icon' => 'fas fa-user-cog menu-icon',
-                    'can' => 'roles.index',
+                    'can'  => 'roles.index',
                 ],
             ],
         ],
@@ -473,5 +464,5 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

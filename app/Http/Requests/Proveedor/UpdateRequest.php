@@ -30,6 +30,15 @@ class UpdateRequest extends FormRequest
             'email' => 'nullable|email|string|unique:proveedors,email,' . $this->route('proveedor')->id . '|max:100',
             'direccion' => 'nullable|string|max:100',
             'telefono' => 'nullable|min:7|max:8|regex:/^[0-9]{7,8}$/|unique:proveedors,telefono,' . $this->route('proveedor')->id,
+            'celular' => 'nullable|min:8|max:12|regex:/^[+,0-9]{8,12}$/|unique:proveedors,celular,' . $this->route('proveedor')->id,
+
+        ];
+    }
+    public function messages()
+    {
+        return[
+            'telefono.regex' => 'No se permite texto solo números.',
+            'celular.regex' => 'Solo permite el signo de adición(+).',
         ];
     }
 }

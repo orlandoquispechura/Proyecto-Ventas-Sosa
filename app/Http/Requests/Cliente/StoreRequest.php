@@ -28,10 +28,19 @@ class StoreRequest extends FormRequest
             'nombre' => 'required|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
             'apellido_paterno' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
             'apellido_materno' => 'nullable|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|max:50',
-            'dni' => 'nullable|min:7|max:10|regex:/^[A-Z,0-9]+$/|unique:clientes',
+            'dni' => 'nullable|min:7|max:10|regex:/^[A-Z,0-9,-]+$/|unique:clientes',
             'direccion' => 'nullable|max:100',
             'telefono' => 'nullable|min:7|max:8|regex:/^[0-9]{7,8}$/|unique:clientes',
+            'celular' => 'nullable|min:8|max:12|regex:/^[+,0-9]{8,12}$/|unique:clientes',
             'email' => 'nullable|email|max:100|unique:clientes',
+        ];
+    }
+    public function messages()
+    {
+        return[
+            'telefono.regex' => 'No se permite texto solo números.',
+            'celular.regex' => 'Solo permite el signo de adición(+).',
+            'dni.regex' => 'Ingrese en mayúscula para dni extranjero.'
         ];
     }
 }

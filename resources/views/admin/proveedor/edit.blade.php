@@ -3,14 +3,14 @@
 @section('title', 'Proveedor')
 
 @section('content_header')
-<div class="form-row">
-    <div class="col-md-6"></div>
-    <div class="col-md-6 col-xl-12">
-        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
-            echo date('d/m/Y');
-        @endphp</h5>
+    <div class="form-row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 col-xl-12">
+            <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+                echo date('d/m/Y');
+            @endphp</h5>
+        </div>
     </div>
-</div>
     <h1>Editar Proveedor</h1>
 @stop
 
@@ -22,7 +22,7 @@
             @csrf
             {{ @method_field('PATCH') }}
             <div class="form-group">
-                <label for="razon_social" class="text-blue">Nombre: </label>
+                <label for="razon_social">Nombre: </label>
                 <input type="text" name="razon_social" id="razon_social"
                     value="{{ old('razon_social', $proveedor->razon_social) }}" class="form-control" tabindex="1"
                     required autofocus>
@@ -33,9 +33,9 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="nit" class="text-blue">Nº Nit: </label>
+                <label for="nit">Nº Nit: </label>
                 <input type="number" name="nit" id="nit" min="0" value="{{ old('nit', $proveedor->nit) }}"
-                    class="form-control" tabindex="2">
+                    class="form-control" tabindex="2" onkeypress="return esNumero(event)">
                 @if ($errors->has('nit'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('nit') }}</span>
@@ -43,9 +43,9 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="email" class="text-blue">Email: </label>
+                <label for="email">Email: </label>
                 <input type="email" name="email" id="email" value="{{ old('email', $proveedor->email) }}"
-                    class="form-control" tabindex="3">
+                    class="form-control" tabindex="3" placeholder="ejemplo@gmail.com">
                 @if ($errors->has('email'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('email') }}</span>
@@ -53,9 +53,9 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="direccion" class="text-blue">Dirección: </label>
-                <textarea name="direccion" id="direccion" class="form-control"
-                    tabindex="4">{{ old('direccion', $proveedor->direccion) }}</textarea>
+                <label for="direccion">Dirección: </label>
+                <textarea name="direccion" id="direccion" class="form-control" tabindex="4"
+                    placeholder="Dirección 255 caracteres">{{ old('direccion', $proveedor->direccion) }}</textarea>
                 @if ($errors->has('direccion'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('direccion') }}</span>
@@ -63,18 +63,27 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="telefono" class="text-blue">Teléfono: </label>
+                <label for="telefono">Teléfono: </label>
                 <input type="text" name="telefono" id="telefono" value="{{ old('telefono', $proveedor->telefono) }}"
-                    class="form-control" tabindex="5">
+                    class="form-control" tabindex="5" onkeypress="return esNumero(event)">
                 @if ($errors->has('telefono'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('telefono') }}</span>
                     </div>
                 @endif
             </div>
-
-            <button type="submit" class="btn btn-success mr-2 " tabindex="6">Actualizar </button>
-            <a href="{{ route('admin.proveedors.index') }}" class="btn btn-secondary" tabindex="7">Cancelar</a>
+            <div class="form-group">
+                <label for="celular">Celular: </label>
+                <input type="text" name="celular" id="celular" value="{{ old('celular', $proveedor->celular) }}"
+                    class="form-control" tabindex="6">
+                @if ($errors->has('celular'))
+                    <div class="alert alert-danger">
+                        <span class="error text-danger">{{ $errors->first('celular') }}</span>
+                    </div>
+                @endif
+            </div>
+            <button type="submit" class="btn btn-success mr-2 " tabindex="7">Actualizar </button>
+            <a href="{{ route('admin.proveedors.index') }}" class="btn btn-secondary" tabindex="8">Cancelar</a>
 
             {!! Form::close() !!}
         </div>
@@ -97,4 +106,13 @@
 @stop
 
 @section('js')
+    <script>
+        function esNumero(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+
+            if (charCode < 31 || (charCode >= 48 && charCode <= 57) || (charCode >= 96 && charCode <= 105))
+                return true;
+            return false;
+        }
+    </script>
 @stop

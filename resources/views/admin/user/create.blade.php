@@ -38,7 +38,7 @@
             {!! Form::open(['route' => 'admin.users.store', 'method' => 'POST']) !!}
 
             <div class="form-group">
-                <label for="name" class="text-blue">Nombre: </label>
+                <label for="name">Nombre: </label>
                 <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" autofocus>
                 @if ($errors->has('name'))
                     <div class="alert alert-danger">
@@ -47,7 +47,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="email" class="text-blue">Correo electrónico: </label>
+                <label for="email">Correo electrónico: </label>
                 <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
                 @if ($errors->has('email'))
                     <div class="alert alert-danger">
@@ -57,7 +57,7 @@
             </div>
 
             <div class="form-group">
-                <label for="password" class="text-blue">Contraseña: </label>
+                <label for="password">Contraseña: </label>
                 <input type="password" name="password" id="password" class="form-control" aria-describedby="helpId" placeholder="$Ejemplo&1">
                 @if ($errors->has('password'))
                     <div class="alert alert-danger">

@@ -11,10 +11,13 @@
         @endphp</h5>
     </div>
 </div>
-    <h1>Reporte de ventas</h1>
+    <h1>Reporte por día</h1>
 @stop
 
 @section('content')
+   <div class="form-group mb-2">
+    <a href="{{route('reporte.pdf_dia')}}" class="btn btn-danger " target="_blank">Exportar a PDF   <i class="fas fa-file-pdf"></i> </a>
+   </div>
     <div class="card">
         <div class="card-body">
             <div class="row ">
@@ -122,7 +125,7 @@
                         "previous": "Anterior",
                         "next": "Siguiente"
                     },
-                    "infoEmpty": "No records available",
+                    "infoEmpty": "No hay registros",
                     "infoFiltered": "(Filtrado de _MAX_ registros totales)"
                 },
                 "lengthMenu": [

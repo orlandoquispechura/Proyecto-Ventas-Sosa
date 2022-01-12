@@ -12,13 +12,15 @@ use App\Http\Controllers\VentaController;
 use App\Models\Articulo;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InicioController;
 use App\Http\Controllers\ReportController;
+use App\Http\Livewire\ReportesController;
 
 Route::get('/', function () {
     return view('auth.login');
 });
-
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth:sanctum')->name('home.welcome');
+Route::get('/home', [InicioController::class, 'index'])->middleware('auth:sanctum')->name('home');
+Route::get('/home-dashboard', [HomeController::class, 'index'])->middleware('auth:sanctum')->name('home-dashboard');
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
@@ -29,11 +31,12 @@ Route::resource('users', UserController::class)->names('admin.users');
 
 Route::resource('roles', RoleController::class)->names('admin.roles');
 
+Route::get('reports', ReportesController::class)->middleware('auth:sanctum')->name('reports.reportes');
 
-Route::get('ventas/reporte_dia', [ReportController::class, 'reporte_dia'])->name('reporte.dia');
-Route::get('ventas/reporte_fecha', [ReportController::class, 'reporte_fecha'])->name('reporte.fecha');
+Route::get('report/pdf/{user}/{type}/{f1}/{f2}', [ReportController::class, 'reportePDF'])->name('reporte.pdf');
+Route::get('report/pdf/{user}/{type}', [ReportController::class, 'reportePDF'])->name('reporte.pdf');
 
-Route::post('ventas/resultado_reporte', [ReportController::class, 'resultado_reporte'])->name('resultado.reporte');
+
 
 
 Route::resource('empresa', EmpresaController::class)->names('admin.empresa')->only([

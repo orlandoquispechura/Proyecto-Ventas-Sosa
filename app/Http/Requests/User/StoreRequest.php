@@ -39,4 +39,10 @@ class StoreRequest extends FormRequest
             'role'=>'nullable', 
         ];
     }
+    public function messages()
+    {
+        return[
+            'password.regex' => 'La contraseña debe cumplir los requisitos.',
+        ];
+    }
 }

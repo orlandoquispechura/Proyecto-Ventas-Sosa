@@ -38,7 +38,7 @@
             {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT']) !!}
 
             <div class="form-group">
-                <label for="name" class="text-primary">Nombre: </label>
+                <label for="name">Nombre: </label>
                 <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="form-control"
                     autofocus aria-describedby="helpId">
                 @if ($errors->has('name'))
@@ -48,7 +48,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="email" class="text-primary">Correo electrónico: </label>
+                <label for="email">Correo electrónico: </label>
                 <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
                     class="form-control" required aria-describedby="helpId">
                 @if ($errors->has('email'))
@@ -58,7 +58,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="password" class="text-blue">Contraseña: </label>
+                <label for="password">Contraseña: </label>
                 <input type="password" name="password" id="password" class="form-control" aria-describedby="helpId"
                     placeholder="$Ejemplo&1">
                 @if ($errors->has('password'))

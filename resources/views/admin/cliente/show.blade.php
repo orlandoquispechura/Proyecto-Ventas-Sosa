@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="border-bottom text-center pb-4">
-                        <h3>{{ ucwords($cliente->nombre) }}</h3>
+                        <h3>{{ ucwords($cliente->nombre) }} {{ucwords($cliente->apellido_paterno)}}</h3>
                         <div class="d-flex justify-content-between">
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                                     <div class="form-group col-md-6">
                                         <strong><i class="fab fa-product-hunt mr-1"></i> Nombre</strong>
                                         <p class="text-muted">
-                                            {{ ucwords($cliente->nombre) }}
+                                            {{ ucwords($cliente->nombre) }} {{ucwords($cliente->apellido_paterno)}}
                                         </p>
                                         <hr>
                                         <strong><i class="fas fa-address-card mr-1"></i> Numero de DNI</strong>
@@ -61,22 +61,28 @@
                                             {{ $cliente->dni }}
                                         </p>
                                         <hr>
-                                    </div>
-
-                                    <div class="form-group col-md-6">
                                         <strong>
-                                            <i class="fas fa-mobile mr-1"></i>
+                                            <i class="fas fa-map-marked-alt mr-1"></i>
                                             Dirección</strong>
                                         <p class="text-muted">
                                             {{ $cliente->direccion }}
                                         </p>
                                         <hr>
-                                        <strong><i class="fas fa-envelope mr-1"></i> Teléfono / Celular</strong>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                       
+                                        <strong><i class="fas fa-phone-square mr-1"></i> Teléfono</strong>
                                         <p class="text-muted">
                                             {{ $cliente->telefono }}
                                         </p>
                                         <hr>
-                                        <strong><i class="fas fa-map-marked-alt mr-1"></i> Correo electrónico</strong>
+                                        <strong><i class="fas fa-mobile mr-1"></i> Celular</strong>
+                                        <p class="text-muted">
+                                            {{ $cliente->celular }}
+                                        </p>
+                                        <hr>
+                                        <strong><i class="fas fa-map-envelope-alt mr-1"></i> Correo electrónico</strong>
                                         <p class="text-muted">
                                             {{ $cliente->email }}
                                         </p>
@@ -106,7 +112,7 @@
                                                     <th>Fecha</th>
                                                     <th>Total</th>
                                                     <th>Estado</th>
-                                                    <th style="width:50px;">Acciones</th>
+                                                    <th style="width:50px; text-align: right;">Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -132,7 +138,7 @@
                                                                 </a>
                                                             </td>
                                                         @endif
-                                                        <td style="width: 230px;">
+                                                        <td style="width: 230px; text-align: right">
                                                             @can('ventas.pdf')
                                                                 <a href="{{ route('ventas.pdf', $venta) }}"
                                                                     class="btn btn-danger">Imprimir <i
@@ -150,7 +156,7 @@
                                             <tfoot>
                                                 <tr>
                                                     <td colspan="2"><strong>Total de monto comprado: </strong></td>
-                                                    <td colspan="3" align="left"><strong>s/{{ $total_ventas }}</strong>
+                                                    <td colspan="3" align="left"><strong>Bs/{{ number_format($total_ventas, 2) }}</strong>
                                                     </td>
                                                 </tr>
                                             </tfoot>
@@ -169,6 +175,7 @@
             <a href="{{ route('admin.clientes.index') }}" class="btn btn-primary float-right">Regresar</a>
         </div>
     </div>
+    <br><br><br>
     <footer>
         <div class="row text-bold " style="color: rgb(135, 141, 153)">
             <div class="col-md-8">

@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="border-bottom text-center pb-4">
-                        <h3>{{ $user->name }}</h3>
+                        <h3>{{ ucwords($user->name) }}</h3>
                     </div>
                     <div class="border-bottom py-4">
                         <div class="list-group">
@@ -56,10 +56,10 @@
                                     <div class="form-group col-md-6">
                                         <strong><i class="fab fa-product-hunt mr-1"></i> Nombre</strong>
                                         <p class="text-muted">
-                                            {{ $user->name }}
+                                            {{ ucwords($user->name) }}
                                         </p>
                                         <hr>
-                                        <strong><i class="fab fa-product-hunt mr-1"></i> Roles</strong>
+                                        <strong><i class="fas fa-user-tag mr-1"></i> Roles</strong>
                                         <p class="text-muted">
                                             @forelse ($user->roles as $role)
                                                 @can('roles.show')
@@ -76,7 +76,7 @@
 
                                     <div class="form-group col-md-6">
                                         <strong>
-                                            <i class="fas fa-mobile mr-1"></i>
+                                            <i class="fas fa-envelope mr-1"></i>
                                             Correo electrónico</strong>
                                         <p class="text-muted">
                                             {{ $user->email }}
@@ -115,7 +115,7 @@
                                                             {{ $compra->id }}
                                                         </th>
                                                         <td>{{ $compra->fecha_compra }}</td>
-                                                        <td>{{ $compra->total }}</td>
+                                                        <td>Bs. {{ number_format($compra->total, 2) }}</td>
 
                                                         @if ($compra->estado == 'VALIDO')
                                                             <td>
@@ -153,7 +153,7 @@
                                             <tfoot>
                                                 <tr>
                                                     <td colspan="2"><strong>Monto total comprado: </strong></td>
-                                                    <td colspan="3" align="left"><strong>s/{{ $total_monto }}</strong>
+                                                    <td colspan="3" align="left"><strong>Bs. {{ number_format($total_monto , 2)}}</strong>
                                                     </td>
                                                 </tr>
                                             </tfoot>
@@ -193,7 +193,7 @@
                                                             {{ $venta->id }}
                                                         </th>
                                                         <td>{{ $venta->fecha_venta }}</td>
-                                                        <td>{{ $venta->total }}</td>
+                                                        <td>Bs. {{ number_format($venta->total, 2) }}</td>
 
                                                         @if ($venta->estado == 'VALIDO')
                                                             <td>
@@ -232,7 +232,7 @@
                                             <tfoot>
                                                 <tr>
                                                     <td colspan="2"><strong>Monto total vendido: </strong></td>
-                                                    <td colspan="3" align="left"><strong>s/{{ $total_compras }}</strong>
+                                                    <td colspan="3" align="left"><strong>Bs. {{ number_format($total_compras, 2) }}</strong>
                                                     </td>
                                                 </tr>
                                             </tfoot>

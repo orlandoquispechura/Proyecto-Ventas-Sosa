@@ -60,8 +60,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Compra::class);
     }
-
-
     /**
      * The accessors to append to the model's array form.
      *
@@ -72,14 +70,13 @@ class User extends Authenticatable
     ];
     public function adminlte_image()
     {
-        return 'https://picsum.photos/300/300';
-        // return auth()->user()->profile_photo_url;
-        // return asset('storage/'.$this->profile_photo_path);
+        // return 'https://picsum.photos/300/300';
+        return asset('imagen/perfil-user.png');
     }
     public function adminlte_desc()
     {
-        // $user = roles()->pluck('name');
-        return 'Administrador';
+        // $roles = $user->getRoleNames(); 
+        // return ($roles);
     }
     public function adminlte_profile_url()
     {

@@ -1,6 +1,6 @@
 <div class="form-row">
     <div class="form-group col-md-6">
-        <label for="articulo_id">Producto</label>
+        <label for="articulo_id">Artículo</label>
         <select class="form-control selectpicker articuloB" data-live-search="true" name="articulo_id" id="articulo_id"
             lang="es" autofocus>
             <option data-icon="fas fa-procedures" disabled selected>Buscar artículo</option>
@@ -56,7 +56,7 @@
             @endif
         </div>
     </div>
-    <div class="form-group clo-md-3 ml-5 mt-4">
+    <div class="form-group col-md-3 ml-5 mt-3">
         <div class="form-group">
             <button type="button" id="agregar" class="btn btn-info float-right mt-1"> <i class="fas fa-check"></i>
                 Agregar

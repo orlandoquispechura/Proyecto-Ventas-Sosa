@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
 {
@@ -18,7 +19,7 @@ class VentaController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:ventas.create')->only(['create','store']);
+        $this->middleware('can:ventas.create')->only(['create', 'store']);
         $this->middleware('can:ventas.index')->only(['index']);
         $this->middleware('can:ventas.show')->only(['show']);
         $this->middleware('can:cambio.estado.ventas')->only(['cambio_de_estado']);
@@ -34,20 +35,28 @@ class VentaController extends Controller
     public function create()
     {
         $clientes = Cliente::get();
-        $articulos = Articulo::get();
+        $articulos = Articulo::where('estado', 'ACTIVO')->get();
         $venta = Venta::get();
         return view('admin.venta.create', compact('clientes', 'articulos', 'venta'));
     }
     public function store(StoreRequest $request)
     {
-        $venta = Venta::create($request->all() + [
-            'user_id' => Auth::user()->id,
-            'fecha_venta' => Carbon::now('America/La_Paz'),
-        ]);
-        foreach ($request->articulo_id as $key => $articulo) {
-            $results[] = array("articulo_id" => $request->articulo_id[$key], "cantidad" => $request->cantidad[$key], "precio_venta" => $request->precio_venta[$key], "descuento" => $request->descuento[$key]);
+        try {
+            DB::beginTransaction();
+            $venta = Venta::create($request->all() + [
+                'user_id' => Auth::user()->id,
+                'fecha_venta' => Carbon::now('America/La_Paz'),
+            ]);
+            foreach ($request->articulo_id as $key => $articulo) {
+                $results[] = array("articulo_id" => $request->articulo_id[$key], "cantidad" => $request->cantidad[$key], "precio_venta" => $request->precio_venta[$key], "descuento" => $request->descuento[$key]);
+            }
+            $venta->detalleventas()->createMany($results);
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return redirect()->route('admin.ventas.index')->with('error', 'No se registro la venta, verifique los datos antes de registrar la venta');
         }
-        $venta->detalleventas()->createMany($results);
         return redirect()->route('admin.ventas.index')->with('success', 'Se registró la venta');
     }
     public function show(Venta $venta)
@@ -70,17 +79,23 @@ class VentaController extends Controller
         }
         $pdf = PDF::loadView('admin.venta.pdf', compact('venta', 'subtotal', 'detalleventas'));
         return $pdf->stream('Reporte_de_venta.pdf');
-        
+
         // return $pdf->download('Reporte_de_venta_' . $venta->id . '.pdf');
     }
-    public function cambio_de_estado(Venta $venta)
+
+    public function cambio_de_estado($id)
     {
-        if ($venta->estado == 'VALIDO') {
-            $venta->update(['estado' => 'CANCELADO']);
-            return redirect()->back()->with('cancelado', 'Venta Cancelada');
-        } else {
-            $venta->update(['estado' => 'VALIDO']);
-            return redirect()->back()->with('valido', 'Venta Valida');
-        }
+        $venta = Venta::findOrFail($id);
+        $venta->estado = 'CANCELADO';
+        $venta->update();
+        return redirect()->back()->with('cancelado', 'Venta Cancelada');
+
+        // if ($venta->estado == 'VALIDO') {
+        //     $venta->update(['estado' => 'CANCELADO']);
+        //     return redirect()->back()->with('cancelado', 'Venta Cancelada');
+        // } else {
+        //     $venta->update(['estado' => 'VALIDO']);
+        //     return redirect()->back()->with('valido', 'Venta Valida');
+        // }
     }
 }

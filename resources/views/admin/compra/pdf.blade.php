@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> --}}
-
+  
     <title>Reporte de compra</title>
     <style>
         body {
@@ -113,29 +111,10 @@
                 Email: {{ $compra->proveedor->email }}<br>  
                 Dirección: {{ ucwords($compra->proveedor->direccion) }}                             
             </p>
-            {{-- <table id="datos">
-                <thead>
-                    <tr>
-                        <th>DATOS DEL PROVEEDOR</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>
-                            <p id="proveedor">Nombre: {{ ucwords($compra->proveedor->razon_social) }}<br>
-                                Nit: {{$compra->proveedor->nit}}<br>                                
-                                Teléfono: {{ $compra->proveedor->telefono }}<br>
-                                Email: {{ $compra->proveedor->email }}<br>  
-                                Dirección: {{ ucwords($compra->proveedor->direccion) }}                             
-                            </p>
-                        </th>
-                    </tr>
-                </tbody>
-            </table> --}}
         </div>
         <div id="fact">
             <p>NOTA DE COMPRA<br />
-                {{ $compra->id }}</p>
+                &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; {{ $compra->id }}</p>
         </div>
     </header>
     <br>
@@ -148,8 +127,8 @@
             <table id="faccomprador">
                 <thead>
                     <tr id="fv">
-                        <th>COMPRADOR</th>
-                        <th>FECHA COMPRA</th>
+                        <th align="left">COMPRADOR</th>
+                        <th align="left">FECHA COMPRA</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -167,10 +146,10 @@
             <table id="facproducto">
                 <thead>
                     <tr id="fa">
-                        <th>CANTIDAD</th>
-                        <th>PRODUCTO</th>
-                        <th>PRECIO COMPRA (Bs)</th>
-                        <th style="text-align: right" >SUBTOTAL (Bs)</th>
+                        <th align="left">CANTIDAD</th>
+                        <th align="left">PRODUCTO</th>
+                        <th align="left">PRECIO COMPRA (Bs)</th>
+                        <th align="left" >SUBTOTAL (Bs)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -178,18 +157,18 @@
                         <tr>
                             <td>{{ $detallecompra->cantidad }}</td>
                             <td>{{ ucwords($detallecompra->articulo->nombre) }}</td>
-                            <td>Bs/ {{ $detallecompra->precio_compra }}</td>
-                            <td align="right">Bs/ {{ number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}</td>
+                            <td>Bs. {{ $detallecompra->precio_compra }}</td>
+                            <td align="left">Bs. {{ number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
                         <th colspan="3">
-                            <p align="right">TOTAL PAGAR:</p>
+                            <p align="right">TOTAL PAGAR: &nbsp;</p>
                         </th>
                         <td>
-                            <p align="right">Bs/ {{ number_format($compra->total, 2) }}
+                            <p align="left">Bs. {{ number_format($compra->total, 2) }}
                             <p>
                         </td>
                     </tr>

@@ -22,7 +22,7 @@
             </div>
             {!! Form::model($role, ['route' => ['admin.roles.update', $role], 'method' => 'PUT']) !!}
             <div class="form-group">
-                <label for="name">Nombre</label>
+                <label for="name">Nombre: </label>
                 <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $role->name) }}" autofocus>
                 @if ($errors->has('name'))
                     <div class="alert alert-danger">
@@ -31,7 +31,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="description">Descripción</label>
+                <label for="description">Descripción: </label>
                 <textarea class="form-control" name="description" id="description"
                     rows="3">{{ old('description', $role->description) }}</textarea>
                 @if ($errors->has('description'))

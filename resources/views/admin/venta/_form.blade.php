@@ -41,7 +41,7 @@
         <div class="form-group">
             <label for="cantidad">Cantidad</label>
             <input type="number" class="form-control" name="cantidad" id="cantidad" aria-describedby="helpId" min="0"
-                max="10">
+                max="100" oninput="validity.valid||(value='')">
             @if ($errors->has('cantidad'))
                 <div class="alert alert-danger">
                     <span class="error text-danger">{{ $errors->first('cantidad') }}</span>
@@ -49,29 +49,6 @@
             @endif
         </div>
     </div>
-    <div class="form-group col-md-3">
-        <label for="impuesto">Impuesto</label>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon3">%</span>
-            </div>
-            <input type="number" class="form-control" name="impuesto" id="impuesto" aria-describedby="basic-addon3"
-                value="0" disabled>
-        </div>
-    </div>
-    <div class="form-group col-md-3">
-        <label for="descuento">Descuento</label>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon2">%</span>
-            </div>
-            <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="basic-addon2"
-                value="0" min="0">
-        </div>
-    </div>
-</div>
-
-<div class="form-row">
     <div class="form-group col-md-3">
         <div class="form-group">
             <label for="stock">Stock actual</label>
@@ -85,8 +62,21 @@
                 disabled>
         </div>
     </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group col-md-3">
+        <label for="descuento">Descuento</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon2">%</span>
+            </div>
+            <input type="number" class="form-control" name="descuento" id="descuento" aria-describedby="basic-addon2"
+                value="0" min="0" max="100" oninput="validity.valid||(value='')">
+        </div>
+    </div>
     <div class="form-group col-md-3 mt-4">
-        <div class="form-group">
+        <div class="form-group mt-2">
             <button type="button" id="agregar" class="btn btn-info float-right"> <i class="fas fa-check"></i> Agregar
                 Artículo</button>
         </div>

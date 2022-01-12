@@ -65,7 +65,6 @@
 
         var cont = 1;
         total = 0;
-        cambio = 0;
         subtotal = [];
         $("#guardar").hide();
         $("#articulo_id").change(mostrarValores);
@@ -135,7 +134,7 @@
                     total = total + subtotal[cont];
                     var fila = '<tr class="selected" id="fila' + cont +
                         '"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + cont +
-                        ');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="articulo_id[]" value="' +
+                        ');"><i class="fa fa-trash-alt"></i></button></td> <td><input type="hidden" name="articulo_id[]" value="' +
                         articulo_id + '">' + articulo + '</td> <td> <input type="hidden" name="precio_venta[]" value="' +
                         parseFloat(precio_venta).toFixed(2) + '"> <input class="form-control" type="number" value="' +
                         parseFloat(precio_venta).toFixed(2) +
@@ -173,22 +172,10 @@
 
         function totales() {
             $("#total").html("Bs " + total.toFixed(2));
-
-            total_impuesto = total * impuesto / 100;
-            total_pagar = total + total_impuesto;
-            $("#total_impuesto").html("Bs " + total_impuesto.toFixed(2));
+            total_pagar = total;
             $("#total_pagar_html").html("Bs " + total_pagar.toFixed(2));
             $("#total_pagar").val(total_pagar.toFixed(2));
         }
-
-        // function darCambio() {
-        //     let monto_pagar = $("#monto_pagar").val();
-        //     $("#total_pagar").val(total_pagar.toFixed(2));
-        //     cambio = monto_pagar - total_pagar;
-        //     $("#cambio_html").html("Bs " + cambio.toFixed(2));
-        //     $("#cambio").val(cambio.toFixed(2));
-        //     console.log(cambio);
-        // }
 
         function evaluar() {
             if (total > 0) {
@@ -200,16 +187,22 @@
 
         function eliminar(index) {
             total = total - subtotal[index];
-            total_impuesto = total * impuesto / 100;
-            total_pagar_html = total + total_impuesto;
+            total_pagar_html = total;
             $("#total").html("Bs" + total);
-            $("#total_impuesto").html("Bs" + total_impuesto);
-            $("#total_pagar_html").html("Bs" + total_pagar_html);
+            $("#total_pagar_html").html("Bs" + total_pagar_html.toFixed(2));
             $("#total_pagar").val(total_pagar_html.toFixed(2));
             $("#fila" + index).remove();
             evaluar();
         }
     </script>
-
+    <script>
+        $(document).ready(function() {
+            $("form").keypress(function(e) {
+                if (e.which == 13) {
+                    return false;
+                }
+            });
+        });
+    </script>
 
 @stop

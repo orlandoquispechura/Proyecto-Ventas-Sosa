@@ -188,6 +188,9 @@ return [
         //paquete para realizar permisos y roles
         Spatie\Permission\PermissionServiceProvider::class,
 
+        //livewire
+        \Livewire\LivewireServiceProvider::class,
+
     ],
 
     /*

@@ -21,7 +21,7 @@
             @csrf
             {{ @method_field('PATCH') }}
             <div class="form-group">
-                <label for="nombre" class="text-blue">Nombre Artículo: </label>
+                <label for="nombre">Nombre Artículo: </label>
                 <input type="text" name="nombre" id="nombre" value="{{ old('nombre', $articulo->nombre) }}"
                     class="form-control" tabindex="1" autofocus>
                 @if ($errors->has('nombre'))
@@ -31,7 +31,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="codigo" class="text-blue">Codigo: </label>
+                <label for="codigo">Codigo: </label>
                 <input type="text" name="codigo" id="codigo" value="{{ old('codigo', $articulo->codigo) }}"
                     class="form-control" tabindex="1" autofocus>
                 @if ($errors->has('codigo'))
@@ -41,7 +41,7 @@
                 @endif
             </div>
             <div class="mb-3">
-                <label for="stock" class="text-blue">Stock: </label>
+                <label for="stock">Stock: </label>
                 <input type="number" name="stock" id="stock" min="0" max="100"
                     value="{{ old('stock', $articulo->stock) }}" class="form-control" tabindex="2" step="1"
                     oninput="validity.valid||(value='')">
@@ -61,7 +61,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="precio_venta" class="text-blue">Precio Venta: </label>
+                <label for="precio_venta">Precio Venta: </label>
                 <input type="number" name="precio_venta" step="0.01" min="0" max="10000" id="precio_venta"
                     value="{{ old('precio_venta', $articulo->precio_venta) }}" class="form-control" tabindex="4">
                 @if ($errors->has('precio_venta'))
@@ -71,7 +71,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="categoria_id" class="text-blue">Categoría: </label>
+                <label for="categoria_id">Categoría: </label>
                 <select class="form-control" name="categoria_id" id="categoria_id" tabindex="5">
                     @foreach ($categorias as $categoria)
                         @if ($categoria->id == $articulo->categoria_id)
@@ -88,7 +88,7 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="proveedor_id" class="text-blue">Proveedor: </label>
+                <label for="proveedor_id">Proveedor: </label>
                 <select class="form-control" name="proveedor_id" id="proveedor_id" tabindex="6">
                     @foreach ($proveedors as $proveedor)
                         @if ($proveedor->id == $articulo->proveedor_id)

@@ -11,7 +11,7 @@
         @endphp</h5>
     </div>
 </div>
-    <h1>Detalle de las Ventas</h1>
+    <h1>Detalle de venta</h1>
 @stop
 
 @section('content')
@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-4 text-center">
                     <label class="form-control-label"><strong>Vendedor</strong></label>
-                    <p>{{$venta->user->name}}</p>
+                    <p>{{ucwords($venta->user->name)}}</p>
                 </div>
             </div>
             <div class="form-group">
@@ -51,7 +51,7 @@
                                     <p align="right">TOTAL:</p>
                                 </th>
                                 <th>
-                                    <p align="right">Bs {{number_format($venta->total,2)}}</p>
+                                    <p align="left">Bs. {{number_format($venta->total,2)}}</p>
                                 </th>
                             </tr>
 
@@ -59,11 +59,11 @@
                         <tbody>
                             @foreach($detalleventas as $detalleventa)
                             <tr>
-                                <td>{{$detalleventa->articulo->nombre}}</td>
-                                <td>Bs {{$detalleventa->precio_venta}}</td>
+                                <td>{{ucwords($detalleventa->articulo->nombre)}}</td>
+                                <td>Bs. {{$detalleventa->precio_venta}}</td>
                                 <td>{{$detalleventa->descuento}} %</td>
                                 <td>{{$detalleventa->cantidad}}</td>
-                                <td align="right">Bs {{number_format($detalleventa->cantidad*$detalleventa->precio_venta - $detalleventa->cantidad*$detalleventa->precio_venta*$detalleventa->descuento/100,2)}}
+                                <td align="left">Bs. {{number_format($detalleventa->cantidad*$detalleventa->precio_venta - $detalleventa->cantidad*$detalleventa->precio_venta*$detalleventa->descuento/100,2)}}
                                 </td>
                             </tr>
                             @endforeach

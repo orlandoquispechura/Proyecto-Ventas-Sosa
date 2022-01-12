@@ -2,39 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetalleVenta;
+use App\Models\User;
 use App\Models\Venta;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ReportController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('can:reporte.dia')->only(['reporte_dia']);
-        $this->middleware('can:reporte.fecha')->only(['reporte_fecha']);
-    }
-    public function reporte_dia()
-    {
-        $ventas = Venta::WhereDate('fecha_venta', Carbon::today('America/La_Paz'))->get();
-        $total = $ventas->sum('total');
-        return view('admin.reporte.reporte_dia', compact('ventas', 'total'));
-    }
-    public function reporte_fecha()
-    {
-        $ventas = Venta::whereDate('fecha_venta', Carbon::today('America/La_Paz'))->get();
-        $total = $ventas->sum('total');
-        return view('admin.reporte.reporte_fecha', compact('ventas', 'total'));
-    }
-    public function resultado_reporte(Request $request)
-    {
-            $fi = $request->fecha_ini . ' 00:00:00';
-            $ff = $request->fecha_fin . ' 23:59:59';
-            $ventas = Venta::whereBetween('fecha_venta', [$fi, $ff])->get();
-            $total = $ventas->sum('total');
 
-            return view('admin.reporte.reporte_fecha', compact('ventas', 'total'));
-     
+        $this->middleware('auth');
+        $this->middleware('can:reporte.pdf')->only(['reporte.pdf']);
+    }
+
+    public function reportePDF($userId, $tipoReporte, $desde = null, $hasta = null)
+    {
+        $data = [];
+        if ($tipoReporte == 0) {
+            $from = Carbon::parse(Carbon::now())->format('Y-m-d') . ' 00:00:00';
+            $to = Carbon::parse(Carbon::now())->format('Y-m-d')   . ' 23:59:59';
+        } else {
+            $from = Carbon::parse($desde)->format('Y-m-d') . ' 00:00:00';
+            $to = Carbon::parse($hasta)->format('Y-m-d')   . ' 23:59:59';
+        }
+
+        if ($userId == 0) {
+            $data = Venta::join('users as u', 'u.id', 'ventas.user_id')
+                ->select('ventas.*', 'u.name as user')
+                ->whereBetween('ventas.created_at', [$from, $to])
+                ->get();
+        } else {
+            $data  = Venta::join('users as u', 'u.id', 'ventas.user_id')
+                ->select('ventas.*', 'u.name as user')
+                ->whereBetween('ventas.created_at', [$from, $to])
+                ->where('user_id', $userId)
+                ->get();
+        }
+        $user = $userId == 0 ? 'Todos' : User::find($userId)->name;
+
+        $pdf = PDF::loadView('admin.report.pdf', compact('data', 'tipoReporte', 'user', 'desde', 'hasta'));
+        return $pdf->stream('Reporte_de_venta.pdf');
     }
 }

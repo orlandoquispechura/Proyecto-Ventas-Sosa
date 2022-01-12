@@ -20,7 +20,7 @@
             <form action="{{ route('admin.categorias.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="nombre" class="text-blue">Nombre Categoría: </label>
+                    <label for="nombre">Nombre Categoría: </label>
                     <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" class="form-control"
                         tabindex="1" autofocus>
                     @if ($errors->has('nombre'))
@@ -30,7 +30,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="descripcion" class="text-blue">Descripción: </label>
+                    <label for="descripcion">Descripción: </label>
                     <textarea name="descripcion" id="descripcion" placeholder="Descripción solo 255 caracteres "
                         class="form-control" tabindex="2" >{{old('descripcion')}}</textarea>
                         @if ($errors->has('descripcion'))

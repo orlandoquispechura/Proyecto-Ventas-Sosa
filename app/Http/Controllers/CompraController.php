@@ -52,7 +52,6 @@ class CompraController extends Controller
             $compra->detallecompras()->createMany($results);
 
             DB::commit();
-            
         } catch (\Throwable $th) {
             DB::rollback();
             return redirect()->route('admin.compras.index')->with('error', 'No se registro la compra, verifique los datos antes de registrar la compra');
@@ -79,17 +78,13 @@ class CompraController extends Controller
         $fecha = Carbon::now('America/La_Paz');
         $pdf = PDF::loadView('admin.compra.pdf', compact('compra', 'fecha', 'subtotal', 'detallecompras'));
         return $pdf->stream('Reporte_de_compra.pdf');
-        // return $pdf->download('Reporte_de_compra_'.$compra->id.'.pdf');
 
     }
-    public function cambio_de_estado(Compra $compra)
+    public function cambio_de_estado($id)
     {
-        if ($compra->estado == 'VALIDO') {
-            $compra->update(['estado' => 'CANCELADO']);
-            return redirect()->back()->with('cancelado', 'Compra Cancelada');
-        } else {
-            $compra->update(['estado' => 'VALIDO']);
-            return redirect()->back()->with('valido', 'Compra Valida');
-        }
+        $ingreso = Compra::findOrFail($id);
+        $ingreso->estado = 'CANCELADO';
+        $ingreso->update();
+        return redirect()->back()->with('cancelado', 'Compra Cancelada');
     }
 }

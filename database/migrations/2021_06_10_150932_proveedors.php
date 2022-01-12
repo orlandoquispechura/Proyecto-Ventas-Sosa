@@ -21,6 +21,7 @@ class Proveedors extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('direccion')->nullable();
             $table->string('telefono')->nullable()->unique();
+            $table->string('celular')->unique()->nullable();
 
             $table->timestamps();
         });

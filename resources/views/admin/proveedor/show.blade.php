@@ -56,13 +56,20 @@
                                     {{ $proveedor->nit }}
                                 </p>
                                 <hr>
+                                <strong>
+                                    <i class="fas fa-phone-square mr-1"></i>
+                                    Teléfono</strong>
+                                <p class="text-muted">
+                                    {{ $proveedor->telefono }}
+                                </p>
+                                <hr>
                             </div>
                             <div class="form-group col-md-6">
                                 <strong>
                                     <i class="fas fa-mobile mr-1"></i>
-                                    Teléfono</strong>
+                                    Celular</strong>
                                 <p class="text-muted">
-                                    {{ $proveedor->telefono }}
+                                    {{ $proveedor->celular }}
                                 </p>
                                 <hr>
                                 <strong><i class="fas fa-envelope mr-1"></i> Correo</strong>

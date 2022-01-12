@@ -29,7 +29,16 @@ class StoreRequest extends FormRequest
             'nit'           => 'required|min:10|max:11|regex:/^[0-9]{10,11}$/|unique:proveedors',
             'email'         => 'nullable|email|max:100|unique:proveedors',
             'direccion'     => 'nullable|string|max:100',
-            'telefono'      => 'nullable|min:7|max:8|regex:/^[0-9]{7,8}$/|unique:proveedors',            
+            'telefono'      => 'nullable|min:7|max:8|regex:/^[0-9]{7,8}$/|unique:proveedors', 
+            'celular'       => 'nullable|min:8|max:12|regex:/^[+,0-9]{8,12}$/|unique:proveedors',            
+
+        ];
+    }
+    public function messages()
+    {
+        return[
+            'telefono.regex' => 'No se permite texto solo números.',
+            'celular.regex' => 'Solo permite el signo de adición(+).',
         ];
     }
 }

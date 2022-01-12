@@ -20,7 +20,7 @@
             {!! Form::open(['route' => 'admin.roles.store', 'method' => 'POST']) !!}
 
             <div class="form-group">
-                <label for="name">Nombre</label>
+                <label for="name">Nombre:</label>
                 <input type="text" class="form-control" name="name" id="name" value="{{old('name')}}" autofocus >
                 @if ($errors->has('name'))
                 <div class="alert alert-danger">
@@ -30,7 +30,7 @@
             </div>
 
             <div class="form-group">
-                <label for="description">Descripción</label>
+                <label for="description">Descripción:</label>
                 <textarea class="form-control" name="description" id="description" rows="3">{{old('description')}}</textarea>
                 @if ($errors->has('description'))
                 <div class="alert alert-danger">

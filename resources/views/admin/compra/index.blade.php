@@ -66,9 +66,9 @@
                     @foreach ($compras as $compra)
                         <tr>
                             <td>
-                                {{ \Carbon\Carbon::parse($compra->fecha_compra)->format('d M y h:i a') }}
+                                {{ \Carbon\Carbon::parse($compra->fecha_compra)->format('d-M-y H:i a') }}
                             </td>
-                            <td>{{ $compra->proveedor->razon_social }}</td>
+                            <td>{{ ucwords($compra->proveedor->razon_social) }}</td>
                             <td>Bs. {{ number_format($compra->total, 2) }}</td>
 
                             @if ($compra->estado == 'VALIDO')

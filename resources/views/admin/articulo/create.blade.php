@@ -1,7 +1,5 @@
 @extends('adminlte::page')
-
 @section('title', 'Artículo')
-
 @section('content_header')
 <div class="form-row">
     <div class="col-md-6"></div>
@@ -20,7 +18,7 @@
             <form action="{{ route('admin.articulos.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="nombre" class="text-blue">Nombre Artículo: </label>
+                    <label for="nombre">Nombre Artículo: </label>
                     <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}" class="form-control"
                         tabindex="1" autofocus>
                     @if ($errors->has('nombre'))
@@ -30,7 +28,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="codigo" class="text-blue">Código: </label>
+                    <label for="codigo">Código: </label>
                     <input type="text" name="codigo" id="cantidad" value="{{ old('codigo') }}" class="form-control"
                         tabindex="2">
                     @if ($errors->has('codigo'))
@@ -40,7 +38,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="imagen" class="text-blue">Imagen: </label>
+                    <label for="imagen">Imagen: </label>
                     <input type="file" name="imagen" id="imagen" value="{{ old('imagen') }}" class="form-control"
                         tabindex="3">
                     @if ($errors->has('imagen'))
@@ -50,7 +48,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="precio_venta" class="text-blue">Precio Venta: </label>
+                    <label for="precio_venta">Precio Venta: </label>
                     <input type="number" name="precio_venta" step="0.01" min="0" max="10000" id="precio_venta"
                         value="precio_venta" class="form-control" tabindex="4">
                     @if ($errors->has('precio_venta'))
@@ -60,7 +58,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="categoria_id" class="text-blue">Categoría: </label>
+                    <label for="categoria_id">Categoría: </label>
                     <select class="form-control" name="categoria_id" id="categoria_id" tabindex="5">
                         
                         @foreach ($categorias as $categoria)
@@ -74,7 +72,7 @@
                     @endif
                 </div>
                 <div class="form-group">
-                    <label for="proveedor_id" class="text-blue">Proveedor: </label>
+                    <label for="proveedor_id">Proveedor: </label>
                     <select class="form-control" name="proveedor_id" id="proveedor_id" tabindex="6">
                         @foreach ($proveedors as $proveedor)
                             <option value="{{ $proveedor->id }}">{{ $proveedor->razon_social }}</option>

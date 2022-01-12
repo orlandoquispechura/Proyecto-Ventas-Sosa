@@ -64,8 +64,10 @@
                         </div>
                         <div class="col-md-6">
                             @if (!isset($empresa->logo))
+                            <img src="{{ asset('storage/uploads/logoempresa.png') }}" alt="logo-defecto.png" width="250">
                             @else
-                                <img src="{{ asset('storage/uploads/logoempresa.png') }}" alt="" width="150" height="150">
+                                <img src="{{ 'imagen' . '/' . $empresa->logo }}" width="250" alt="logo.png"
+                                class="mx-auto d-block">
                             @endif
                         </div>
                     </div>
@@ -76,7 +78,7 @@
         <div class="card-footer text-muted">
             @can('empresas.edit')
                 <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
-                    data-target="#exampleModal-2">Actualizar</button>
+                    data-target="#exampleModal-2">Actualizar información de la empresa</button>
             @endcan
         </div>
         <div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2"

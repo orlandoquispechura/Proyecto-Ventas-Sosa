@@ -68,6 +68,14 @@
         subtotal = [];
 
         $("#guardar").hide();
+        //new
+        // $("#articulo_id").change(mostrarValores);
+
+        // function mostrarValores() {
+        //     datosProducto = document.getElementById('articulo_id').value.split('_');
+        //     $("#precio_venta").val(datosProducto[1]);
+        // } //new
+
         var articulo_id = $('#articulo_id');
         articulo_id.change(function() {
             $.ajax({
@@ -78,6 +86,7 @@
                 },
                 success: function(data) {
                     $("#codigo").val(data.codigo);
+                    // $("#precio_venta").val(data.precio_venta);
                 }
             });
         });
@@ -108,11 +117,11 @@
 
 
         function agregar() {
-
             articulo_id = $("#articulo_id").val();
             articulo = $("#articulo_id option:selected").text();
             cantidad = $("#cantidad").val();
             precio_compra = $("#precio_compra").val();
+            // precio_venta = $("#precio_venta").val();
             impuesto = $("#impuesto").val();
 
             if (articulo_id != "" && cantidad != "" && cantidad > 0 && precio_compra != "" && articulo_id != null) {
@@ -128,7 +137,7 @@
                         precio_compra +
                         '" disabled> </td>  <td> <input type="hidden" name="cantidad[]" value="' + cantidad +
                         '"> <input class="form-control" type="number" value="' + cantidad +
-                        '" disabled> </td> <td align="right">Bs ' + subtotal[cont].toFixed(2) + ' </td></tr>';
+                        '" disabled> </td> <td align="right">Bs ' + parseFloat(subtotal[cont]).toFixed(2) + ' </td></tr>';
                     cont++;
                     limpiar();
                     totales();
@@ -159,9 +168,7 @@
 
         function totales() {
             $("#total").html("Bs " + total.toFixed(2));
-            total_impuesto = total * impuesto / 100;
             total_pagar = total;
-            $("#total_impuesto").html("Bs " + total_impuesto.toFixed(2));
             $("#total_pagar_html").html("Bs " + total_pagar.toFixed(2));
             $("#total_pagar").val(total_pagar.toFixed(2));
         }
@@ -176,11 +183,9 @@
 
         function eliminar(index) {
             total = total - subtotal[index];
-            total_impuesto = total * impuesto / 100;
-            total_pagar_html = total + total_impuesto;
+            total_pagar_html = total;
             $("#total").html("Bs" + total);
-            $("#total_impuesto").html("Bs" + total_impuesto);
-            $("#total_pagar_html").html("Bs" + total_pagar_html);
+            $("#total_pagar_html").html("Bs" + total_pagar_html.toFixed(2));
             $("#total_pagar").val(total_pagar_html.toFixed(2));
             $("#fila" + index).remove();
             evaluar();

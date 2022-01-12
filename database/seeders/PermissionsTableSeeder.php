@@ -16,66 +16,72 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+
+        //dashboard
+        Permission::create([
+            'name'          => 'home-dashboard',
+            'description'   => 'Puede ver las estadísticas de las ventas y productos mas vendidos.',
+        ]);
         //Users
         Permission::create([
             // 'name'          => 'Navegar usuarios',
             'name'          => 'users.index',
-            'description'   => 'Lista y navega todos los usuarios del sistema',
+            'description'   => 'Lista y navega todos los usuarios del sistema.',
         ]);
 
         Permission::create([
             // 'name'          => 'Creación de usuarios',
             'name'          => 'users.create',
-            'description'   => 'Crea nuevos usuarios en el sistema',
+            'description'   => 'Crea nuevos usuarios en el sistema.',
         ]);
 
         Permission::create([
             // 'name'          => 'Ver detalle de usuario',
             'name'          => 'users.show',
-            'description'   => 'Ve el detalle de cada usuario del sistema',            
+            'description'   => 'Ve el detalle de cada usuario del sistema.',            
         ]);
         
         Permission::create([
             // 'name'          => 'Edición de usuarios',
             'name'          => 'users.edit',
-            'description'   => 'Edita cualquier dato de un usuario del sistema',
+            'description'   => 'Edita cualquier dato de un usuario del sistema.',
         ]);
         
         Permission::create([
             // 'name'          => 'Elimina usuario',
             'name'          => 'users.destroy',
-            'description'   => 'Elimina cualquier usuario del sistema',      
+            'description'   => 'Elimina cualquier usuario del sistema.',      
         ]);
 
         //Roles
         Permission::create([
             // 'name'          => 'Navegar roles',
             'name'          => 'roles.index',
-            'description'   => 'Lista y navega todos los roles del sistema',
+            'description'   => 'Lista y navega todos los roles del sistema.',
         ]);
 
         Permission::create([
             // 'name'          => 'Ver detalle de un rol',
             'name'          => 'roles.show',
-            'description'   => 'Ve el detalle de cada rol del sistema',            
+            'description'   => 'Ve el detalle de cada rol del sistema.',            
         ]);
         
         Permission::create([
             // 'name'          => 'Creación de roles',
             'name'          => 'roles.create',
-            'description'   => 'Crea nuevos roles en el sistema',
+            'description'   => 'Crea nuevos roles en el sistema.',
         ]);
         
         Permission::create([
             // 'name'          => 'Edición de roles',
             'name'          => 'roles.edit',
-            'description'   => 'Edita cualquier dato de un rol del sistema',
+            'description'   => 'Edita cualquier dato de un rol del sistema.',
         ]);
         
         Permission::create([
             // 'name'          => 'Elimina roles',
             'name'          => 'roles.destroy',
-            'description'   => 'Elimina cualquier rol del sistema',      
+            'description'   => 'Elimina cualquier rol del sistema.',      
         ]);
 
 
@@ -231,14 +237,6 @@ class PermissionsTableSeeder extends Seeder
             'description'=>'Puede imprimir todos los reportes de las ventas en PDF.',
         ]);
 
-        /* // Ventas Impresión
-        Permission::create([
-            'name'=>'Imprimir boleta de venta',
-            'name'=>'sales.print',
-            'description'=>'Puede imprimir boletas de todas las ventas.',
-        ]);*/
-
-
         // Empresa
         Permission::create([
             // 'name'=>'Ver datos de la empresa',
@@ -250,14 +248,6 @@ class PermissionsTableSeeder extends Seeder
             'name'=>'empresas.edit',
             'description'=>'Edita cualquier dato de la empresa.',
         ]);
-
-        // Actualizar compras
-        // Permission::create([
-        //     // 'name'=>'Subir archivo de compra',
-        //     'name'=>'upload.compras',
-        //     'description'=>'Puede subir comprobantes de una compra.',
-        // ]);
-
         // Cambiar estado de artículos
         Permission::create([
             // 'name'=>'Cambiar estado de artículo',
@@ -283,16 +273,16 @@ class PermissionsTableSeeder extends Seeder
         // Reporte del día 
         Permission::create([
             // 'name'=>'Reporte por día',
-            'name'=>'reporte.dia',
-            'description'=>'Permite ver los reportes de ventas por día.',
+            'name'=>'reports.reportes',
+            'description'=>'Permite ver los reportes de las ventas por día y por rango de fecha.',
         ]);
 
 
         // Reporte por Fecha 
         Permission::create([
             // 'name'=>'Reporte por fechas',
-            'name'=>'reporte.fecha',
-            'description'=>'Permite ver los reportes por un rango de fechas de las ventas.',
+            'name'=>'reporte.pdf',
+            'description'=>'Permite descargar los reportes en un archivo pdf.',
         ]);
 
 

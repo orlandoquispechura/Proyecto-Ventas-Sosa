@@ -44,20 +44,12 @@
                             </tr>
                         </thead>
                         <tfoot>
-                            {{-- <tr>
-                                <th colspan="3">
-                                    <p align="right">SUBTOTAL:</p>
-                                </th>
-                                <th>
-                                    <p align="right">Bs/{{ number_format($subtotal, 2) }}</p>
-                                </th>
-                            </tr> --}}
                             <tr>
                                 <th colspan="3">
                                     <p align="right">TOTAL:</p>
                                 </th>
                                 <th>
-                                    <p align="right">Bs/{{ number_format($compra->total, 2) }}</p>
+                                    <p align="left">Bs. {{ number_format($compra->total, 2) }}</p>
                                 </th>
                             </tr>
 
@@ -66,9 +58,9 @@
                             @foreach ($detallecompras as $detallecompra)
                                 <tr>
                                     <td>{{ ucwords($detallecompra->articulo->nombre) }}</td>
-                                    <td>{{ $detallecompra->precio_compra }}</td>
+                                    <td>Bs. {{ $detallecompra->precio_compra }}</td>
                                     <td>{{ $detallecompra->cantidad }}</td>
-                                    <td align="right">{{number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}
+                                    <td align="left">Bs. {{number_format($detallecompra->cantidad * $detallecompra->precio_compra, 2) }}
                                     </td>
                                 </tr>
                             @endforeach

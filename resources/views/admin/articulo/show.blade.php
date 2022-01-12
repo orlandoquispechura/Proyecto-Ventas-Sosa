@@ -22,9 +22,9 @@
                     <div class="border-bottom text-center pb-4">
                         <h3>{{ ucwords($articulo->nombre) }}</h3>
                         @if (isset($articulo->imagen))
-                            <img src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="profile" width="100" />
+                            <img class="img-thumbnail" src="{{ asset('storage' . '/' . $articulo->imagen) }}" alt="profile" width="200" />
                         @else
-                            <td><img src="{{ asset('storage/uploads/imagen_defecto.png') }}" alt="" width="60"></td>
+                            <td><img src="{{ asset('storage/uploads/imagen_defecto.png') }}" alt="" width="100"></td>
 
                         @endif
                         <div class="d-flex justify-content-between">
@@ -63,12 +63,12 @@
                         <div class="d-flex align-items-start profile-feed-item">
 
                             <div class="form-group col-md-6">
-                                <strong><i class="fab fa-product-hunt mr-1"></i> Código</strong>
+                                <strong><i class="fas fa-sort-numeric-up mr-1"></i> Código</strong>
                                 <p class="text-muted">
                                     {{ $articulo->codigo }}
                                 </p>
                                 <hr>
-                                <strong><i class="fab fa-product-hunt mr-1"></i> Cantidad</strong>
+                                <strong><i class="fab fa-contao mr-1"></i> Cantidad</strong>
                                 <p class="text-muted">
                                     {{ $articulo->stock }}
                                 </p>
@@ -82,7 +82,7 @@
                                     {{ $articulo->precio_venta }}
                                 </p>
                                 <hr>
-                                <strong><i class="fas fa-envelope mr-1"></i> Código de barras</strong>
+                                <strong><i class="fas fa-barcode mr-1"></i> Código de barras</strong>
                                 <p class="text-muted">
                                     {!! DNS1D::getBarcodeHTML($articulo->codigo, 'C128A') !!}
                                     <p style="letter-spacing: 15px; margin-left:25px;">{{ $articulo->codigo }}</p>
@@ -95,7 +95,7 @@
             </div>
         </div>
         <div class="card-footer text-muted">
-            <a href="{{ route('admin.articulos.index') }}" class="btn btn-primary float-left">Regresar</a>
+            <a href="{{ route('admin.articulos.index') }}" class="btn btn-primary float-right">Regresar</a>
         </div>
     </div>
     <footer>

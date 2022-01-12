@@ -22,6 +22,7 @@ class CreateClientesTable extends Migration
             $table->string('dni')->unique()->nullable();
             $table->string('direccion')->nullable();
             $table->string('telefono')->unique()->nullable();
+            $table->string('celular')->unique()->nullable();
             $table->string('email')->unique()->nullable();
 
             $table->timestamps();

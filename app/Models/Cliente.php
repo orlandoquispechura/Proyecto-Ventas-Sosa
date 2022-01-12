@@ -15,6 +15,7 @@ class Cliente extends Model
         'dni', 
         'direccion',
         'telefono', 
+        'celular',
         'email',
     ];
 

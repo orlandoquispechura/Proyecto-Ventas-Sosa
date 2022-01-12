@@ -4,12 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>Reporte de venta</title>
-{{-- <link rel="stylesheet" href="{{ public_path('css/app.css') }}" type="text/css"> --}}
 <style>
     body {
         font-family: Arial, sans-serif;
         font-size: 14px;
     }
+
     #datos {
         float: left;
         margin-top: 0%;
@@ -25,7 +25,6 @@
     }
 
     #fact {
-        /*position: relative;*/
         float: right;
         margin-top: 2%;
         margin-left: 2%;
@@ -95,6 +94,10 @@
         border-bottom: 1px solid #FFFFFF;
     }
 
+    #proveedor {
+        text-align: justify;
+    }
+
 </style>
 
 <body>
@@ -104,27 +107,26 @@
             <table id="datos">
                 <thead>
                     <tr>
-                        <th id="">DATOS DEL VENDEDOR</th>
+                        <th class="proveedor"><h3>DATOS DEL VENDEDOR</h3></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th>
-                            <p id="proveedor">
-                                Nombre: {{ucwords($venta->user->name)}}<br>
-
-                                Email: {{$venta->user->email}}
-                            </p>
-                        </th>
+                        <td class="proveedor">
+                            <p>Nombre: {{ ucwords($venta->user->name) }}<br>
+                                Email: {{ $venta->user->email }}</p>
+                        </td>
                     </tr>
                     <tr>
                         <td>
                             <h4>DATOS DEL CLIENTE</h4>
                             <p class="dato-cliente">
-                            Cliente: {{ucwords($venta->cliente->nombre)}}<br>
-                            Dni: {{$venta->cliente->dni}}<br>
-                            Teléfono: {{$venta->cliente->telefono}} 
-                        </p></td>
+                                Cliente: {{ ucwords($venta->cliente->nombre) }}
+                                {{ ucwords($venta->cliente->apellido_paterno) }}<br>
+                                Dni: {{ $venta->cliente->dni }}<br>
+                                Teléfono: {{ $venta->cliente->telefono }}
+                            </p>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -133,7 +135,7 @@
             <p>
                 NOTA DE VENTA
                 <br>
-                {{$venta->id}} 
+               &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; {{ $venta->id }}
             </p>
         </div>
     </header>
@@ -144,36 +146,35 @@
             <table id="facproducto">
                 <thead>
                     <tr id="fa">
-                        <th>CANTIDAD</th>
-                        <th>PRODUCTO</th>
-                        <th>PRECIO VENTA(Bs)</th>
-                        <th>DESCUENTO(%)</th>
-                        <th>SUBTOTAL(Bs)</th>
+                        <th align="left">CANTIDAD</th>
+                        <th align="left">PRODUCTO</th>
+                        <th align="left">PRECIO VENTA(Bs)</th>
+                        <th align="left">DESCUENTO(%)</th>
+                        <th align="left">SUBTOTAL(Bs)</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($detalleventas as $detalleventa)
-                    <tr>
-                        <td>{{$detalleventa->cantidad}}</td>
-                        <td>{{$detalleventa->articulo->nombre}}</td>
-                        <td>Bs {{$detalleventa->precio_venta}}</td>
-                        <td>{{$detalleventa->descuento}}</td>
-                        <td align="center">Bs {{number_format($detalleventa->cantidad * $detalleventa->precio_venta - $detalleventa->cantidad * $detalleventa->precio_venta * $detalleventa->descuento /100,2)}}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ $detalleventa->cantidad }}</td>
+                            <td>{{ ucwords($detalleventa->articulo->nombre) }}</td>
+                            <td>Bs. {{ $detalleventa->precio_venta }}</td>
+                            <td>{{ $detalleventa->descuento }} %</td>
+                            <td align="left">Bs.
+                                {{ number_format($detalleventa->cantidad * $detalleventa->precio_venta - ($detalleventa->cantidad * $detalleventa->precio_venta * $detalleventa->descuento) / 100, 2) }}
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
                         <th colspan="4">
-                            <p align="right">TOTAL PAGAR:</p>
+                            <p align="right">TOTAL PAGAR: &nbsp; </p>
                         </th>
                         <td>
-                            <p align="center">Bs {{number_format($venta->total,2)}}</p>
+                            <p align="left">Bs. {{ number_format($venta->total, 2) }}</p>
                         </td>
                     </tr>
-
-                  
                 </tfoot>
             </table>
         </div>
@@ -184,11 +185,11 @@
         <!--puedes poner un mensaje aqui-->
         <div id="datos">
             <p id="encabezado">
-                {{--  <b>{{$company->name}}</b><br>{{$company->description}}<br>Telefono:{{$company->telephone}}<br>Email:{{$company->email}}  --}}
+                {{-- <b>{{$company->name}}</b><br>{{$company->description}}<br>Telefono:{{$company->telephone}}<br>Email:{{$company->email}} --}}
             </p>
         </div>
     </footer>
-    
+
 </body>
 
 </html>
