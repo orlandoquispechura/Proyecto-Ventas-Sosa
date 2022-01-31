@@ -7,6 +7,8 @@ use App\Http\Requests\Articulo\UpdateRequest;
 
 use App\Models\Articulo;
 use App\Models\Categoria;
+use App\Models\Compra;
+use App\Models\DetalleCompra;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -118,6 +120,5 @@ class ArticuloController extends Controller
         $articulos = Articulo::get();
         $pdf = PDF::loadView('admin.articulo.barcode', compact('articulos'));
         return $pdf->stream('codigos_de_barras.pdf');
-        // return $pdf->download('codigos_de_barras.pdf');
     }
 }

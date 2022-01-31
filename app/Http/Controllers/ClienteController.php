@@ -34,6 +34,7 @@ class ClienteController extends Controller
         if ($request->venta == 1) {
             return redirect()->back();
         }
+
         return redirect()->route('admin.clientes.index')->with('success', 'Se registró correctamente');
     }
     public function show(Cliente $cliente)
@@ -57,7 +58,7 @@ class ClienteController extends Controller
     {
         $item = $cliente->ventas()->count();
         if ($item > 0) {
-            return redirect()->back()->with('error','El cliente no puede eliminarse, tiene ventas relaciondas');
+            return redirect()->back()->with('error','El cliente no puede eliminarse, tiene ventas realizadas.');
         }
         $cliente->delete();
         return redirect()->route('admin.clientes.index')->with('delete', 'ok');       

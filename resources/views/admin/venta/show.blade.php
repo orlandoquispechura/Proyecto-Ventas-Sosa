@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-4 text-center">
                     <label class="form-control-label"><strong>Vendedor</strong></label>
-                    <p>{{ucwords($venta->user->name)}}</p>
+                    <p>{{Str::ucfirst($venta->user->name)}}</p>
                 </div>
             </div>
             <div class="form-group">

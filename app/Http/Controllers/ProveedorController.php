@@ -50,7 +50,7 @@ class ProveedorController extends Controller
     {
         $item = $proveedor->compras()->count();
         if ($item > 0) {
-            return redirect()->back()->with('error','El proveedor no puede eliminarse, tiene compras relaciondas');
+            return redirect()->back()->with('error','El proveedor no puede eliminarse, tiene compras registradas.');
         }
         $proveedor->delete();
         return redirect()->route('admin.proveedors.index')->with('delete', 'ok');

@@ -40,19 +40,19 @@ class ReportesController extends Component
         if ($this->tipoReporte == 1 && ($this->desde == '' || $this->hasta == '')) {
             $this->data = Venta::join('users as u', 'u.id', 'ventas.user_id')
                 ->select('ventas.*', 'u.name as user')
-                ->whereBetween('ventas.created_at', [$from, $to])
+                ->whereBetween('ventas.fecha_venta', [$from, $to])
                 ->get();
             return $this->data;
         }
         if ($this->userId == 0) {
             $this->data = Venta::join('users as u', 'u.id', 'ventas.user_id')
                 ->select('ventas.*', 'u.name as user')
-                ->whereBetween('ventas.created_at', [$from, $to])
+                ->whereBetween('ventas.fecha_venta', [$from, $to])
                 ->get();
         } else {
             $this->data  = Venta::join('users as u', 'u.id', 'ventas.user_id')
                 ->select('ventas.*', 'u.name as user')
-                ->whereBetween('ventas.created_at', [$from, $to])
+                ->whereBetween('ventas.fecha_venta', [$from, $to])
                 ->where('user_id', $this->userId)
                 ->get();
         }

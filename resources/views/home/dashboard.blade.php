@@ -67,6 +67,7 @@
                                     </div>
                                     <div class="h3">Ventas</div>
                                 </div>
+
                                 <div class="chart-wrapper mt-3 mx-3" style="height:35px;">
                                     <a href="{{ route('admin.ventas.index') }}" class="small-box-footer h4">Ventas <i
                                             class="fa fa-arrow-circle-right"></i></a>
@@ -75,10 +76,10 @@
                         @else
                             <div class="card-body pb-0">
                                 <div class="float-right">
-                                    <i class="fas fa-cash-register fa-4x"></i>
+                                    <i class="fas fa-cart-arrow-down fa-4x"></i>
                                 </div>
                                 <div class="text-value h4"><strong>Bs. 0,00 (MES
-                                        ACTUAL) </strong>
+                                        ACTUAL)</strong>
                                 </div>
                                 <div class="h3">Ventas</div>
                             </div>
@@ -109,7 +110,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">
-                                <i class="fas fa-gift"></i>
+                                <i class="fas fa-chart-line"></i>
                                 Compras - Meses
                             </h4>
                             <canvas id="compras"></canvas>
@@ -133,7 +134,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">
-                                <i class="fas fa-envelope"></i>
+                                <i class="fas fa-couch"></i>
                                 Productos más vendidos
                             </h4>
                             <div class="table-responsive ">
@@ -152,7 +153,7 @@
                                         @foreach ($productosvendidos as $productosvendido)
                                             <tr>
                                                 <td>{{ $productosvendido->id }}</td>
-                                                <td>{{ $productosvendido->nombre }}</td>
+                                                <td>{{ Str::ucfirst($productosvendido->nombre) }}</td>
                                                 <td>{{ $productosvendido->codigo }}</td>
                                                 <td><strong>{{ $productosvendido->stock }}</strong> Unidades</td>
                                                 <td><strong>{{ $productosvendido->cantidad }}</strong> Unidades</td>
@@ -209,7 +210,7 @@
                 type: 'bar',
                 data: {
                     labels: [<?php foreach ($comprasmes as $reg) {
-    setlocale(LC_TIME, 'es_RB', 'Spanish_Spain', 'Spanish');
+    setlocale(LC_ALL, 'es_RB', 'Spanish_Bolivia', 'Bolivia');
     $mes_traducido = strftime('%B', strtotime($reg->mes));
     echo '"' . $mes_traducido . '",';
 } ?>],
@@ -238,7 +239,7 @@
                 type: 'bar',
                 data: {
                     labels: [<?php foreach ($ventasmes as $reg) {
-    setlocale(LC_TIME, 'es_ES', 'Spanish_Spain', 'Spanish');
+    setlocale(LC_TIME, 'es_ES', 'Spanish_Bolivia', 'Bolivia');
     $mes_traducido = strftime('%B', strtotime($reg->mes));
 
     echo '"' . $mes_traducido . '",';

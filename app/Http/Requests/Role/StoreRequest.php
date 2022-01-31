@@ -29,4 +29,10 @@ class StoreRequest extends FormRequest
            'role'=>'nullable', 
         ];
     }
+    public function messages()
+    {
+        return[
+            'description.max' => 'La descripción no debe contener más de 100 caracteres.',
+        ];
+    }
 }

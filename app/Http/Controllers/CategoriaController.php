@@ -45,7 +45,7 @@ class CategoriaController extends Controller
     {
         $item = $categoria->articulos()->count();
         if ($item > 0) {
-            return redirect()->back()->with('error','No se puede eliminar, la categoría tiene artículos relacionados.');
+            return redirect()->back()->with('error','No se puede eliminar, hay artículos que corresponden a esta categoría.');
         }
         $categoria->delete();
         return redirect()->route('admin.categorias.index')->with('delete', 'ok');

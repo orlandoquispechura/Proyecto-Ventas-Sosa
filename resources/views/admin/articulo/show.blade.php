@@ -68,7 +68,7 @@
                                     {{ $articulo->codigo }}
                                 </p>
                                 <hr>
-                                <strong><i class="fab fa-contao mr-1"></i> Cantidad</strong>
+                                <strong><i class="fab fa-contao mr-1"></i> Stock</strong>
                                 <p class="text-muted">
                                     {{ $articulo->stock }}
                                 </p>
@@ -76,10 +76,10 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <strong>
-                                    <i class="fas fa-mobile mr-1"></i>
+                                    <i class="fas fa-money-bill-alt mr-1"></i>
                                     Precio de venta</strong>
                                 <p class="text-muted">
-                                    {{ $articulo->precio_venta }}
+                                    {{ $articulo->precio_venta }} Bs.
                                 </p>
                                 <hr>
                                 <strong><i class="fas fa-barcode mr-1"></i> Código de barras</strong>

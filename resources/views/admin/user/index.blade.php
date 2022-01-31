@@ -49,7 +49,7 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Correo electrónico</th>
-                        <th width="200px" class="text-center">Acciones</th>
+                        <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +59,7 @@
                                 {{ ucwords($user->name) }}
                             </td>
                             <td>{{ $user->email }}</td>
-                            <td class="text-right">
+                            <td class="text-right" style="width: 100px;">
                                 {!! Form::open(['route' => ['admin.users.destroy', $user], 'method' => 'DELETE', 'class' => 'eliminar-form']) !!}
 
                                 @can('users.show')
@@ -84,6 +84,7 @@
             </table>
         </div>
     </div>
+    <br><br>
     <footer>
         <div class="row text-bold " style="color: rgb(135, 141, 153)">
             <div class="col-md-8">

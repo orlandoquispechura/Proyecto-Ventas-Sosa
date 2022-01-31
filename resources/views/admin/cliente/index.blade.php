@@ -47,21 +47,21 @@
             <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4 dt-responsive nowrap" id="cliente">
                 <thead class="bg-primary text-white">
                     <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido P</th>
-                        <th scope="col">Carnet de Identidad</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col" width="150px" class="text-center">Acciones</th>
+                        <th scope="col" style="width: 20px;" >Nombre</th>
+                        <th scope="col" style="width: 120px;">Apellidos</th>
+                        <th scope="col" style="width: 50px;" >Carnet de Identidad</th>
+                        <th scope="col" style="width: 50px;" >Teléfono</th>
+                        <th class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($clientes as $cliente)
                         <tr>
                             <td>{{ ucwords($cliente->nombre) }}</td>
-                            <td>{{ ucwords($cliente->apellido_paterno) }}</td>
+                            <td>{{ ucwords($cliente->apellido_paterno) }} {{$cliente->apellido_materno}}</td>
                             <td>{{ $cliente->dni }}</td>
                             <td>{{ $cliente->telefono }}</td>
-                            <td class="float-right">
+                            <td class="text-right" style="width: 100px;">
                                 <form action="{{ route('admin.clientes.destroy', $cliente) }}" method="POST"
                                     class="eliminar-form">
                                     @method('DELETE')

@@ -51,18 +51,18 @@
                         <th scope="col">Nº Nit</th>
                         <th scope="col">Correo</th>
                         <th scope="col">Telefono</th>
-                        <th scope="col" width="200px" class="text-center">Acciones</th>
+                        <th scope="col" class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($proveedors as $proveedor)
                         <tr>
-                            <td>{{ ucwords($proveedor->razon_social) }}
+                            <td>{{ Str::ucfirst($proveedor->razon_social) }}
                             </td>
                             <td>{{ $proveedor->nit }}</td>
                             <td>{{ $proveedor->email }}</td>
                             <td>{{ $proveedor->telefono }}</td>
-                            <td class="text-right">
+                            <td class="text-right" style="width: 100px;">
                                 <form action="{{ route('admin.proveedors.destroy', $proveedor) }}" method="POST"
                                     class="eliminar-form">
                                     @method('DELETE')
@@ -110,7 +110,6 @@
 @stop
 
 @section('js')
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>

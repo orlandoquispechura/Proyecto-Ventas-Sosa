@@ -19,6 +19,7 @@ class Cliente extends Model
         'email',
     ];
 
+    // relación uno a muchos 
     public function ventas()
     {
         return $this->hasMany(Venta::class);

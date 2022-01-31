@@ -22,22 +22,6 @@ class EmpresaController extends Controller
     $empresa = Empresa::where('id', 1)->firstOrFail();
     return view('admin.empresa.index', compact('empresa'));
   }
-
-  // $datosArticulo = request()->except(['_token', '_method']);
-
-  // if ($request->hasFile('imagen')) {
-  //     $articulo = Articulo::findOrFail($id);
-  //     Storage::delete('public/' . $articulo->imagen);
-  //     $datosArticulo['imagen'] = $request->file('imagen')->store('uploads', 'public');
-  // }
-  // Articulo::where('id', '=', $id)->update($datosArticulo);
-  // $articulo = Articulo::findOrFail($id);
-  // if ($request->codigo == "") {
-  //     $numero = $articulo->id;
-  //     $numeroConCeros = str_pad($numero, 8, "0", STR_PAD_LEFT);
-  //     $articulo->update(['codigo' => $numeroConCeros]);
-  // }
-  //return redirect()->route('admin.articulos.index')->with('update', 'Se editó correctamente');
   public function update(UpdateRequest $request, Empresa $empresa)
   {
     $empre = $request->all();

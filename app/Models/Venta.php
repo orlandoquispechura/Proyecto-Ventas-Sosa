@@ -17,12 +17,16 @@ class Venta extends Model
         'total',
         'estado',
     ];
+      // relación uno a muchos  inversa
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+      // relación uno a muchos inversa
     public function cliente(){
         return $this->belongsTo(Cliente::class);
     }
+      // relación uno a muchos 
     public function detalleventas(){
         return $this->hasMany(DetalleVenta::class);
     }

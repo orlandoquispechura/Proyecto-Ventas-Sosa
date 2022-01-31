@@ -10,10 +10,13 @@ class Proveedor extends Model
     use HasFactory;
     protected $fillable = ['razon_social', 'nit', 'email', 'direccion', 'telefono','celular'];
 
+      // relación uno a muchos 
     public function articulos()
     {
         return $this->hasMany(Articulo::class);
     }
+
+      // relación uno a muchos 
     public function compras()
     {
         return $this->hasMany(Compra::class);

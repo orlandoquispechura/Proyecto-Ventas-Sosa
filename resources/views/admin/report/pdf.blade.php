@@ -28,7 +28,14 @@
         position: absolute;
         bottom: 0;
         width: 100%;
-        height: 40px;
+        height: 30px;
+    }
+
+    hr {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+
     }
 
     .superior {
@@ -48,9 +55,9 @@
                 </td>
             </tr>
             <tr>
-                <td style="vertical-align: top; padding-top:0px; position: relative; width: 20%;">
-                    <img style="width: 250px; align-content: center" src="imagen/logo-mueble-reporte.png"
-                        alt="logo-reporte.png" width="400" height="250">
+                <td style="vertical-align: top; padding-top:0px; position: relative;">
+                    <img style="width: 250px; align-content: left" src="imagen/logo-mueble-reporte.png"
+                        alt="logo-reporte.png" width="30%" height="250">
                 </td>
                 <td width="70%" class="text-left" style="vertical-align: top; padding-top:10px;">
                     @if ($tipoReporte == 0)
@@ -60,12 +67,14 @@
                     @endif
                     <br>
                     @if ($tipoReporte != 0)
-                        <span style="font-size: 16px; "><strong>Fecha Consulta: {{ $desde }} al {{ $hasta }}</strong></span>
+                        <span style="font-size: 16px; "><strong>Fecha Consulta: {{ $desde }} al
+                                {{ $hasta }}</strong></span>
                     @else
-                        <span style="font-size: 16px; "><strong>Fecha Consulta: {{ \Carbon\Carbon::now()->format('d-m-Y') }}</strong></span>
+                        <span style="font-size: 16px; "><strong>Fecha Consulta:
+                                {{ \Carbon\Carbon::now()->format('d-m-Y') }}</strong></span>
                     @endif
                     <br>
-                    <span style="font-size: 14px; ">Usuario: {{$user}}</span>
+                    <span style="font-size: 14px; ">Usuario: {{ $user }}</span>
                 </td>
             </tr>
         </table>
@@ -93,7 +102,7 @@
                             </td>
                             <td scope="row" style="text-align: center;">{{ $venta->estado }}</td>
                             <td scope="row" style="text-align: center;">{{ $venta->user }}</td>
-                            <td scope="row" style="text-align: right;">Bs {{ number_format($venta->total, 2) }}</td>
+                            <td scope="row" style="text-align: left;">Bs. {{ number_format($venta->total, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -103,7 +112,7 @@
                             <p align="right">TOTAL INGRESOS:</p>
                         </td>
                         <td>
-                            <p align="right">Bs {{ number_format($data->sum('total'), 2) }}</p>
+                            <p align="left">Bs. {{ number_format($data->sum('total'), 2) }}</p>
                         </td>
                     </tr>
                 </tfoot>
@@ -117,9 +126,6 @@
                 <td width="60" style="text-align: center">
                     Mueblería SOSA
                 </td>
-                {{-- <td width="20" style="text-align: right">
-                    Página <span class="pagenum"></span>
-                </td> --}}
             </tr>
         </table>
     </section>

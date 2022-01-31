@@ -63,11 +63,12 @@
                             <strong><i class="fas fa-exclamation-circle mr-1"></i> Logo</strong><br>
                         </div>
                         <div class="col-md-6">
-                            @if (!isset($empresa->logo))
-                            <img src="{{ asset('storage/uploads/logoempresa.png') }}" alt="logo-defecto.png" width="250">
-                            @else
+                            @if (isset($empresa->logo))
                                 <img src="{{ 'imagen' . '/' . $empresa->logo }}" width="250" alt="logo.png"
-                                class="mx-auto d-block">
+                                    class="mx-auto d-block">
+                            @else
+                                <img src="storage/uploads/logoempresa.png" alt="logo-defecto.png"
+                                    width="250">
                             @endif
                         </div>
                     </div>

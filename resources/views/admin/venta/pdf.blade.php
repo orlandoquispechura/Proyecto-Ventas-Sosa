@@ -33,7 +33,7 @@
         border-radius: 5px;
         color: white;
         font-weight: bold;
-        background: #ee9c61;
+        background: #33AFFF;
         padding: 0 20px;
     }
 
@@ -61,7 +61,7 @@
 
     #facliente thead {
         padding: 20px;
-        background: #ee9c61;
+        background:#33AFFF;
         text-align: left;
         border-bottom: 1px solid #FFFFFF;
     }
@@ -75,7 +75,7 @@
 
     #facvendedor thead {
         padding: 20px;
-        background: #ee9c61;
+        background: #33AFFF;
         text-align: center;
         border-bottom: 1px solid #FFFFFF;
     }
@@ -89,7 +89,7 @@
 
     #facproducto thead {
         padding: 20px;
-        background: #ee9c61;
+        background: #33AFFF;
         text-align: center;
         border-bottom: 1px solid #FFFFFF;
     }
@@ -97,17 +97,14 @@
     #proveedor {
         text-align: justify;
     }
-
 </style>
-
 <body>
-
     <header>
         <div>
             <table id="datos">
                 <thead>
                     <tr>
-                        <th class="proveedor"><h3>DATOS DEL VENDEDOR</h3></th>
+                        <td class="proveedor"><h3>DATOS DEL VENDEDOR</h3></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,13 +119,19 @@
                             <h4>DATOS DEL CLIENTE</h4>
                             <p class="dato-cliente">
                                 Cliente: {{ ucwords($venta->cliente->nombre) }}
-                                {{ ucwords($venta->cliente->apellido_paterno) }}<br>
+                                {{ Str::ucfirst($venta->cliente->apellido_paterno) }}<br>
                                 Dni: {{ $venta->cliente->dni }}<br>
                                 Teléfono: {{ $venta->cliente->telefono }}
                             </p>
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td><h4>Fecha de la venta: </h4> </td>
+                        <td>{{ \Carbon\Carbon::parse($venta->fecha_venta)->format('d-m-Y H:i a') }}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <div id="fact">
@@ -157,7 +160,7 @@
                     @foreach ($detalleventas as $detalleventa)
                         <tr>
                             <td>{{ $detalleventa->cantidad }}</td>
-                            <td>{{ ucwords($detalleventa->articulo->nombre) }}</td>
+                            <td>{{ Str::ucfirst($detalleventa->articulo->nombre) }}</td>
                             <td>Bs. {{ $detalleventa->precio_venta }}</td>
                             <td>{{ $detalleventa->descuento }} %</td>
                             <td align="left">Bs.

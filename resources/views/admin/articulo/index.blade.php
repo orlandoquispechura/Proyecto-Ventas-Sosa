@@ -3,14 +3,14 @@
 @section('title', 'Artículo')
 
 @section('content_header')
-<div class="form-row">
-    <div class="col-md-6"></div>
-    <div class="col-md-6 col-xl-12">
-        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
-            echo date('d/m/Y');
-        @endphp</h5>
+    <div class="form-row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 col-xl-12">
+            <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+                echo date('d/m/Y');
+            @endphp</h5>
+        </div>
     </div>
-</div>
     <h1>Listado de Artículos</h1>
 @stop
 
@@ -60,25 +60,25 @@
                                 <td class="text-center"><img src="{{ asset('storage/uploads/imagen_defecto.png') }}"
                                         alt="" width="70" height="70"></td>
                             @endif
-                            <td>{{ ucwords($articulo->nombre) }}
+                            <td>{{ Str::ucfirst($articulo->nombre) }}
                             </td>
-                            <td>{{ $articulo->stock }}</td>
-                            <td class="text-bold" >{{ ucwords($articulo->categoria->nombre) }}</td>
-                                @if ($articulo->estado == 'ACTIVO')
-                                    <td>
-                                        <a class="jsgrid-button btn btn-success"
-                                            href="{{ route('cambio.estado.articulos', $articulo) }}">
-                                            Activo <i class="fas fa-check"></i>
-                                        </a>
-                                    </td>
-                                @else
-                                    <td>
-                                        <a class="jsgrid-button btn btn-danger"
-                                            href="{{ route('cambio.estado.articulos', $articulo) }}">
-                                            Inactivo <i class="fas fa-times"></i>
-                                        </a>
-                                    </td>
-                                @endif
+                            <td >{{ $articulo->stock }}</td>
+                            <td class="text-bold">{{ Str::ucfirst($articulo->categoria->nombre) }}</td>
+                            @if ($articulo->estado == 'ACTIVO')
+                                <td>
+                                    <a class="jsgrid-button btn btn-success"
+                                        href="{{ route('cambio.estado.articulos', $articulo) }}">
+                                        Activo <i class="fas fa-check"></i>
+                                    </a>
+                                </td>
+                            @else
+                                <td>
+                                    <a class="jsgrid-button btn btn-danger"
+                                        href="{{ route('cambio.estado.articulos', $articulo) }}">
+                                        Inactivo <i class="fas fa-times"></i>
+                                    </a>
+                                </td>
+                            @endif
                             <td>
                                 @can('articulos.show')
                                     <a href="{{ route('admin.articulos.show', $articulo) }}" class="btn btn-info">Ver</a>

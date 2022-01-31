@@ -40,13 +40,6 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    @elseif (session('valido'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('valido') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
     @endif
 
     <div class="card">
@@ -59,7 +52,7 @@
                         <th>Proveedor</th>
                         <th>Total</th>
                         <th>Estado</th>
-                        <th style="width:50px;">Acciones</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,7 +79,7 @@
                                     </a>
                                 </td>
                             @endif
-                            <td style="width: 50px;">
+                            <td style="width:100px;">
                                 @can('compras.pdf')
                                     <a href="{{ route('compras.pdf', $compra) }}" class="btn btn-danger"
                                         target="_blank">Imprimir<i class="fas fa-file-pdf ml-2"></i></a>

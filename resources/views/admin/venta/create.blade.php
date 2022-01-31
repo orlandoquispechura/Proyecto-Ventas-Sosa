@@ -15,8 +15,7 @@
 @stop
 
 @section('content')
-
-    <div class="card mt-3">
+    <div class="card">
         {!! Form::open(['route' => 'admin.ventas.store', 'method' => 'POST']) !!}
         <div class="card-body">
             @include('admin.venta._form')

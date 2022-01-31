@@ -14,9 +14,13 @@ class DetalleCompra extends Model
         'cantidad',
         'precio_compra',
     ];
+
+      // relación uno a muchos  inversa
     public function compra(){
         return $this->belongsTo(Compra::class);
     }
+
+      // relación uno a muchos inversa
     public function articulo(){
         return $this->belongsTo(Articulo::class);
     }

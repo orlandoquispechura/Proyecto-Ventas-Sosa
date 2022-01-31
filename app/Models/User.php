@@ -51,11 +51,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+  // relación uno a muchos 
     public function ventas()
     {
         return $this->hasMany(Venta::class);
     }
+
+      // relación uno a muchos 
     public function compras()
     {
         return $this->hasMany(Compra::class);
@@ -70,7 +72,6 @@ class User extends Authenticatable
     ];
     public function adminlte_image()
     {
-        // return 'https://picsum.photos/300/300';
         return asset('imagen/perfil-user.png');
     }
     public function adminlte_desc()

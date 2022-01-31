@@ -1,5 +1,5 @@
 <?php
-// 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
+//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
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\StoreRequest;
@@ -31,9 +31,6 @@ class UserController extends Controller
     {
         $roles = Role::all();
         return view('admin.user.create', compact('roles'));
-
-        // $roles = Role::get();
-        // return view('admin.user.create', compact('roles'));
     }
     public function store(StoreRequest $request)
     {
@@ -43,12 +40,6 @@ class UserController extends Controller
         $user = User::create($input);
         $user->roles()->sync($request->input('roles'));
         return redirect()->route('admin.users.index')->with('success', 'Se registró correctamente');
-
-
-        // $user = User::create($request->all());
-        // $user->update(['password' => Hash::make($request->password)]);
-        // $user->roles()->sync($request->get('roles'));
-        // return redirect()->route('admin.users.index')->with('success', 'Se registró correctamente');
     }
     public function show(User $user)
     {
@@ -68,17 +59,12 @@ class UserController extends Controller
         $roles = Role::all();
         $userRole = $user->roles->pluck('name', 'name')->all();
         return view('admin.user.edit', compact('user', 'roles', 'userRole'));
-
-
-
-        // $roles = Role::get();
-        // return view('admin.user.edit', compact('user', 'roles'));
     }
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required|max:20|regex:/^[A-Z,a-z, ,á,é,í,ó,ú,ñ,&]+$/',
-            'email' => 'required|email|max:100,|unique:users,email,'.$id,
+            'email' => 'required|email|max:100,|unique:users,email,' . $id,
             'password' => 'nullable|min:8|max:10',
             'role' => 'nullable',
         ]);
@@ -97,38 +83,20 @@ class UserController extends Controller
         $user->roles()->sync($request->input('roles'));
 
         return redirect()->route('admin.users.index')->with('update', 'Se editó correctamente');
-
-
-
-        // if ($user->id == 1) {
-        //     return redirect()->route('admin.users.index');
-        // } else {
-        //     $user->update($request->all());
-        //     $user->roles()->sync($request->get('roles'));
-        //     return redirect()->route('admin.users.index')->with('update', 'Se editó correctamente');
-        // }
     }
     public function destroy(User $user)
     {
 
         $item_1 = $user->ventas()->count();
-        if ($item_1>0) {
-            return redirect()->back()->with('error','No se puede eliminar este usuario por que tiene ventas realizadas.');
+        if ($item_1 > 0) {
+            return redirect()->back()->with('error', 'No se puede eliminar este usuario por que tiene ventas realizadas.');
         }
         $item_2 = $user->compras()->count();
-        if ($item_2>0) {
-            return redirect()->back()->with('error','No se puede eliminar este usuario por que realizó compras en el sistema.');
+        if ($item_2 > 0) {
+            return redirect()->back()->with('error', 'No se puede eliminar este usuario por que realizó compras en el sistema.');
         }
 
         $user->delete();
         return redirect()->route('admin.users.index')->with('delete', 'ok');
-
-
-        // if ($user->id == 1) {
-        //     return back()->with('delete', 'ok');
-        // } else {
-        //     $user->delete();
-        //     return back()->with('delete', 'ok');
-        // }
     }
 }

@@ -79,8 +79,6 @@ class VentaController extends Controller
         }
         $pdf = PDF::loadView('admin.venta.pdf', compact('venta', 'subtotal', 'detalleventas'));
         return $pdf->stream('Reporte_de_venta.pdf');
-
-        // return $pdf->download('Reporte_de_venta_' . $venta->id . '.pdf');
     }
 
     public function cambio_de_estado($id)
@@ -89,13 +87,5 @@ class VentaController extends Controller
         $venta->estado = 'CANCELADO';
         $venta->update();
         return redirect()->back()->with('cancelado', 'Venta Cancelada');
-
-        // if ($venta->estado == 'VALIDO') {
-        //     $venta->update(['estado' => 'CANCELADO']);
-        //     return redirect()->back()->with('cancelado', 'Venta Cancelada');
-        // } else {
-        //     $venta->update(['estado' => 'VALIDO']);
-        //     return redirect()->back()->with('valido', 'Venta Valida');
-        // }
     }
 }

@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ]+$/|unique:articulos|max:50',
+            'nombre' => 'required|regex:/^[A-Z,a-z, ,á,í,é,ó,ú,ñ,0-9]+$/|unique:articulos|max:50',
             'precio_venta' => 'required|numeric|min:0|max:10000|between:0,10000',
             'codigo' => 'nullable|string|min:8|max:8|regex:/^[A-Z-,0-9]+$/',
             'imagen' => 'nullable|mimes:jpg,png,jpeg,bmp',
@@ -33,7 +33,7 @@ class StoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'nombre.regex' => 'No se permite números ni símbolos.',
+            'nombre.regex' => 'Solo puede ingresar letras y números.',
             'precio_venta.between' => 'El precio debe estar en el rango de 0 a 10000.',
             'codigo.regex' => 'No se permite letra minúscula.',
         ];

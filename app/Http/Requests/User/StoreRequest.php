@@ -43,6 +43,8 @@ class StoreRequest extends FormRequest
     {
         return[
             'password.regex' => 'La contraseña debe cumplir los requisitos.',
+            'password.max' => 'La contraseña no debe contener más de 10 caracteres.',
+            'password.min' => 'La contraseña debe contener al menos 8 caracteres.',
         ];
     }
 }

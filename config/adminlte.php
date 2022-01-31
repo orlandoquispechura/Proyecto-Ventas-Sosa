@@ -305,7 +305,7 @@ return [
                     'can'   => 'clientes.index',
                 ],
                 [
-                    'text' => 'Venta',
+                    'text' => 'Pos venta',
                     'icon'    => 'fas fa-dollar-sign',
                     'url'  => 'ventas',
                     'can' => 'ventas.index',
@@ -318,7 +318,7 @@ return [
             'can'     => ['users.index', 'roles.index'],
             'submenu' => [
                 [
-                    'text' => 'Usuario',
+                    'text' => 'Usuarios',
                     'url'  => 'users',
                     'icon' => 'fas fa-fw fa-user-secret',
                     'can'  => 'users.index',

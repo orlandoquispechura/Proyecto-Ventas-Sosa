@@ -32,12 +32,12 @@ class ReportController extends Controller
         if ($userId == 0) {
             $data = Venta::join('users as u', 'u.id', 'ventas.user_id')
                 ->select('ventas.*', 'u.name as user')
-                ->whereBetween('ventas.created_at', [$from, $to])
+                ->whereBetween('ventas.fecha_venta', [$from, $to])
                 ->get();
         } else {
             $data  = Venta::join('users as u', 'u.id', 'ventas.user_id')
                 ->select('ventas.*', 'u.name as user')
-                ->whereBetween('ventas.created_at', [$from, $to])
+                ->whereBetween('ventas.fecha_venta', [$from, $to])
                 ->where('user_id', $userId)
                 ->get();
         }

@@ -22,23 +22,30 @@
         h1 {
             width: 100%;
             margin-bottom: 2px;
+            font-size: 20px;
+            text-align: center;
         }
-        .barra{
+
+        .barra {
             width: 10px;
         }
+
+        .codigo {
+            width: 28%;
+            float: left;
+        }
+
     </style>
 </head>
 
 <body>
-
     @foreach ($articulos as $articulo)
-        <div class="row">
-            <h1>{{ ucwords($articulo->nombre) }}</h1>
+            <div class="row">
+                <h1>{{ ucwords($articulo->nombre) }}</h1>
                 <div class="barra">{!! DNS1D::getBarcodeHTML($articulo->codigo, 'C128A') !!}</div>
-            <h4>{{ $articulo->codigo }}</h4>
-        </div>
+                <h4>{{ $articulo->codigo }}</h4>
+            </div>
     @endforeach
-
 </body>
 
 </html>

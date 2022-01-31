@@ -3,14 +3,14 @@
 @section('title', 'Rol')
 
 @section('content_header')
-<div class="form-row">
-    <div class="col-md-6"></div>
-    <div class="col-md-6 col-xl-12">
-        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
-            echo date('d/m/Y');
-        @endphp</h5>
+    <div class="form-row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 col-xl-12">
+            <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+                echo date('d/m/Y');
+            @endphp</h5>
+        </div>
     </div>
-</div>
     <h1>Listado de Roles</h1>
 @stop
 
@@ -49,9 +49,9 @@
                         @foreach ($roles as $role)
                             <tr>
                                 <td>
-                                    {{ $role->name }}
+                                    {{ Str::ucfirst($role->name) }}
                                 </td>
-                                <td>{{ $role->description }}</td>
+                                <td>{{ Str::ucfirst($role->description) }}</td>
                                 <td style="width: 100px;">
                                     <form action="{{ route('admin.roles.destroy', $role) }}" class="eliminar-form"
                                         method="post">
@@ -81,6 +81,7 @@
 
         </div>
     </div>
+    <br><br>
     <footer>
         <div class="row text-bold " style="color: rgb(135, 141, 153)">
             <div class="col-md-8">

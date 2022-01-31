@@ -16,6 +16,7 @@ class DetalleVenta extends Model
         'precio_venta',
         'descuento',
     ];
+      // relación uno a muchos  inversa
     public function articulo(){
         return $this->belongsTo(Articulo::class);
     }

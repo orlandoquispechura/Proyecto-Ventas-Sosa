@@ -17,7 +17,7 @@
 
 @section('content')
     @can('ventas.create')
-        <a class="btn btn-primary mb-2" href="{{ route('admin.ventas.create') }}">+ Registrar Ventas</a>
+        <a class="btn btn-primary mb-2" href="{{ route('admin.ventas.create') }}">Nueva venta +</a>
     @endcan
 
     @if (session('success'))
@@ -42,13 +42,6 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    @elseif (session('valido'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('valido') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
     @endif
 
     <div class="card">
@@ -68,9 +61,9 @@
                     @foreach ($ventas as $venta)
                         <tr>
                             <td>
-                                {{ \Carbon\Carbon::parse($venta->fecha_venta)->format('d-M-y H:i a') }}
+                                {{ \Carbon\Carbon::parse($venta->fecha_venta)->format('d-m-Y H:i a') }}
                             </td>
-                            <td>{{ ucwords($venta->cliente->nombre) }}</td>
+                            <td>{{ ucwords($venta->cliente->nombre) }} {{$venta->cliente->apellido_paterno}} {{$venta->cliente->apellido_materno}}</td>
                             <td>Bs. {{ number_format($venta->total, 2) }}</td>
                             @if ($venta->estado == 'VALIDO')
                                 <td>

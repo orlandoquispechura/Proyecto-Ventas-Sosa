@@ -49,7 +49,7 @@
                     <tr>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col" width="200px" class="text-center">Acciones</th>
+                        <th scope="col"class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,7 +57,7 @@
                         <tr>
                             <td>{{ ucwords($categoria->nombre) }}</td>
                             <td>{{ ucwords($categoria->descripcion) }}</td>
-                            <td class="text-right">
+                            <td class="text-right" style="width: 100px;">
                                 <form action="{{ route('admin.categorias.destroy', $categoria) }}" method="POST"
                                     class="eliminar-form">
                                     @method('DELETE')

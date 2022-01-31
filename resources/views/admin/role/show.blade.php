@@ -3,15 +3,15 @@
 @section('title', 'Información de los roles')
 
 @section('content_header')
-<div class="form-row">
-    <div class="col-md-6"></div>
-    <div class="col-md-6 col-xl-12">
-        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
-            echo date('d/m/Y');
-        @endphp</h5>
+    <div class="form-row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 col-xl-12">
+            <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+                echo date('d/m/Y');
+            @endphp</h5>
+        </div>
     </div>
-</div>
-    <h1> Rol: {{ $role->name }}</h1>
+    <h1> Rol: {{ Str::ucfirst($role->name) }}</h1>
 @stop
 
 @section('content')
@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="border-bottom text-center pb-4">
-                        <h3>{{ isset($role->name) ? $role->name : '' }}</h3>
+                        <h3>{{ isset($role->name) ? Str::ucfirst($role->name) : '' }}</h3>
                         <div class="d-flex justify-content-between">
                         </div>
                     </div>
@@ -128,8 +128,11 @@
                 </div>
             </div>
         </div>
+        <div class="card-footer text-muted">
+            <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary float-right">Regresar</a>
+        </div>
     </div>
-    <a href="{{ route('admin.roles.index') }}" class="btn btn-secondary">Regresar</a>
+    <br><br><br><br><br>
     <footer>
         <div class="row text-bold " style="color: rgb(135, 141, 153)">
             <div class="col-md-8">

@@ -3,14 +3,14 @@
 @section('title', 'Información sobre el usuario')
 
 @section('content_header')
-<div class="form-row">
-    <div class="col-md-6"></div>
-    <div class="col-md-6 col-xl-12">
-        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
-            echo date('d/m/Y');
-        @endphp</h5>
+    <div class="form-row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 col-xl-12">
+            <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+                echo date('d/m/Y');
+            @endphp</h5>
+        </div>
     </div>
-</div>
     <h1>Usuario: {{ $user->name }}</h1>
 @stop
 
@@ -153,18 +153,16 @@
                                             <tfoot>
                                                 <tr>
                                                     <td colspan="2"><strong>Monto total comprado: </strong></td>
-                                                    <td colspan="3" align="left"><strong>Bs. {{ number_format($total_monto , 2)}}</strong>
+                                                    <td colspan="3" align="left"><strong>Bs.
+                                                            {{ number_format($total_monto, 2) }}</strong>
                                                     </td>
                                                 </tr>
                                             </tfoot>
                                         </table>
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
-
                         <div class="tab-pane fade" id="list-messages" user="tabpanel" aria-labelledby="list-messages-list">
                             <div class="d-flex justify-content-between">
                                 <div>
@@ -232,18 +230,16 @@
                                             <tfoot>
                                                 <tr>
                                                     <td colspan="2"><strong>Monto total vendido: </strong></td>
-                                                    <td colspan="3" align="left"><strong>Bs. {{ number_format($total_compras, 2) }}</strong>
+                                                    <td colspan="3" align="left"><strong>Bs.
+                                                            {{ number_format($total_compras, 2) }}</strong>
                                                     </td>
                                                 </tr>
                                             </tfoot>
                                         </table>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -252,6 +248,7 @@
             <a href="{{ route('admin.users.index') }}" class="btn btn-secondary float-right">Regresar</a>
         </div>
     </div>
+    <br><br>
     <footer>
         <div class="row text-bold " style="color: rgb(135, 141, 153)">
             <div class="col-md-8">
