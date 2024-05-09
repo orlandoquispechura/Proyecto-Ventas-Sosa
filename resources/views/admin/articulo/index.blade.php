@@ -37,7 +37,7 @@
     @endif
     <div class="card">
         <div class="card-body">
-            <table class="table table-striped mt-0.5 table-bordered shadow-lg mt-4" id="articulo">
+            <table class="table table-striped table-bordered shadow-lg mt-4" id="articulo">
                 <thead class="bg-primary text-white">
                     <tr>
                         <th scope="col" width='60px'>Código</th>
