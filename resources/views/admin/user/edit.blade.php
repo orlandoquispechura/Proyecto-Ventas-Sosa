@@ -3,14 +3,14 @@
 @section('title', 'Editar Usuario')
 
 @section('content_header')
-<div class="form-row">
-    <div class="col-md-6"></div>
-    <div class="col-md-6 col-xl-12">
-        <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
-            echo date('d/m/Y');
-        @endphp</h5>
+    <div class="form-row">
+        <div class="col-md-6"></div>
+        <div class="col-md-6 col-xl-12">
+            <h5 style="text-align: right; margin-right: 30px; ">Fecha: @php
+                echo date('d/m/Y');
+            @endphp</h5>
+        </div>
     </div>
-</div>
     <h1>Editar Usuario</h1>
 @stop
 
@@ -39,8 +39,8 @@
 
             <div class="form-group">
                 <label for="name">Nombre: </label>
-                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="form-control"
-                    autofocus aria-describedby="helpId">
+                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
+                    class="form-control" autofocus aria-describedby="helpId">
                 @if ($errors->has('name'))
                     <div class="alert alert-danger">
                         <span class="error text-danger">{{ $errors->first('name') }}</span>

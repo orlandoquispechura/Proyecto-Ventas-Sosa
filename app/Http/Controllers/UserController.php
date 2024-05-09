@@ -62,6 +62,7 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
+
         $this->validate($request, [
             'name' => 'required|max:20|regex:/^[A-Z,a-z, ,á,é,í,ó,ú,ñ,&]+$/',
             'email' => 'required|email|max:100,|unique:users,email,' . $id,

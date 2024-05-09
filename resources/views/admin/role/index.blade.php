@@ -67,8 +67,14 @@
                                         @endcan
 
                                         @can('roles.destroy')
-                                            <input type="submit" class="btn btn-danger" value="Eliminar">
+                                            {{-- <input type="submit" class="btn btn-danger" value="Eliminar"> --}}
+                                            @if ($role->id !== 1)
+                                                <button class="btn btn-danger" type="submit" title="Eliminar">
+                                                    Eliminar
+                                                </button>
+                                            @endif
                                         @endcan
+
 
                                     </form>
 

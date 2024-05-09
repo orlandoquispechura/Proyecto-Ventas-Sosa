@@ -64,7 +64,6 @@
                                                 @empty <span class="text-danger">
                                                         <h4>El rol no tiene permisos</h4>
                                                     </span>
-
                                                 @endforelse
                                             </tbody>
                                         </table>
@@ -111,7 +110,10 @@
                                                             @endcan
 
                                                             @can('users.destroy')
-                                                                <button class="btn btn-danger" type="submit">Eliminar</button>
+                                                                @if ($user->id !== 1)
+                                                                    <button class="btn btn-danger"
+                                                                        type="submit">Eliminar</button>
+                                                                @endif
                                                             @endcan
 
                                                             {!! Form::close() !!}
